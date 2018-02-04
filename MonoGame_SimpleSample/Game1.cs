@@ -22,10 +22,8 @@ namespace MonoGame_SimpleSample
 
         Texture2D playerTexture;
         AnimatedSprite playerSprite;
-
-        Texture2D groundTexture;
-        Sprite groundSprite;
-		GameState currentGameState = GameState.playing;
+        
+        GameState currentGameState = GameState.playing;
 
         bool isPauseKeyHeld = false;
 
@@ -78,11 +76,9 @@ namespace MonoGame_SimpleSample
                 Level.Add(new Sprite(tempTexture, tempPos));
 
             }
-            groundTexture = Content.Load<Texture2D>("ground");
-            groundSprite = new Sprite(groundTexture, new Vector2(0, graphics.GraphicsDevice.Viewport.Height - groundTexture.Height));
 
             playerSprite = new AnimatedSprite(playerTexture, Vector2.Zero , 4, 9);
-            playerSprite.Position = new Vector2(0, graphics.PreferredBackBufferHeight - (groundTexture.Height + (playerSprite.BoundingBox.Max.Y - playerSprite.BoundingBox.Min.Y) + 30));
+            playerSprite.Position = new Vector2(0, graphics.PreferredBackBufferHeight - ((playerSprite.BoundingBox.Max.Y - playerSprite.BoundingBox.Min.Y) + 30));
             HUDFont = Content.Load<SpriteFont>("HUDFont");
 
 
@@ -130,8 +126,6 @@ namespace MonoGame_SimpleSample
 			{
 				case GameState.playing:
 				{
-                    //Update ground:
-                    groundSprite.Update(gameTime);
 
                     //Update Level
                     foreach(var sprite in Level)
@@ -144,9 +138,7 @@ namespace MonoGame_SimpleSample
 
 
                     //playerSprite.isFalling = true;
-
-                    collisionText = playerSprite.IsCollidingWith(groundSprite) ? "there is a collision" : " there is no collision";
-
+                   
 
                     foreach (var sprite in Level)
                     {
@@ -187,7 +179,6 @@ namespace MonoGame_SimpleSample
 				{
 
                         //draw the ground
-                        groundSprite.Draw(GraphicsDevice, spriteBatch);
 
                         foreach (var sprite in Level)
                         {
