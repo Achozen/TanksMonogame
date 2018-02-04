@@ -163,7 +163,7 @@ namespace MonoGame_SimpleSample
 
 
             var origin = new Vector2(texture.Width / 2f, texture.Height / 2f);
-            spriteBatch.Draw(texture, position, new Rectangle(whichFrame * base.frameWidth, base.frameHeight * whichFrame, boxSize, boxSize), Color.White, rotation, origin, 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(texture, position + new Vector2(boxSize/2, boxSize / 2), new Rectangle(whichFrame * base.frameWidth, base.frameHeight * whichFrame, boxSize, boxSize), Color.White, rotation, origin, 1f, SpriteEffects.None, 0f);
 
             Debug_DrawBounds(graphicsDevice, spriteBatch);
         }
