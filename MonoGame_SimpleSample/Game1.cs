@@ -134,15 +134,19 @@ namespace MonoGame_SimpleSample
                     }
 
                     playerSprite.Update(gameTime);
-                    //check collisions
+                        //check collisions
 
 
-                    //playerSprite.isFalling = true;
-                   
+                        //playerSprite.isFalling = true;
+
+
+                        collisionText = "there is no collision";
+
 
                     foreach (var sprite in Level)
                     {
-                        collisionText = playerSprite.IsCollidingWith(sprite) ? "there is a collision" : " there is no collision";
+                            if (playerSprite.IsCollidingWith(sprite))
+                                collisionText = "there is a collision";
                     }
                 }
 				break;
