@@ -24,6 +24,7 @@ namespace MonoGame_SimpleSample
 
         int numberOfAnimationRows = 4;
         int animationFramesInRow = 9;
+        int boxSize;
 
         int whichFrame;
         double currentFrameTime = 0;
@@ -42,15 +43,15 @@ namespace MonoGame_SimpleSample
 
         public AnimatedSprite(Texture2D texture, Vector2 startingPosition, int numberOfAnimationRows, int animationFramesInRow) : base(texture, startingPosition)
         {
+            boxSize = Math.Max(frameWidth, frameHeight);
 
-            base.frameHeight = texture.Height / numberOfAnimationRows;
-            base.frameWidth = texture.Width / animationFramesInRow;
+            base.frameHeight = boxSize;
+            base.frameWidth = boxSize;
 
             this.numberOfAnimationRows = numberOfAnimationRows;
             this.animationFramesInRow = animationFramesInRow;
 
-            boundingBox = new BoundingBox(new Vector3(position.X, position.Y, 0), new Vector3(position.X + frameWidth, position.Y + frameHeight, 0));
-
+            boundingBox = new BoundingBox(new Vector3(position.X, position.Y, 0), new Vector3(position.X + boxSize, position.Y + boxSize, 0));
         }
 
 
@@ -60,13 +61,13 @@ namespace MonoGame_SimpleSample
             currentFrameTime += gameTime.ElapsedGameTime.TotalMilliseconds;
             if (currentFrameTime >= expectedFrameTime)
             {
-                whichFrame = (whichFrame < animationFramesInRow-1) ? whichFrame + 1 : 0;
+                whichFrame = 0;
                 currentFrameTime = 0;
             }
 
             updateMovement(gameTime);
-            Gravity();
-            isFalling = true;
+            //Gravity();
+            //isFalling = true;
             base.updateBoundingBoxes();
 
         }
@@ -116,18 +117,18 @@ namespace MonoGame_SimpleSample
                         case Keys.W:
                             {
                                 currentWalkingDirection = WalkingDirection.up;
-                                //movementVector += new Vector2(0, -movementSpeed);
+                                movementVector += new Vector2(0, -movementSpeed);
                                 break;
                             }
                         case Keys.S:
                             {
                                 currentWalkingDirection = WalkingDirection.down;
-                                //movementVector += new Vector2(0, movementSpeed);
+                                movementVector += new Vector2(0, movementSpeed);
                                 break;
                             }
                         case Keys.Space:
                             {
-                                Jump();
+                                Fire();
                                 break;
                             }
                         default:
@@ -141,9 +142,11 @@ namespace MonoGame_SimpleSample
 
             position += movementVector;
 
+
+
         }
 
-        public void Jump()
+        public void Fire()
         {
             if(isFalling == false)
             {
@@ -153,27 +156,30 @@ namespace MonoGame_SimpleSample
 
         }
 
-        public void Gravity()
-        {
-            if(isFalling)
-            {
-                momentum.Y += gravity;
-            }
+        new public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch) {
+            // float rotation = (int)currentWalkingDirection;
+            float rotation = getRotation();
 
-            else
-            {
-                momentum.Y = 0;
-            }
 
-            position += momentum;
 
+            var origin = new Vector2(texture.Width / 2f, texture.Height / 2f);
+            spriteBatch.Draw(texture, position, new Rectangle(whichFrame * base.frameWidth, base.frameHeight * whichFrame, boxSize, boxSize), Color.White, rotation, origin, 1f, SpriteEffects.None, 0f);
+
+            Debug_DrawBounds(graphicsDevice, spriteBatch);
         }
 
 
-        new public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
+        public float getRotation()
         {
-            spriteBatch.Draw(texture, position, new Rectangle(whichFrame*base.frameWidth, base.frameHeight * (int)currentWalkingDirection, base.frameWidth, base.frameHeight), Color.White);
-            Debug_DrawBounds(graphicsDevice, spriteBatch);
+            switch (currentWalkingDirection) {
+                case WalkingDirection.right:
+                    return 1.57f * (int)WalkingDirection.left;
+                case WalkingDirection.left:
+                    return 1.57f * (int)WalkingDirection.right;
+                default:
+                    return 1.57f * (int)currentWalkingDirection;
+
+            }
         }
 
 

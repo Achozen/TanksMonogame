@@ -1,3 +1,5 @@
 wood_box;0;0
 pixel_box;200;0
+pixel_box;400;0
+pixel_box;600;0
 metal_box;300;350

@@ -27,9 +27,6 @@ namespace MonoGame_SimpleSample
         Sprite groundSprite;
 		GameState currentGameState = GameState.playing;
 
-        Texture2D backgroundTexture;
-        ScrollingBackground scrollingBackground;
-
         bool isPauseKeyHeld = false;
 
         string collisionText = "";
@@ -69,7 +66,7 @@ namespace MonoGame_SimpleSample
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            playerTexture = Content.Load<Texture2D>("professor_walk_cycle_no_hat");
+            playerTexture = Content.Load<Texture2D>("player_tank");
 
             var lines = System.IO.File.ReadAllLines(@"Content/Level1.txt");
             foreach(var line in lines)
@@ -83,9 +80,6 @@ namespace MonoGame_SimpleSample
             }
             groundTexture = Content.Load<Texture2D>("ground");
             groundSprite = new Sprite(groundTexture, new Vector2(0, graphics.GraphicsDevice.Viewport.Height - groundTexture.Height));
-
-            backgroundTexture = Content.Load<Texture2D>("bg_layer_1_small");
-            scrollingBackground = new ScrollingBackground(backgroundTexture, new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight));
 
             playerSprite = new AnimatedSprite(playerTexture, Vector2.Zero , 4, 9);
             playerSprite.Position = new Vector2(0, graphics.PreferredBackBufferHeight - (groundTexture.Height + (playerSprite.BoundingBox.Max.Y - playerSprite.BoundingBox.Min.Y) + 30));
@@ -138,7 +132,6 @@ namespace MonoGame_SimpleSample
 				{
                     //Update ground:
                     groundSprite.Update(gameTime);
-                    scrollingBackground.Update(gameTime);
 
                     //Update Level
                     foreach(var sprite in Level)
@@ -192,7 +185,6 @@ namespace MonoGame_SimpleSample
 			{
 				case GameState.playing:
 				{
-                        scrollingBackground.Draw(spriteBatch);
 
                         //draw the ground
                         groundSprite.Draw(GraphicsDevice, spriteBatch);
