@@ -10,8 +10,10 @@ namespace MonoGame_SimpleSample
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Texture2D playerTexture;
+        Texture2D bulletTexture;
         TankSprite playerSprite;
         TankSprite playerSprite2;
+        Sprite bullet;
 
         GameState currentGameState = GameState.playing;
         bool isPauseKeyHeld = false;
@@ -35,6 +37,7 @@ namespace MonoGame_SimpleSample
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            bulletTexture = Content.Load <Texture2D>("Bullets/bulletBeige");
             playerTexture = Content.Load<Texture2D>("Default size/tank_green");
             var lines = System.IO.File.ReadAllLines(@"Content/Level1.txt");
             foreach (var line in lines)
@@ -46,10 +49,12 @@ namespace MonoGame_SimpleSample
             }
 
             playerSprite = new TankSprite(playerTexture, Vector2.Zero, 1);
-            playerSprite.Position = new Vector2(0, graphics.PreferredBackBufferHeight - ((playerSprite.BoundingBox.Max.Y - playerSprite.BoundingBox.Min.Y) + 30));
+            playerSprite.Position = new Vector2(0, 0);
 
             playerSprite2 = new TankSprite(playerTexture, Vector2.Zero, 2);
-            playerSprite2.Position = new Vector2(0, graphics.PreferredBackBufferHeight - ((playerSprite2.BoundingBox.Max.Y - playerSprite2.BoundingBox.Min.Y) + 30));
+            playerSprite2.Position = new Vector2(graphics.PreferredBackBufferWidth - playerTexture.Width, graphics.PreferredBackBufferHeight - playerTexture.Height);
+
+
             HUDFont = Content.Load<SpriteFont>("HUDFont");
         }
         protected override void UnloadContent()
@@ -71,7 +76,7 @@ namespace MonoGame_SimpleSample
             switch (currentGameState) {
                 case GameState.playing:
                     { 
-                    {
+                    
                         foreach (var sprite in Level)
                         {
                             sprite.Update(gameTime);
@@ -82,20 +87,18 @@ namespace MonoGame_SimpleSample
 
                         collisionText = "there is no collision";
 
-
                         foreach (var sprite in Level)
                         {
                             if (playerSprite.IsCollidingWith(sprite) || playerSprite2.IsCollidingWith(sprite))
                                 collisionText = "there is a collision";
                             break;
                         }
+                        break;
                     }
-            }
-            break;
-                case GameState.paused:
-                break;
+                        case GameState.paused:
+                        break;
 
-        } 
+            }    
             base.Update(gameTime);
         }
 
@@ -109,7 +112,7 @@ namespace MonoGame_SimpleSample
                     {
                         foreach (var sprite in Level)
                         {
-                            sprite.Draw(GraphicsDevice, spriteBatch);
+                           sprite.Draw(GraphicsDevice, spriteBatch);
                         }
                         playerSprite.Draw(GraphicsDevice, spriteBatch);
                         playerSprite2.Draw(GraphicsDevice, spriteBatch);
