@@ -19,37 +19,23 @@ namespace MonoGame_SimpleSample
         idle = 4 // not supported in the current sprite
     }
 
-    class AnimatedSprite : Sprite
+    class TankSprite : Sprite
     {
-
-        int numberOfAnimationRows = 4;
-        int animationFramesInRow = 9;
         int boxSize;
 
-        int whichFrame;
         double currentFrameTime = 0;
         double expectedFrameTime = 200.0f;
         WalkingDirection currentWalkingDirection = WalkingDirection.down;
 
-        //jumping
-        public bool isFalling = true;
-        //bool isJumping = false;
-
-        float dy = 0.0f;
-        float dx = 0.0f;
-        float gravity = 0.05f;
         Vector2 momentum = Vector2.Zero;
 
 
-        public AnimatedSprite(Texture2D texture, Vector2 startingPosition, int numberOfAnimationRows, int animationFramesInRow) : base(texture, startingPosition)
+        public TankSprite(Texture2D texture, Vector2 startingPosition) : base(texture, startingPosition)
         {
             boxSize = Math.Max(frameWidth, frameHeight);
 
             base.frameHeight = boxSize;
             base.frameWidth = boxSize;
-
-            this.numberOfAnimationRows = numberOfAnimationRows;
-            this.animationFramesInRow = animationFramesInRow;
 
             boundingBox = new BoundingBox(new Vector3(position.X, position.Y, 0), new Vector3(position.X + boxSize, position.Y + boxSize, 0));
         }
@@ -61,23 +47,13 @@ namespace MonoGame_SimpleSample
             currentFrameTime += gameTime.ElapsedGameTime.TotalMilliseconds;
             if (currentFrameTime >= expectedFrameTime)
             {
-                whichFrame = 0;
                 currentFrameTime = 0;
             }
 
             updateMovement(gameTime);
-            //Gravity();
-            //isFalling = true;
             base.updateBoundingBoxes();
-
         }
 
-        //void updateBoundingBox()
-        //{
-        //    boundingBox = new BoundingBox(new Vector3(position.X, position.Y, 0), new Vector3(position.X + frameWidth, position.Y + frameHeight, 0));
-        //}
-
-        //This should be a part of input manager
         void updateMovement(GameTime gameTime)
         {
             var keyboardState = Keyboard.GetState();
@@ -87,15 +63,7 @@ namespace MonoGame_SimpleSample
             float movementSpeed = (float)(pixelsPerSecond * (gameTime.ElapsedGameTime.TotalSeconds));
 
             Vector2 movementVector = Vector2.Zero;
-            if (pressedKeys.Length == 0)
-            {
-                //should be:
-                //currentWalkingDirection = WalkingDirection.idle;
-                
-                //is right now (placeholder):
-                whichFrame = 0;
-            }
-            else
+            if (pressedKeys.Length != 0)
             {
                 foreach (var Key in pressedKeys)
                 {
@@ -128,7 +96,6 @@ namespace MonoGame_SimpleSample
                             }
                         case Keys.Space:
                             {
-                                Fire();
                                 break;
                             }
                         default:
@@ -146,16 +113,6 @@ namespace MonoGame_SimpleSample
 
         }
 
-        public void Fire()
-        {
-            if(isFalling == false)
-            {
-                momentum = new Vector2(0, -3f);
-                isFalling = true;
-            }
-
-        }
-
         new public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch) {
             // float rotation = (int)currentWalkingDirection;
             float rotation = getRotation();
@@ -163,7 +120,7 @@ namespace MonoGame_SimpleSample
 
 
             var origin = new Vector2(texture.Width / 2f, texture.Height / 2f);
-            spriteBatch.Draw(texture, position + new Vector2(boxSize/2, boxSize / 2), new Rectangle(whichFrame * base.frameWidth, base.frameHeight * whichFrame, boxSize, boxSize), Color.White, rotation, origin, 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(texture, position + new Vector2(boxSize/2, boxSize / 2), new Rectangle(0,0, boxSize, boxSize), Color.White, rotation, origin, 1f, SpriteEffects.None, 0f);
 
             Debug_DrawBounds(graphicsDevice, spriteBatch);
         }
@@ -188,7 +145,7 @@ namespace MonoGame_SimpleSample
             //collision top - bottom -> stop the gravity momentum
             if (this.bottomBoundingBox.Intersects(otherSprite.TopBoundingBox))
             {
-                isFalling = false;
+                ///
             }
             //collsion left/right -> stop the left/right momentum
             if (this.leftBoundingBox.Intersects(otherSprite.RightBoundingBox) || this.rightBoundingBox.Intersects(otherSprite.RightBoundingBox) )

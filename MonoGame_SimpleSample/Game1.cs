@@ -21,7 +21,7 @@ namespace MonoGame_SimpleSample
         SpriteBatch spriteBatch;
 
         Texture2D playerTexture;
-        AnimatedSprite playerSprite;
+        TankSprite playerSprite;
         
         GameState currentGameState = GameState.playing;
 
@@ -77,7 +77,7 @@ namespace MonoGame_SimpleSample
 
             }
 
-            playerSprite = new AnimatedSprite(playerTexture, Vector2.Zero , 4, 9);
+            playerSprite = new TankSprite(playerTexture, Vector2.Zero );
             playerSprite.Position = new Vector2(0, graphics.PreferredBackBufferHeight - ((playerSprite.BoundingBox.Max.Y - playerSprite.BoundingBox.Min.Y) + 30));
             HUDFont = Content.Load<SpriteFont>("HUDFont");
 
