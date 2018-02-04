@@ -22,18 +22,16 @@ namespace MonoGame_SimpleSample
     class TankSprite : Sprite
     {
         int boxSize;
+        int playerNumber;
 
         double currentFrameTime = 0;
         double expectedFrameTime = 200.0f;
         WalkingDirection currentWalkingDirection = WalkingDirection.down;
 
-        Vector2 momentum = Vector2.Zero;
-
-
-        public TankSprite(Texture2D texture, Vector2 startingPosition) : base(texture, startingPosition)
+        public TankSprite(Texture2D texture, Vector2 startingPosition, int playerNumber) : base(texture, startingPosition)
         {
             boxSize = Math.Max(frameWidth, frameHeight);
-
+            this.playerNumber = playerNumber;
             base.frameHeight = boxSize;
             base.frameWidth = boxSize;
 
@@ -67,42 +65,86 @@ namespace MonoGame_SimpleSample
             {
                 foreach (var Key in pressedKeys)
                 {
-                    switch (Key)
-                    {
-                        case Keys.A:
-                            {
-                                currentWalkingDirection = WalkingDirection.left;
-                                movementVector = new Vector2(-movementSpeed, 0);
-                                break;
-                            }
+                    if (playerNumber == 1){
+                        switch (Key)
+                        {
+                            case Keys.A:
+                                {
+                                    currentWalkingDirection = WalkingDirection.left;
+                                    movementVector = new Vector2(-movementSpeed, 0);
+                                    break;
+                                }
 
-                        case Keys.D:
-                            {
-                                currentWalkingDirection = WalkingDirection.right;
-                                movementVector = new Vector2(movementSpeed, 0);
-                                break;
-                            }
-                        case Keys.W:
-                            {
-                                currentWalkingDirection = WalkingDirection.up;
-                                movementVector = new Vector2(0, -movementSpeed);
-                                break;
-                            }
-                        case Keys.S:
-                            {
-                                currentWalkingDirection = WalkingDirection.down;
-                                movementVector = new Vector2(0, movementSpeed);
-                                break;
-                            }
-                        case Keys.Space:
-                            {
-                                break;
-                            }
-                        default:
-                            {
-                                break;
-                            }
+                            case Keys.D:
+                                {
+                                    currentWalkingDirection = WalkingDirection.right;
+                                    movementVector = new Vector2(movementSpeed, 0);
+                                    break;
+                                }
+                            case Keys.W:
+                                {
+                                    currentWalkingDirection = WalkingDirection.up;
+                                    movementVector = new Vector2(0, -movementSpeed);
+                                    break;
+                                }
+                            case Keys.S:
+                                {
+                                    currentWalkingDirection = WalkingDirection.down;
+                                    movementVector = new Vector2(0, movementSpeed);
+                                    break;
+                                }
+                            case Keys.Space:
+                                {
+                                    break;
+                                }
+
+                            default:
+                                {
+                                    break;
+                                }
+                        }
                     }
+
+                    else if (playerNumber == 2) {
+                        switch (Key)
+                        {
+                            case Keys.Left:
+                                {
+                                    currentWalkingDirection = WalkingDirection.left;
+                                    movementVector = new Vector2(-movementSpeed, 0);
+                                    break;
+                                }
+
+                            case Keys.Right:
+                                {
+                                    currentWalkingDirection = WalkingDirection.right;
+                                    movementVector = new Vector2(movementSpeed, 0);
+                                    break;
+                                }
+                            case Keys.Up:
+                                {
+                                    currentWalkingDirection = WalkingDirection.up;
+                                    movementVector = new Vector2(0, -movementSpeed);
+                                    break;
+                                }
+                            case Keys.Down:
+                                {
+                                    currentWalkingDirection = WalkingDirection.down;
+                                    movementVector = new Vector2(0, movementSpeed);
+                                    break;
+                                }
+                            case Keys.Space:
+                                {
+                                    break;
+                                }
+
+                            default:
+                                {
+                                    break;
+                                }
+                        }
+                    }
+
                 }
             }
                
@@ -114,17 +156,13 @@ namespace MonoGame_SimpleSample
         }
 
         new public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch) {
-            // float rotation = (int)currentWalkingDirection;
             float rotation = getRotation();
 
-
-
             var origin = new Vector2(texture.Width / 2f, texture.Height / 2f);
-            spriteBatch.Draw(texture, position + new Vector2(boxSize/2, boxSize / 2), new Rectangle(0,0, boxSize, boxSize), Color.White, rotation, origin, 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(texture, position + new Vector2(boxSize/2, boxSize / 2), new Rectangle(0,0, boxSize, boxSize), Color.White, rotation, origin, 1f, SpriteEffects.FlipVertically, 0f);
 
             Debug_DrawBounds(graphicsDevice, spriteBatch);
         }
-
 
         public float getRotation()
         {
@@ -138,7 +176,6 @@ namespace MonoGame_SimpleSample
 
             }
         }
-
 
         new public bool IsCollidingWith(Sprite otherSprite)
         {
@@ -156,7 +193,5 @@ namespace MonoGame_SimpleSample
             return this.boundingBox.Intersects(otherSprite.BoundingBox) ? true : false;
 
         }
-
-
     }
 }

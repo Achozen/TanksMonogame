@@ -22,7 +22,8 @@ namespace MonoGame_SimpleSample
 
         Texture2D playerTexture;
         TankSprite playerSprite;
-        
+        TankSprite playerSprite2;
+
         GameState currentGameState = GameState.playing;
 
         bool isPauseKeyHeld = false;
@@ -77,8 +78,11 @@ namespace MonoGame_SimpleSample
 
             }
 
-            playerSprite = new TankSprite(playerTexture, Vector2.Zero );
+            playerSprite = new TankSprite(playerTexture, Vector2.Zero, 1);
             playerSprite.Position = new Vector2(0, graphics.PreferredBackBufferHeight - ((playerSprite.BoundingBox.Max.Y - playerSprite.BoundingBox.Min.Y) + 30));
+
+            playerSprite2 = new TankSprite(playerTexture, Vector2.Zero, 2);
+            playerSprite2.Position = new Vector2(0, graphics.PreferredBackBufferHeight - ((playerSprite2.BoundingBox.Max.Y - playerSprite2.BoundingBox.Min.Y) + 30));
             HUDFont = Content.Load<SpriteFont>("HUDFont");
 
 
@@ -125,15 +129,16 @@ namespace MonoGame_SimpleSample
             switch (currentGameState)
 			{
 				case GameState.playing:
-				{
-
-                    //Update Level
-                    foreach(var sprite in Level)
                     {
-                        sprite.Update(gameTime);
-                    }
 
-                    playerSprite.Update(gameTime);
+                        //Update Level
+                        foreach (var sprite in Level)
+                        {
+                            sprite.Update(gameTime);
+                        }
+
+                        playerSprite.Update(gameTime);
+                        playerSprite2.Update(gameTime);
                         //check collisions
 
 
@@ -143,9 +148,9 @@ namespace MonoGame_SimpleSample
                         collisionText = "there is no collision";
 
 
-                    foreach (var sprite in Level)
-                    {
-                            if (playerSprite.IsCollidingWith(sprite))
+                        foreach (var sprite in Level)
+                        {
+                            if (playerSprite.IsCollidingWith(sprite) || playerSprite2.IsCollidingWith(sprite))
                                 collisionText = "there is a collision";
                     }
                 }
@@ -192,6 +197,7 @@ namespace MonoGame_SimpleSample
 
 
                         playerSprite.Draw(GraphicsDevice, spriteBatch);
+                        playerSprite2.Draw(GraphicsDevice, spriteBatch);
                         spriteBatch.DrawString(HUDFont, collisionText, new Vector2(300, 0), Color.Red);
                 }
 				break;
