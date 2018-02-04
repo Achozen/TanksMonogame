@@ -83,7 +83,7 @@ namespace MonoGame_SimpleSample
             var keyboardState = Keyboard.GetState();
             var pressedKeys = keyboardState.GetPressedKeys();
 
-            int pixelsPerSecond = 50;
+            int pixelsPerSecond = 80;
             float movementSpeed = (float)(pixelsPerSecond * (gameTime.ElapsedGameTime.TotalSeconds));
 
             Vector2 movementVector = Vector2.Zero;
@@ -104,26 +104,26 @@ namespace MonoGame_SimpleSample
                         case Keys.A:
                             {
                                 currentWalkingDirection = WalkingDirection.left;
-                                movementVector += new Vector2(-movementSpeed, 0);
+                                movementVector = new Vector2(-movementSpeed, 0);
                                 break;
                             }
 
                         case Keys.D:
                             {
                                 currentWalkingDirection = WalkingDirection.right;
-                                movementVector += new Vector2(movementSpeed, 0);
+                                movementVector = new Vector2(movementSpeed, 0);
                                 break;
                             }
                         case Keys.W:
                             {
                                 currentWalkingDirection = WalkingDirection.up;
-                                movementVector += new Vector2(0, -movementSpeed);
+                                movementVector = new Vector2(0, -movementSpeed);
                                 break;
                             }
                         case Keys.S:
                             {
                                 currentWalkingDirection = WalkingDirection.down;
-                                movementVector += new Vector2(0, movementSpeed);
+                                movementVector = new Vector2(0, movementSpeed);
                                 break;
                             }
                         case Keys.Space:
