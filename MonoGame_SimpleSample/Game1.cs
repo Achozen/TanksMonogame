@@ -64,7 +64,7 @@ namespace MonoGame_SimpleSample
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            playerTexture = Content.Load<Texture2D>("tank");
+            playerTexture = Content.Load<Texture2D>("Default size/tank_green");
 
             var lines = System.IO.File.ReadAllLines(@"Content/Level1.txt");
             foreach(var line in lines)
