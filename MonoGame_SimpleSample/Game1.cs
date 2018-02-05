@@ -21,6 +21,8 @@ namespace MonoGame_SimpleSample
         string collisionText = "";
         SpriteFont HUDFont;
         List<Sprite> Level;
+        List<BulletSprite> bulllets;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -32,6 +34,7 @@ namespace MonoGame_SimpleSample
         protected override void Initialize()
         {
             Level = new List<Sprite>();
+            bulllets = new List<BulletSprite>();
             base.Initialize();
         }
 
@@ -85,8 +88,11 @@ namespace MonoGame_SimpleSample
 
                         playerSprite.Update(gameTime);
                         playerSprite2.Update(gameTime);
-                        if (bulletSprite != null) {
-                            bulletSprite.Update(gameTime);
+
+
+                        foreach (var sprite in bulllets)
+                        {
+                            sprite.Update(gameTime);
                         }
 
                         collisionText = "there is no collision";
@@ -119,9 +125,11 @@ namespace MonoGame_SimpleSample
                            sprite.Draw(GraphicsDevice, spriteBatch);
                         }
 
-                        if (bulletSprite != null) {
-                            bulletSprite.Draw(GraphicsDevice, spriteBatch);
+                        foreach (var sprite in bulllets)
+                        {
+                            sprite.Draw(GraphicsDevice, spriteBatch);
                         }
+                        
                         playerSprite.Draw(GraphicsDevice, spriteBatch);
                         playerSprite2.Draw(GraphicsDevice, spriteBatch);
                         spriteBatch.DrawString(HUDFont, collisionText, new Vector2(300, 0), Color.Red);
@@ -138,15 +146,11 @@ namespace MonoGame_SimpleSample
             base.Draw(gameTime);
         }
 
-        public void OnFire(int playerIndex, WalkingDirection walkingDirection)
-        {
-           
-        }
-
         public void OnFire(int playerIndex, Vector2 position, WalkingDirection walkingDirection)
         {
-            bulletSprite = new BulletSprite(bulletTexture, position, walkingDirection);
-            playerSprite.Position = position;
+            bulllets.Add(new BulletSprite(bulletTexture, position, walkingDirection));
+             
+            //playerSprite.Position = position;
         }
     }
 }
