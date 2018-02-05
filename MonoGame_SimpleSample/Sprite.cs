@@ -14,6 +14,8 @@ namespace MonoGame_SimpleSample
 
         protected Texture2D texture;
         protected Vector2 position;
+
+        private Texture2D rect;
         public Vector2 Position
         {
             get
@@ -128,8 +130,8 @@ namespace MonoGame_SimpleSample
 
         private void DrawRectangle(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, BoundingBox boundingBox, Color color)
         {
-
-            Texture2D rect = new Texture2D(graphicsDevice, 1, 1);
+            if(rect == null)
+                rect = new Texture2D(graphicsDevice, 1, 1);
             rect.SetData(new[] { Color.White });
             int rectWidth = (int)(boundingBox.Max.X - boundingBox.Min.X);
             int rectHeight = (int)(boundingBox.Max.Y - boundingBox.Min.Y);
