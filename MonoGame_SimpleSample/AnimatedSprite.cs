@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MonoGame_SimpleSample
 {
-    enum WalkingDirection
+    public enum WalkingDirection
     {
         up = 0,
         left = 1,
@@ -27,13 +27,15 @@ namespace MonoGame_SimpleSample
         double currentFrameTime = 0;
         double expectedFrameTime = 200.0f;
         WalkingDirection currentWalkingDirection = WalkingDirection.down;
+        TankActionListener tankActionListener;
 
-        public TankSprite(Texture2D texture, Vector2 startingPosition, int playerNumber) : base(texture, startingPosition)
+        public TankSprite(Texture2D texture, Vector2 startingPosition, int playerNumber, TankActionListener tankActionListener) : base(texture, startingPosition)
         {
             boxSize = Math.Max(frameWidth, frameHeight);
             this.playerNumber = playerNumber;
             base.frameHeight = boxSize;
             base.frameWidth = boxSize;
+            this.tankActionListener = tankActionListener;
 
             boundingBox = new BoundingBox(new Vector3(position.X, position.Y, 0), new Vector3(position.X + boxSize, position.Y + boxSize, 0));
         }
@@ -95,6 +97,7 @@ namespace MonoGame_SimpleSample
                                 }
                             case Keys.Space:
                                 {
+                                    tankActionListener.OnFire(playerNumber, position, currentWalkingDirection);
                                     break;
                                 }
 
@@ -195,6 +198,11 @@ namespace MonoGame_SimpleSample
         }
     }
 
+    public interface TankActionListener
+    {
+        void OnFire(int playerIndex,Vector2 position, WalkingDirection walkingDirection);
+    }
+
     class BulletSprite : Sprite
     {
         int boxSize;
@@ -230,7 +238,7 @@ namespace MonoGame_SimpleSample
             var keyboardState = Keyboard.GetState();
             var pressedKeys = keyboardState.GetPressedKeys();
 
-            int pixelsPerSecond = 80;
+            int pixelsPerSecond = 200;
             float movementSpeed = (float)(pixelsPerSecond * (gameTime.ElapsedGameTime.TotalSeconds));
 
             Vector2 movementVector = Vector2.Zero;

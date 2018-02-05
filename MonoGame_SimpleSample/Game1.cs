@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace MonoGame_SimpleSample
 {
-    public class Game1 : Game
+    public class Game1 : Game, TankActionListener
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -13,6 +13,7 @@ namespace MonoGame_SimpleSample
         Texture2D bulletTexture;
         TankSprite playerSprite;
         TankSprite playerSprite2;
+        BulletSprite bulletSprite;
         Sprite bullet;
 
         GameState currentGameState = GameState.playing;
@@ -48,10 +49,10 @@ namespace MonoGame_SimpleSample
                 Level.Add(new Sprite(tempTexture, tempPos));
             }
 
-            playerSprite = new TankSprite(playerTexture, Vector2.Zero, 1);
+            playerSprite = new TankSprite(playerTexture, Vector2.Zero, 1, this);
             playerSprite.Position = new Vector2(0, 0);
 
-            playerSprite2 = new TankSprite(playerTexture, Vector2.Zero, 2);
+            playerSprite2 = new TankSprite(playerTexture, Vector2.Zero, 2, this);
             playerSprite2.Position = new Vector2(graphics.PreferredBackBufferWidth - playerTexture.Width, graphics.PreferredBackBufferHeight - playerTexture.Height);
 
 
@@ -84,6 +85,9 @@ namespace MonoGame_SimpleSample
 
                         playerSprite.Update(gameTime);
                         playerSprite2.Update(gameTime);
+                        if (bulletSprite != null) {
+                            bulletSprite.Update(gameTime);
+                        }
 
                         collisionText = "there is no collision";
 
@@ -114,6 +118,10 @@ namespace MonoGame_SimpleSample
                         {
                            sprite.Draw(GraphicsDevice, spriteBatch);
                         }
+
+                        if (bulletSprite != null) {
+                            bulletSprite.Draw(GraphicsDevice, spriteBatch);
+                        }
                         playerSprite.Draw(GraphicsDevice, spriteBatch);
                         playerSprite2.Draw(GraphicsDevice, spriteBatch);
                         spriteBatch.DrawString(HUDFont, collisionText, new Vector2(300, 0), Color.Red);
@@ -128,6 +136,17 @@ namespace MonoGame_SimpleSample
             }
             spriteBatch.End();
             base.Draw(gameTime);
+        }
+
+        public void OnFire(int playerIndex, WalkingDirection walkingDirection)
+        {
+           
+        }
+
+        public void OnFire(int playerIndex, Vector2 position, WalkingDirection walkingDirection)
+        {
+            bulletSprite = new BulletSprite(bulletTexture, position, walkingDirection);
+            playerSprite.Position = position;
         }
     }
 }
