@@ -130,7 +130,7 @@ namespace MonoGame_SimpleSample
 
         private void DrawRectangle(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, BoundingBox boundingBox, Color color)
         {
-            if(rect == null)
+            if (rect == null)
                 rect = new Texture2D(graphicsDevice, 1, 1);
             rect.SetData(new[] { Color.White });
             int rectWidth = (int)(boundingBox.Max.X - boundingBox.Min.X);

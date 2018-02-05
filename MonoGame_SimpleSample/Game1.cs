@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace MonoGame_SimpleSample
 {
-    public class Game1 : Game
+    public class Game1 : Game, TankActionListener
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -13,6 +13,7 @@ namespace MonoGame_SimpleSample
         Texture2D bulletTexture;
         TankSprite playerSprite;
         TankSprite playerSprite2;
+        BulletSprite bulletSprite;
         Sprite bullet;
 
         GameState currentGameState = GameState.playing;
@@ -20,6 +21,8 @@ namespace MonoGame_SimpleSample
         string collisionText = "";
         SpriteFont HUDFont;
         List<Sprite> Level;
+        List<BulletSprite> bulllets;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -31,13 +34,14 @@ namespace MonoGame_SimpleSample
         protected override void Initialize()
         {
             Level = new List<Sprite>();
+            bulllets = new List<BulletSprite>();
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            bulletTexture = Content.Load <Texture2D>("Bullets/bulletBeige");
+            bulletTexture = Content.Load<Texture2D>("Bullets/bulletBeige");
             playerTexture = Content.Load<Texture2D>("Default size/tank_green");
             var lines = System.IO.File.ReadAllLines(@"Content/Level1.txt");
             foreach (var line in lines)
@@ -47,12 +51,13 @@ namespace MonoGame_SimpleSample
                 Vector2 tempPos = new Vector2(int.Parse(data[1]), int.Parse(data[2]));
                 Level.Add(new Sprite(tempTexture, tempPos));
             }
-            var player1Keys = new TankKeyMap { up = Keys.Up, down = Keys.Down, left = Keys.Left, right = Keys.Right };
-            playerSprite = new TankSprite(player1Keys, playerTexture, Vector2.Zero, 1);
+            var player1Keys = new TankKeyMap { up = Keys.Up, down = Keys.Down, left = Keys.Left, right = Keys.Right, fire = Keys.Enter };
+            playerSprite = new TankSprite(player1Keys, playerTexture, Vector2.Zero, 1, this);
             playerSprite.Position = new Vector2(0, 0);
 
-            var player2Keys = new TankKeyMap { up = Keys.W, down = Keys.S, left = Keys.A, right = Keys.D };
-            playerSprite2 = new TankSprite(player2Keys, playerTexture, Vector2.Zero, 2);
+            var player2Keys = new TankKeyMap { up = Keys.W, down = Keys.S, left = Keys.A, right = Keys.D, fire = Keys.Space };
+            playerSprite2 = new TankSprite(player2Keys, playerTexture, Vector2.Zero, 2, this);
+
             playerSprite2.Position = new Vector2(graphics.PreferredBackBufferWidth - playerTexture.Width, graphics.PreferredBackBufferHeight - playerTexture.Height);
             HUDFont = Content.Load<SpriteFont>("HUDFont");
         }
@@ -72,10 +77,11 @@ namespace MonoGame_SimpleSample
                 else currentGameState = GameState.playing;
             }
             isPauseKeyHeld = keyboardState.IsKeyUp(Keys.P) ? false : true;
-            switch (currentGameState) {
+            switch (currentGameState)
+            {
                 case GameState.playing:
-                    { 
-                    
+                    {
+
                         foreach (var sprite in Level)
                         {
                             sprite.Update(gameTime);
@@ -83,6 +89,12 @@ namespace MonoGame_SimpleSample
 
                         playerSprite.Update(gameTime);
                         playerSprite2.Update(gameTime);
+
+
+                        foreach (var sprite in bulllets)
+                        {
+                            sprite.Update(gameTime);
+                        }
 
                         collisionText = "there is no collision";
 
@@ -94,10 +106,10 @@ namespace MonoGame_SimpleSample
                         }
                         break;
                     }
-                        case GameState.paused:
-                        break;
+                case GameState.paused:
+                    break;
 
-            }    
+            }
             base.Update(gameTime);
         }
 
@@ -111,8 +123,14 @@ namespace MonoGame_SimpleSample
                     {
                         foreach (var sprite in Level)
                         {
-                           sprite.Draw(GraphicsDevice, spriteBatch);
+                            sprite.Draw(GraphicsDevice, spriteBatch);
                         }
+
+                        foreach (var sprite in bulllets)
+                        {
+                            sprite.Draw(GraphicsDevice, spriteBatch);
+                        }
+
                         playerSprite.Draw(GraphicsDevice, spriteBatch);
                         playerSprite2.Draw(GraphicsDevice, spriteBatch);
                         spriteBatch.DrawString(HUDFont, collisionText, new Vector2(300, 0), Color.Red);
@@ -127,6 +145,13 @@ namespace MonoGame_SimpleSample
             }
             spriteBatch.End();
             base.Draw(gameTime);
+        }
+
+        public void OnFire(int playerIndex, Vector2 position, WalkingDirection walkingDirection)
+        {
+            bulllets.Add(new BulletSprite(bulletTexture, position, walkingDirection));
+
+            //playerSprite.Position = position;
         }
     }
 }

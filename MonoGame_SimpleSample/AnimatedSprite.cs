@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MonoGame_SimpleSample
 {
-    enum WalkingDirection
+    public enum WalkingDirection
     {
         up = 0,
         left = 1,
@@ -25,6 +25,7 @@ namespace MonoGame_SimpleSample
         public Keys down { get; set; }
         public Keys left { get; set; }
         public Keys right { get; set; }
+        public Keys fire { get; set; }
     }
 
     class TankSprite : Sprite
@@ -38,13 +39,15 @@ namespace MonoGame_SimpleSample
         bool isMoving = false;
         TankKeyMap keyMap;
 
-        public TankSprite(TankKeyMap keyMap, Texture2D texture, Vector2 startingPosition, int playerNumber) : base(texture, startingPosition)
+        TankActionListener tankActionListener;
+        public TankSprite(TankKeyMap keyMap, Texture2D texture, Vector2 startingPosition, int playerNumber, TankActionListener tankActionListener) : base(texture, startingPosition)
         {
             this.keyMap = keyMap;
             boxSize = Math.Max(frameWidth, frameHeight);
             this.playerNumber = playerNumber;
             base.frameHeight = boxSize;
             base.frameWidth = boxSize;
+            this.tankActionListener = tankActionListener;
 
             boundingBox = new BoundingBox(new Vector3(position.X, position.Y, 0), new Vector3(position.X + boxSize, position.Y + boxSize, 0));
         }
@@ -96,6 +99,10 @@ namespace MonoGame_SimpleSample
                         currentWalkingDirection = WalkingDirection.up;
                         isMoving = true;
                     }
+                    else if (keyMap.fire.Equals(Key))
+                    {
+                        tankActionListener.OnFire(playerNumber, position, currentWalkingDirection);
+                    }
                 }
             }
         }
@@ -108,22 +115,23 @@ namespace MonoGame_SimpleSample
             switch (currentWalkingDirection)
             {
                 case WalkingDirection.left:
-                        movementVector = new Vector2(-movementSpeed, 0);
-                        break;
+                    movementVector = new Vector2(-movementSpeed, 0);
+                    break;
                 case WalkingDirection.right:
-                        movementVector = new Vector2(movementSpeed, 0);
-                        break;
+                    movementVector = new Vector2(movementSpeed, 0);
+                    break;
                 case WalkingDirection.up:
-                        movementVector = new Vector2(0, -movementSpeed);
-                        break;
+                    movementVector = new Vector2(0, -movementSpeed);
+                    break;
                 case WalkingDirection.down:
-                        movementVector = new Vector2(0, movementSpeed);
-                        break;
+                    movementVector = new Vector2(0, movementSpeed);
+                    break;
             }
             position += movementVector;
         }
 
-        new public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch) {
+        new public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
+        {
             float rotation = getRotation();
 
             var origin = new Vector2(texture.Width / 2f, texture.Height / 2f);
@@ -134,14 +142,14 @@ namespace MonoGame_SimpleSample
 
         public float getRotation()
         {
-            switch (currentWalkingDirection) {
+            switch (currentWalkingDirection)
+            {
                 case WalkingDirection.right:
                     return 1.57f * (int)WalkingDirection.left;
                 case WalkingDirection.left:
                     return 1.57f * (int)WalkingDirection.right;
                 default:
                     return 1.57f * (int)currentWalkingDirection;
-
             }
         }
 
@@ -161,6 +169,11 @@ namespace MonoGame_SimpleSample
             return this.boundingBox.Intersects(otherSprite.BoundingBox) ? true : false;
 
         }
+    }
+
+    public interface TankActionListener
+    {
+        void OnFire(int playerIndex, Vector2 position, WalkingDirection walkingDirection);
     }
 
     class BulletSprite : Sprite
@@ -198,7 +211,7 @@ namespace MonoGame_SimpleSample
             var keyboardState = Keyboard.GetState();
             var pressedKeys = keyboardState.GetPressedKeys();
 
-            int pixelsPerSecond = 80;
+            int pixelsPerSecond = 200;
             float movementSpeed = (float)(pixelsPerSecond * (gameTime.ElapsedGameTime.TotalSeconds));
 
             Vector2 movementVector = Vector2.Zero;
