@@ -34,9 +34,11 @@ namespace MonoGame_SimpleSample
         int playerNumber;
 
         double currentFrameTime = 0;
+        double fireTime = 0;
         double expectedFrameTime = 200.0f;
         WalkingDirection currentWalkingDirection = WalkingDirection.down;
         bool isMoving = false;
+        bool isFiring = false;
         TankKeyMap keyMap;
 
         TankActionListener tankActionListener;
@@ -62,10 +64,20 @@ namespace MonoGame_SimpleSample
             }
 
             updateInput();
+            updateFiring(gameTime);
             if (isMoving)
             {
                 updateMovement(gameTime);
                 base.updateBoundingBoxes();
+            }
+        }
+        void updateFiring(GameTime gameTime)
+        {
+            fireTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+            if (fireTime >= 500 && isFiring)
+            {
+                tankActionListener.OnFire(playerNumber, position, currentWalkingDirection);
+                fireTime = 0;
             }
         }
 
@@ -75,6 +87,7 @@ namespace MonoGame_SimpleSample
             var pressedKeys = keyboardState.GetPressedKeys();
 
             isMoving = false;
+            isFiring = false;
             if (pressedKeys.Length != 0)
             {
                 foreach (var Key in pressedKeys)
@@ -101,7 +114,7 @@ namespace MonoGame_SimpleSample
                     }
                     else if (keyMap.fire.Equals(Key))
                     {
-                        tankActionListener.OnFire(playerNumber, position, currentWalkingDirection);
+                        isFiring = true;
                     }
                 }
             }
