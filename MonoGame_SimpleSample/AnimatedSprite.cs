@@ -32,10 +32,8 @@ namespace MonoGame_SimpleSample
     {
         int boxSize;
         int playerNumber;
-
-        double currentFrameTime = 0;
         double fireTime = 0;
-        double expectedFrameTime = 200.0f;
+        double fireTimeMax = 1000;
         WalkingDirection currentWalkingDirection = WalkingDirection.down;
         bool isMoving = false;
         bool isFiring = false;
@@ -57,12 +55,6 @@ namespace MonoGame_SimpleSample
 
         new public void Update(GameTime gameTime)
         {
-            currentFrameTime += gameTime.ElapsedGameTime.TotalMilliseconds;
-            if (currentFrameTime >= expectedFrameTime)
-            {
-                currentFrameTime = 0;
-            }
-
             updateInput();
             updateFiring(gameTime);
             if (isMoving)
@@ -74,7 +66,7 @@ namespace MonoGame_SimpleSample
         void updateFiring(GameTime gameTime)
         {
             fireTime += gameTime.ElapsedGameTime.TotalMilliseconds;
-            if (fireTime >= 500 && isFiring)
+            if (fireTime >= fireTimeMax && isFiring)
             {
                 tankActionListener.OnFire(playerNumber, position, currentWalkingDirection);
                 fireTime = 0;
