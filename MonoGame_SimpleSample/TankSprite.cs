@@ -11,7 +11,7 @@ namespace MonoGame_SimpleSample
         int boxSize;
         int playerNumber;
         double fireTime = 0;
-        double fireTimeMax = 1000;
+        double fireTimeMax = 500;
         WalkingDirection currentWalkingDirection = WalkingDirection.down;
         bool isMoving = false;
         bool isFiring = false;
