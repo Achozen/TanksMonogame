@@ -47,14 +47,13 @@ namespace MonoGame_SimpleSample
                 Vector2 tempPos = new Vector2(int.Parse(data[1]), int.Parse(data[2]));
                 Level.Add(new Sprite(tempTexture, tempPos));
             }
-
-            playerSprite = new TankSprite(playerTexture, Vector2.Zero, 1);
+            var player1Keys = new TankKeyMap { up = Keys.Up, down = Keys.Down, left = Keys.Left, right = Keys.Right };
+            playerSprite = new TankSprite(player1Keys, playerTexture, Vector2.Zero, 1);
             playerSprite.Position = new Vector2(0, 0);
 
-            playerSprite2 = new TankSprite(playerTexture, Vector2.Zero, 2);
+            var player2Keys = new TankKeyMap { up = Keys.W, down = Keys.S, left = Keys.A, right = Keys.D };
+            playerSprite2 = new TankSprite(player2Keys, playerTexture, Vector2.Zero, 2);
             playerSprite2.Position = new Vector2(graphics.PreferredBackBufferWidth - playerTexture.Width, graphics.PreferredBackBufferHeight - playerTexture.Height);
-
-
             HUDFont = Content.Load<SpriteFont>("HUDFont");
         }
         protected override void UnloadContent()

@@ -16,7 +16,15 @@ namespace MonoGame_SimpleSample
         left = 1,
         down = 2,
         right = 3,
-        idle = 4 // not supported in the current sprite
+        idle = 4
+    }
+
+    class TankKeyMap
+    {
+        public Keys up { get; set; }
+        public Keys down { get; set; }
+        public Keys left { get; set; }
+        public Keys right { get; set; }
     }
 
     class TankSprite : Sprite
@@ -27,9 +35,12 @@ namespace MonoGame_SimpleSample
         double currentFrameTime = 0;
         double expectedFrameTime = 200.0f;
         WalkingDirection currentWalkingDirection = WalkingDirection.down;
+        bool isMoving = false;
+        TankKeyMap keyMap;
 
-        public TankSprite(Texture2D texture, Vector2 startingPosition, int playerNumber) : base(texture, startingPosition)
+        public TankSprite(TankKeyMap keyMap, Texture2D texture, Vector2 startingPosition, int playerNumber) : base(texture, startingPosition)
         {
+            this.keyMap = keyMap;
             boxSize = Math.Max(frameWidth, frameHeight);
             this.playerNumber = playerNumber;
             base.frameHeight = boxSize;
@@ -41,118 +52,75 @@ namespace MonoGame_SimpleSample
 
         new public void Update(GameTime gameTime)
         {
-
             currentFrameTime += gameTime.ElapsedGameTime.TotalMilliseconds;
             if (currentFrameTime >= expectedFrameTime)
             {
                 currentFrameTime = 0;
             }
 
-            updateMovement(gameTime);
-            base.updateBoundingBoxes();
+            updateInput();
+            if (isMoving)
+            {
+                updateMovement(gameTime);
+                base.updateBoundingBoxes();
+            }
         }
 
-        void updateMovement(GameTime gameTime)
+        void updateInput()
         {
             var keyboardState = Keyboard.GetState();
             var pressedKeys = keyboardState.GetPressedKeys();
 
-            int pixelsPerSecond = 80;
-            float movementSpeed = (float)(pixelsPerSecond * (gameTime.ElapsedGameTime.TotalSeconds));
-
-            Vector2 movementVector = Vector2.Zero;
+            isMoving = false;
             if (pressedKeys.Length != 0)
             {
                 foreach (var Key in pressedKeys)
                 {
-                    if (playerNumber == 1) {
-                        switch (Key)
-                        {
-                            case Keys.A:
-                                {
-                                    currentWalkingDirection = WalkingDirection.left;
-                                    movementVector = new Vector2(-movementSpeed, 0);
-                                    break;
-                                }
-
-                            case Keys.D:
-                                {
-                                    currentWalkingDirection = WalkingDirection.right;
-                                    movementVector = new Vector2(movementSpeed, 0);
-                                    break;
-                                }
-                            case Keys.W:
-                                {
-                                    currentWalkingDirection = WalkingDirection.up;
-                                    movementVector = new Vector2(0, -movementSpeed);
-                                    break;
-                                }
-                            case Keys.S:
-                                {
-                                    currentWalkingDirection = WalkingDirection.down;
-                                    movementVector = new Vector2(0, movementSpeed);
-                                    break;
-                                }
-                            case Keys.Space:
-                                {
-                                    break;
-                                }
-
-                            default:
-                                {
-                                    break;
-                                }
-                        }
+                    if (keyMap.left.Equals(Key))
+                    {
+                        currentWalkingDirection = WalkingDirection.left;
+                        isMoving = true;
                     }
-
-                    else if (playerNumber == 2) {
-                        switch (Key)
-                        {
-                            case Keys.Left:
-                                {
-                                    currentWalkingDirection = WalkingDirection.left;
-                                    movementVector = new Vector2(-movementSpeed, 0);
-                                    break;
-                                }
-
-                            case Keys.Right:
-                                {
-                                    currentWalkingDirection = WalkingDirection.right;
-                                    movementVector = new Vector2(movementSpeed, 0);
-                                    break;
-                                }
-                            case Keys.Up:
-                                {
-                                    currentWalkingDirection = WalkingDirection.up;
-                                    movementVector = new Vector2(0, -movementSpeed);
-                                    break;
-                                }
-                            case Keys.Down:
-                                {
-                                    currentWalkingDirection = WalkingDirection.down;
-                                    movementVector = new Vector2(0, movementSpeed);
-                                    break;
-                                }
-                            case Keys.Space:
-                                {
-                                    break;
-                                }
-
-                            default:
-                                {
-                                    break;
-                                }
-                        }
+                    else if (keyMap.right.Equals(Key))
+                    {
+                        currentWalkingDirection = WalkingDirection.right;
+                        isMoving = true;
                     }
-
+                    else if (keyMap.down.Equals(Key))
+                    {
+                        currentWalkingDirection = WalkingDirection.down;
+                        isMoving = true;
+                    }
+                    else if (keyMap.up.Equals(Key))
+                    {
+                        currentWalkingDirection = WalkingDirection.up;
+                        isMoving = true;
+                    }
                 }
             }
+        }
 
-
+        void updateMovement(GameTime gameTime)
+        {
+            int pixelsPerSecond = 80;
+            float movementSpeed = (float)(pixelsPerSecond * (gameTime.ElapsedGameTime.TotalSeconds));
+            Vector2 movementVector = Vector2.Zero;
+            switch (currentWalkingDirection)
+            {
+                case WalkingDirection.left:
+                        movementVector = new Vector2(-movementSpeed, 0);
+                        break;
+                case WalkingDirection.right:
+                        movementVector = new Vector2(movementSpeed, 0);
+                        break;
+                case WalkingDirection.up:
+                        movementVector = new Vector2(0, -movementSpeed);
+                        break;
+                case WalkingDirection.down:
+                        movementVector = new Vector2(0, movementSpeed);
+                        break;
+            }
             position += movementVector;
-
-
-
         }
 
         new public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch) {
