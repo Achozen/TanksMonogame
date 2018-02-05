@@ -57,11 +57,8 @@ namespace MonoGame_SimpleSample
         {
             updateInput();
             updateFiring(gameTime);
-            if (isMoving)
-            {
-                updateMovement(gameTime);
-                base.updateBoundingBoxes();
-            }
+            updateMovement(gameTime);
+            base.Update(gameTime);
         }
         void updateFiring(GameTime gameTime)
         {
@@ -114,6 +111,8 @@ namespace MonoGame_SimpleSample
 
         void updateMovement(GameTime gameTime)
         {
+            if (!isMoving)
+                return;
             int pixelsPerSecond = 80;
             float movementSpeed = (float)(pixelsPerSecond * (gameTime.ElapsedGameTime.TotalSeconds));
             Vector2 movementVector = Vector2.Zero;
