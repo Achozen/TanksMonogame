@@ -173,7 +173,50 @@ namespace MonoGame_SimpleSample
                     }
                 case GameState.paused:
                     break;
+                case GameState.mapEditor:
 
+                    if (Mouse.GetState().ScrollWheelValue - lastScrollWheelValue > 0 && Keyboard.GetState().IsKeyUp(Keys.LeftControl))
+                    {
+                        degrees--;
+                        indexer = nextIndexer(indexer);
+                    }
+                    else if (lastScrollWheelValue - Mouse.GetState().ScrollWheelValue > 0 && Keyboard.GetState().IsKeyUp(Keys.LeftControl))
+                    {
+                        degrees++;
+                        indexer = prevIndexer(indexer);
+                    }
+
+                    if (Mouse.GetState().ScrollWheelValue - lastScrollWheelValue > 0 && Keyboard.GetState().IsKeyDown(Keys.LeftControl))
+                    {
+                        if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
+                        {
+                            degrees -= 15;
+                        }
+                        else
+                        {
+                            degrees--;
+                        }
+                    }
+                    else if (lastScrollWheelValue - Mouse.GetState().ScrollWheelValue > 0 && Keyboard.GetState().IsKeyDown(Keys.LeftControl))
+                    {
+                        if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
+                        {
+                            degrees += 15 ;
+                        }
+                        else
+                        {
+                            degrees ++;
+                        }
+                    }
+
+                    lastScrollWheelValue = Mouse.GetState().ScrollWheelValue;
+                    lastMouseState = currentMouseState;
+                    currentMouseState = Mouse.GetState();
+                    if (lastMouseState.LeftButton == ButtonState.Released && currentMouseState.LeftButton == ButtonState.Pressed)
+                    {
+                        leftClicked = true;
+                    }
+                        break;
             }
             base.Update(gameTime);
         }
@@ -202,6 +245,8 @@ namespace MonoGame_SimpleSample
                 }
             }
         }
+        
+        bool leftClicked = false;
 
         protected override void Draw(GameTime gameTime)
         {
@@ -239,33 +284,16 @@ namespace MonoGame_SimpleSample
                     break;
                 case GameState.mapEditor:
                     spriteBatch.DrawString(HUDFont, "Map editor", Vector2.Zero, Color.White);
-                   
-                    if (Mouse.GetState().ScrollWheelValue - lastScrollWheelValue > 0)
-                    {
-                        indexer = nextIndexer(indexer);
-                    } else if (lastScrollWheelValue - Mouse.GetState().ScrollWheelValue > 0) {
-
-                        indexer = prevIndexer(indexer);
-                    }
-
-
-
                     var texm1 = MapEditorAvailableItems[prevIndexer(prevIndexer(indexer))];
                     var tex = MapEditorAvailableItems[prevIndexer(indexer)];
                     var tex2 = MapEditorAvailableItems[indexer];
                     var tex3 = MapEditorAvailableItems[nextIndexer(indexer)];
                     var tex4 = MapEditorAvailableItems[nextIndexer(nextIndexer(indexer))];
-
-                    lastScrollWheelValue = Mouse.GetState().ScrollWheelValue;
-
-                    lastMouseState = currentMouseState;
-
-                    currentMouseState = Mouse.GetState();
-
-                    if (lastMouseState.LeftButton == ButtonState.Released && currentMouseState.LeftButton == ButtonState.Pressed)
+                    
+                    if (leftClicked)
                     {
-                        Console.WriteLine("CLICKED!" + indexer);
-                        MapEditorItems.Add(new Sprite(tex2, new Vector2(Mouse.GetState().X, Mouse.GetState().Y)));
+                        leftClicked = false;
+                        MapEditorItems.Add(new Sprite(tex2, new Vector2(Mouse.GetState().X, Mouse.GetState().Y), (float)degrees));
                     }
                     foreach (var sprite in MapEditorItems)
                     {
@@ -282,15 +310,15 @@ namespace MonoGame_SimpleSample
                         sprite.Draw(GraphicsDevice, spriteBatch);
                     }
 
-                    spriteBatch.Draw(texm1, new Rectangle(Mouse.GetState().X, Mouse.GetState().Y - texm1.Height - tex.Height, texm1.Width, texm1.Height), null, new Color(255, 255, 255, 200));
+                    spriteBatch.Draw(texm1, new Rectangle(Mouse.GetState().X, Mouse.GetState().Y - texm1.Height - tex.Height, texm1.Width, texm1.Height), null, new Color(255, 255, 255, 180));
                     spriteBatch.Draw(tex, new Rectangle(Mouse.GetState().X, Mouse.GetState().Y - tex.Height, tex.Width, tex.Height), null, new Color(255, 255, 255, 200));
-                    spriteBatch.Draw(tex2, new Rectangle(Mouse.GetState().X, Mouse.GetState().Y, tex2.Width, tex2.Height), null, Color.White);
+                    //spriteBatch.Draw(tex2, new Rectangle(Mouse.GetState().X, Mouse.GetState().Y, tex2.Width, tex2.Height), null, Color.White);
+                    spriteBatch.Draw(tex2, new Rectangle(Mouse.GetState().X+ tex2.Width / 2, Mouse.GetState().Y+ tex2.Height / 2, tex2.Width, tex2.Height), null, Color.White, (float)DegreeToRadian(degrees),
+                        new Vector2(tex2.Width/2, tex2.Height/2), SpriteEffects.None, 0f);
                     spriteBatch.Draw(tex3, new Rectangle(Mouse.GetState().X, Mouse.GetState().Y + tex2.Height, tex3.Width, tex3.Height), null, new Color(255, 255, 255, 200));
-                    spriteBatch.Draw(tex4, new Rectangle(Mouse.GetState().X, Mouse.GetState().Y + tex2.Height + tex3.Height, tex4.Width, tex4.Height), null, new Color(255, 255, 255, 200));
+                    spriteBatch.Draw(tex4, new Rectangle(Mouse.GetState().X, Mouse.GetState().Y + tex2.Height + tex3.Height, tex4.Width, tex4.Height), null, new Color(255, 255, 255, 180));
 
-
-
-                    spriteBatch.DrawString(HUDFont, "Mouse:" + Mouse.GetState()+ "indekser: "+ (indexer), new Vector2(100, 300), Color.Red);
+                   // spriteBatch.DrawString(HUDFont, "Mouse:" + Mouse.GetState()+ "indekser: "+ (indexer), new Vector2(100, 300), Color.Red);
                     playerSprite.Draw(GraphicsDevice, spriteBatch);
                     playerSprite2.Draw(GraphicsDevice, spriteBatch);
                     spriteBatch.DrawString(HUDFont, collisionText, new Vector2(300, 0), Color.Red);
@@ -306,7 +334,15 @@ namespace MonoGame_SimpleSample
             spriteBatch.End();
             base.Draw(gameTime);
         }
-
+        double degrees = 0;
+        double DegreeToRadian(double angle)
+        {
+            return Math.PI * angle / 180.0;
+        }
+        private double RadianToDegree(double angle)
+        {
+            return angle * (180.0 / Math.PI);
+        }
         int nextIndexer(int current)
         {
             var ind = current;

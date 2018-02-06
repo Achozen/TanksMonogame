@@ -71,13 +71,18 @@ namespace MonoGame_SimpleSample
         protected int frameWidth;
         protected int frameHeight;
 
-        public Sprite(Texture2D texture, Vector2 startingPosition)
+        public Sprite(Texture2D texture, Vector2 startingPosition, float rotation)
         {
+            this.rotation = (float)(Math.PI * rotation / 180.0);
             position = startingPosition;
             this.texture = texture;
             frameHeight = texture.Height;
             frameWidth = texture.Width;
             updateBoundingBoxes();
+        }
+
+        public Sprite(Texture2D texture, Vector2 startingPosition):this(texture, startingPosition, 0f)
+        {
         }
 
 
