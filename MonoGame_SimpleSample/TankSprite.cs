@@ -26,7 +26,7 @@ namespace MonoGame_SimpleSample
             base.frameHeight = boxSize;
             base.frameWidth = boxSize;
             this.tankActionListener = tankActionListener;
-
+            effects = SpriteEffects.FlipVertically;
             boundingBox = new BoundingBox(new Vector3(position.X, position.Y, 0), new Vector3(position.X + boxSize, position.Y + boxSize, 0));
         }
 
@@ -114,12 +114,11 @@ namespace MonoGame_SimpleSample
 
         new public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
         {
-            float rotation = getRotation();
+            rotation = getRotation();
 
             var origin = new Vector2(texture.Width / 2f, texture.Height / 2f);
-            spriteBatch.Draw(texture, position + new Vector2(boxSize / 2, boxSize / 2), new Rectangle(0, 0, boxSize, boxSize), Color.White, rotation, origin, 1f, SpriteEffects.FlipVertically, 0f);
-
-            Debug_DrawBounds(graphicsDevice, spriteBatch);
+           
+            base.Draw(graphicsDevice, spriteBatch);
         }
 
         public float getRotation()

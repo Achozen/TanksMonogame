@@ -14,6 +14,9 @@ namespace MonoGame_SimpleSample
         public Boolean shouldDraw = true;
         protected Texture2D texture;
         public Vector2 position;
+        public SpriteFont font;
+        protected float rotation;
+        protected SpriteEffects effects;
 
         private Texture2D rect;
 
@@ -75,7 +78,6 @@ namespace MonoGame_SimpleSample
             frameHeight = texture.Height;
             frameWidth = texture.Width;
             updateBoundingBoxes();
-
         }
 
 
@@ -98,12 +100,14 @@ namespace MonoGame_SimpleSample
 
         public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
         {
-            if (!shouldDraw) return; 
-            spriteBatch.Draw(texture, position, Color.White);
+            if (!shouldDraw) return;
+            var origin = new Vector2(texture.Width / 2f, texture.Height / 2f);
+            spriteBatch.Draw(texture, new Rectangle ( (int)(position.X + origin.X), (int)(position.Y + origin.Y),  frameWidth, frameHeight), null, Color.White, rotation, origin, effects, 0f);
             Debug_DrawBounds(graphicsDevice, spriteBatch);
-
+            if (font != null)
+                spriteBatch.DrawString(font, position.ToString(), position+origin, Color.Black, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
         }
-
+//(SpriteFont spriteFont, string text, Vector2 position, Color color, float rotation, Vector2 origin, Vector2 scale, SpriteEffects effects, float layerDepth);
 
         public bool IsCollidingWith(Sprite otherSprite)
         {
@@ -132,6 +136,9 @@ namespace MonoGame_SimpleSample
             spriteBatch.Draw(rect, coords, color);
         }
 
-
+        public String toLevelFormat()
+        {
+            return texture.Name + ";" + position.X + ";" + position.Y;
+        }
     }
 }

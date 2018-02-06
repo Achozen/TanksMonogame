@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace MonoGame_SimpleSample
 {
-    enum GameState
+    public interface TMoveable
     {
-        playing,
-        paused,
-        mapEditor
+        double VelocityX { get; set; }
+        double VelocityY { get; set; }
     }
 }
