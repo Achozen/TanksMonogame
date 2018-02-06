@@ -54,6 +54,10 @@ namespace MonoGame_SimpleSample
 
         protected override void LoadContent()
         {
+            GraphicsDevice.BlendState = BlendState.Opaque;
+            GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+            GraphicsDevice.SamplerStates[0] = SamplerState.LinearWrap;
+
             spriteBatch = new SpriteBatch(GraphicsDevice);
             bulletTexture = Content.Load<Texture2D>("Bullets/bulletBeige");
             playerTexture = Content.Load<Texture2D>("Default size/tank_green");

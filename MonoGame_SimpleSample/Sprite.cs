@@ -9,6 +9,18 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MonoGame_SimpleSample
 {
+
+    struct Triangle
+    {
+        public Vector3 A, B, C;
+
+        public Triangle(Vector3 a, Vector3 b, Vector3 c)
+        {
+            A = a;
+            B = b;
+            C = c;
+        }
+    }
     class Sprite
     {
         public Boolean shouldDraw = true;
@@ -105,7 +117,7 @@ namespace MonoGame_SimpleSample
 
         public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
         {
-            if (!shouldDraw) return;
+           if (!shouldDraw) return;
             var origin = new Vector2(texture.Width / 2f, texture.Height / 2f);
             spriteBatch.Draw(texture, new Rectangle ( (int)(position.X + origin.X), (int)(position.Y + origin.Y),  frameWidth, frameHeight), null, Color.White, rotation, origin, effects, 0f);
             Debug_DrawBounds(graphicsDevice, spriteBatch);
@@ -122,6 +134,13 @@ namespace MonoGame_SimpleSample
 
         public void Debug_DrawBounds(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
         {
+            if (rect == null)
+                rect = new Texture2D(graphicsDevice, 1, 1);
+            rect.SetData(new[] { Color.White });
+
+            DrawTriangle(spriteBatch, position, position + new Vector2(texture.Width, 0), position + new Vector2(0, texture.Height), Color.Aqua);
+            DrawTriangle(spriteBatch, position + new Vector2(texture.Width, 0), position + new Vector2(texture.Width, texture.Height), position + new Vector2(0, texture.Height), Color.Yellow);
+
             DrawRectangle(graphicsDevice, spriteBatch, BottomBoundingBox, Color.Red);
             DrawRectangle(graphicsDevice, spriteBatch, TopBoundingBox, Color.Green);
             DrawRectangle(graphicsDevice, spriteBatch, LeftBoundingBox, Color.Blue);
@@ -130,15 +149,23 @@ namespace MonoGame_SimpleSample
 
         private void DrawRectangle(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, BoundingBox boundingBox, Color color)
         {
-            if (rect == null)
-                rect = new Texture2D(graphicsDevice, 1, 1);
-            rect.SetData(new[] { Color.White });
-            int rectWidth = (int)(boundingBox.Max.X - boundingBox.Min.X);
+             int rectWidth = (int)(boundingBox.Max.X - boundingBox.Min.X);
             int rectHeight = (int)(boundingBox.Max.Y - boundingBox.Min.Y);
 
             Rectangle coords = new Rectangle((int)boundingBox.Min.X, (int)boundingBox.Min.Y, rectWidth, rectHeight);
-
+            
+            //DrawLine(spriteBatch, position, position + new Vector2(texture.Width, texture.Height), Color.Aqua);
+           // DrawLine(spriteBatch, position, position + new Vector2(texture.Width, texture.Height), Color.LimeGreen);
+            //spriteBatch.Draw(rect, new Rectangle((int)boundingBox.Min.X, (int)boundingBox.Min.Y, 2, 2), Color.Aqua);
+            //spriteBatch.Draw(rect, new Rectangle((int)boundingBox.Min.X+ rectWidth - 2, (int)boundingBox.Min.Y+ rectHeight - 2, 2, 2), Color.Aqua);
             spriteBatch.Draw(rect, coords, color);
+
+        }
+
+        public bool isIntersectingWith(Sprite sprite)
+        {
+
+            return false;
         }
 
         public String toLevelFormat()
@@ -152,6 +179,36 @@ namespace MonoGame_SimpleSample
         private double RadianToDegree(double angle)
         {
             return angle * (180.0 / Math.PI);
+        }
+
+        void DrawTriangle(SpriteBatch sb, Vector2 a, Vector2 b, Vector2 c, Color color)
+        {
+            DrawLine(sb, a, b, color);
+            DrawLine(sb, b, c, color);
+            DrawLine(sb, c, a, color);
+        }
+
+        void DrawLine(SpriteBatch sb, Vector2 start, Vector2 end, Color color)
+        {
+            Vector2 edge = end - start;
+            // calculate angle to rotate line
+            float angle =
+                (float)Math.Atan2(edge.Y, edge.X);
+
+
+            sb.Draw(rect,
+                new Rectangle(// rectangle defines shape of line and position of start of line
+                    (int)start.X,
+                    (int)start.Y,
+                    (int)edge.Length(), //sb will strech the texture to fill this rectangle
+                    3), //width of line, change this to make thicker line
+                null,
+                color, //colour of line
+                angle,     //angle of line (calulated above)
+                new Vector2(0, 0), // point in line about which to rotate
+                SpriteEffects.None,
+                0);
+
         }
     }
 }
