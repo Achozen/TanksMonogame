@@ -16,6 +16,7 @@ namespace MonoGame_SimpleSample
         BulletSprite bulletSprite;
         Sprite bullet;
 
+
         GameState currentGameState = GameState.playing;
         bool isPauseKeyHeld = false;
         string collisionText = "";
@@ -90,10 +91,16 @@ namespace MonoGame_SimpleSample
                         playerSprite.Update(gameTime);
                         playerSprite2.Update(gameTime);
 
-
                         foreach (var sprite in bulllets)
                         {
                             sprite.Update(gameTime);
+
+                            foreach (var level in Level)
+                            {
+                                if (sprite.IsCollidingWith(level)) {
+                                    sprite.shouldDraw = false;
+                                }
+                            }
                         }
 
                         collisionText = "there is no collision";

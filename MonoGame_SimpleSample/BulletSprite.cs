@@ -78,16 +78,6 @@ namespace MonoGame_SimpleSample
             position += movementVector;
         }
 
-        new public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
-        {
-            float rotation = getRotation();
-
-            var origin = new Vector2(texture.Width / 2f, texture.Height / 2f);
-            spriteBatch.Draw(texture, position + new Vector2(boxSize / 2, boxSize / 2), new Rectangle(0, 0, boxSize, boxSize), Color.White, rotation, origin, 1f, SpriteEffects.FlipVertically, 0f);
-
-            Debug_DrawBounds(graphicsDevice, spriteBatch);
-        }
-
         public float getRotation()
         {
             switch (direction)

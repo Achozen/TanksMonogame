@@ -11,7 +11,7 @@ namespace MonoGame_SimpleSample
 {
     class Sprite
     {
-
+        public Boolean shouldDraw = true;
         protected Texture2D texture;
         protected Vector2 position;
 
@@ -92,6 +92,7 @@ namespace MonoGame_SimpleSample
 
         public void Update(GameTime gameTime)
         {
+            if (!shouldDraw) return;
             updateBoundingBoxes();
         }
 
@@ -108,6 +109,7 @@ namespace MonoGame_SimpleSample
 
         public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
         {
+            if (!shouldDraw) return; 
             spriteBatch.Draw(texture, position, Color.White);
             Debug_DrawBounds(graphicsDevice, spriteBatch);
 
