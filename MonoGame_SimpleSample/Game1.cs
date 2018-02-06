@@ -64,7 +64,7 @@ namespace MonoGame_SimpleSample
                 var data = line.Split(';');
                 Texture2D tempTexture = Content.Load<Texture2D>(data[0]);
                 Vector2 tempPos = new Vector2(int.Parse(data[1]), int.Parse(data[2]));
-                Level.Add(new Sprite(tempTexture, tempPos));
+                Level.Add(new Sprite(tempTexture, tempPos, float.Parse(data[3])));
             }
             var player1Keys = new TankKeyMap { up = Keys.W, down = Keys.S, left = Keys.A, right = Keys.D, fire = Keys.Space };
             playerSprite = new TankSprite(player1Keys, playerTexture, Vector2.Zero, 1, this);

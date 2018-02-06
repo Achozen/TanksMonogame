@@ -143,7 +143,15 @@ namespace MonoGame_SimpleSample
 
         public String toLevelFormat()
         {
-            return texture.Name + ";" + position.X + ";" + position.Y;
+            return texture.Name + ";" + position.X + ";" + position.Y+";"+RadianToDegree(rotation);
+        }
+        double DegreeToRadian(double angle)
+        {
+            return Math.PI * angle / 180.0;
+        }
+        private double RadianToDegree(double angle)
+        {
+            return angle * (180.0 / Math.PI);
         }
     }
 }
