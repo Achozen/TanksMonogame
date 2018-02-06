@@ -147,6 +147,9 @@ namespace MonoGame_SimpleSample
             spriteBatch.Draw(rect, coords, color);
         }
 
-
+        public String toLevelFormat()
+        {
+            return texture.Name + ";" + position.X + ";" + position.Y;
+        }
     }
 }

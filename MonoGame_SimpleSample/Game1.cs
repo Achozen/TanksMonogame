@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 
 namespace MonoGame_SimpleSample
@@ -22,8 +23,15 @@ namespace MonoGame_SimpleSample
         string collisionText = "";
         SpriteFont HUDFont;
         List<Sprite> Level;
+        List<Sprite> MapEditorItems;
+        List<Texture2D> MapEditorAvailableItems;
         List<BulletSprite> bulllets;
 
+        Texture2D rect;
+        int lastScrollWheelValue = 0;
+        int indexer = 0;
+        MouseState lastMouseState;
+        MouseState currentMouseState;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -34,6 +42,8 @@ namespace MonoGame_SimpleSample
 
         protected override void Initialize()
         {
+            MapEditorItems = new List<Sprite>();
+            MapEditorAvailableItems = new List<Texture2D>();
             Level = new List<Sprite>();
             bulllets = new List<BulletSprite>();
             base.Initialize();
@@ -44,7 +54,7 @@ namespace MonoGame_SimpleSample
             spriteBatch = new SpriteBatch(GraphicsDevice);
             bulletTexture = Content.Load<Texture2D>("Bullets/bulletBeige");
             playerTexture = Content.Load<Texture2D>("Default size/tank_green");
-            var lines = System.IO.File.ReadAllLines(@"Content/Level1.txt");
+            var lines = System.IO.File.ReadAllLines(@"Content/Level2.txt");
             foreach (var line in lines)
             {
                 var data = line.Split(';');
@@ -68,6 +78,28 @@ namespace MonoGame_SimpleSample
             {
                 sprite.font = HUDFont;
             }
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Obstacles/barrelGreen_up"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Obstacles/barrelRed_up"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Obstacles/oil"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Obstacles/sandbagBeige"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Obstacles/sandbagBrown"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Environment/treeLarge"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Environment/treeSmall"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/barrelBlack_top"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/barrelGreen_top"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/barrelRed_top"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/barrelRust_top"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/barricadeMetal"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/fenceRed"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/fenceYellow"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/barricadeWood"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/oilSpill_large"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/sandbagBeige"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/sandbagBeige_open"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileGrass1"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/barricadeWood"));
+
+            currentMouseState = Mouse.GetState(); 
         }
         protected override void UnloadContent()
         {
@@ -80,9 +112,27 @@ namespace MonoGame_SimpleSample
             var keyboardState = Keyboard.GetState();
             if (keyboardState.IsKeyDown(Keys.P) && !isPauseKeyHeld)
             {
+
+                if (currentGameState == GameState.mapEditor)
+                {
+                    Level = new List<Sprite>(MapEditorItems);
+                    MapEditorItems.Clear();
+                }
                 if (currentGameState == GameState.playing)
                     currentGameState = GameState.paused;
                 else currentGameState = GameState.playing;
+            }
+            if(keyboardState.IsKeyDown(Keys.M))
+                {
+                currentGameState = GameState.mapEditor;
+                MapEditorItems = new List<Sprite>(Level);
+            }
+            if (keyboardState.IsKeyDown(Keys.F11))
+            {
+                foreach(var sprite in MapEditorItems)
+                {
+                    System.IO.File.AppendAllText(@"Content/Level2.txt", sprite.toLevelFormat() + Environment.NewLine);
+                }
             }
             isPauseKeyHeld = keyboardState.IsKeyUp(Keys.P) ? false : true;
             switch (currentGameState)
@@ -156,9 +206,90 @@ namespace MonoGame_SimpleSample
 
                     }
                     break;
+                case GameState.mapEditor:
+                    spriteBatch.DrawString(HUDFont, "Map editor", Vector2.Zero, Color.White);
+                   
+                    if (Mouse.GetState().ScrollWheelValue - lastScrollWheelValue > 0)
+                    {
+                        indexer = nextIndexer(indexer);
+                    } else if (lastScrollWheelValue - Mouse.GetState().ScrollWheelValue > 0) {
+
+                        indexer = prevIndexer(indexer);
+                    }
+
+
+
+                    var texm1 = MapEditorAvailableItems[prevIndexer(prevIndexer(indexer))];
+                    var tex = MapEditorAvailableItems[prevIndexer(indexer)];
+                    var tex2 = MapEditorAvailableItems[indexer];
+                    var tex3 = MapEditorAvailableItems[nextIndexer(indexer)];
+                    var tex4 = MapEditorAvailableItems[nextIndexer(nextIndexer(indexer))];
+
+                    lastScrollWheelValue = Mouse.GetState().ScrollWheelValue;
+
+                    lastMouseState = currentMouseState;
+
+                    currentMouseState = Mouse.GetState();
+
+                    if (lastMouseState.LeftButton == ButtonState.Released && currentMouseState.LeftButton == ButtonState.Pressed)
+                    {
+                        Console.WriteLine("CLICKED!" + indexer);
+                        MapEditorItems.Add(new Sprite(tex2, new Vector2(Mouse.GetState().X, Mouse.GetState().Y)));
+                    }
+                    foreach (var sprite in MapEditorItems)
+                    {
+                        sprite.Draw(GraphicsDevice, spriteBatch);
+                    }
+
+                    foreach (var sprite in Level)
+                    {
+                        sprite.Draw(GraphicsDevice, spriteBatch);
+                    }
+
+                    foreach (var sprite in bulllets)
+                    {
+                        sprite.Draw(GraphicsDevice, spriteBatch);
+                    }
+
+                    spriteBatch.Draw(texm1, new Rectangle(Mouse.GetState().X, Mouse.GetState().Y - texm1.Height - tex.Height, texm1.Width, texm1.Height), null, new Color(255, 255, 255, 200));
+                    spriteBatch.Draw(tex, new Rectangle(Mouse.GetState().X, Mouse.GetState().Y - tex.Height, tex.Width, tex.Height), null, new Color(255, 255, 255, 200));
+                    spriteBatch.Draw(tex2, new Rectangle(Mouse.GetState().X, Mouse.GetState().Y, tex2.Width, tex2.Height), null, Color.White);
+                    spriteBatch.Draw(tex3, new Rectangle(Mouse.GetState().X, Mouse.GetState().Y + tex2.Height, tex3.Width, tex3.Height), null, new Color(255, 255, 255, 200));
+                    spriteBatch.Draw(tex4, new Rectangle(Mouse.GetState().X, Mouse.GetState().Y + tex2.Height + tex3.Height, tex4.Width, tex4.Height), null, new Color(255, 255, 255, 200));
+
+
+
+                    spriteBatch.DrawString(HUDFont, "Mouse:" + Mouse.GetState()+ "indekser: "+ (indexer), new Vector2(100, 300), Color.Red);
+                    playerSprite.Draw(GraphicsDevice, spriteBatch);
+                    playerSprite2.Draw(GraphicsDevice, spriteBatch);
+                    spriteBatch.DrawString(HUDFont, collisionText, new Vector2(300, 0), Color.Red);
+
+
+                    if (rect == null)
+                        rect = new Texture2D(GraphicsDevice, 1, 1);
+                    rect.SetData(new[] { Color.White });
+                    spriteBatch.Draw(rect, new Rectangle(Mouse.GetState().X, Mouse.GetState().Y, 10, 10), Color.Black);
+                    spriteBatch.Draw(rect, new Rectangle(Mouse.GetState().X + 1, Mouse.GetState().Y + 1, 8, 8), Color.White);
+                    break;
             }
             spriteBatch.End();
             base.Draw(gameTime);
+        }
+
+        int nextIndexer(int current)
+        {
+            var ind = current;
+            ind++;
+            if (ind >= MapEditorAvailableItems.Count) ind = 0;
+            return ind;
+        }
+
+        int prevIndexer(int current)
+        {
+            var ind = current;
+            ind--;
+            if (ind < 0) ind = MapEditorAvailableItems.Count - 1;
+            return ind;
         }
 
         public void OnFire(int playerIndex, Vector2 position, WalkingDirection walkingDirection)
