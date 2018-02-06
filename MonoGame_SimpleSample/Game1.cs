@@ -11,6 +11,7 @@ namespace MonoGame_SimpleSample
         SpriteBatch spriteBatch;
         Texture2D playerTexture;
         Texture2D bulletTexture;
+        Texture2D explosionTexture;
         TankSprite playerSprite;
         TankSprite playerSprite2;
         BulletSprite bulletSprite;
@@ -23,6 +24,7 @@ namespace MonoGame_SimpleSample
         SpriteFont HUDFont;
         List<Sprite> Level;
         List<BulletSprite> bulllets;
+        List<AnimatedSprite> explosions;
 
         public Game1()
         {
@@ -36,6 +38,7 @@ namespace MonoGame_SimpleSample
         {
             Level = new List<Sprite>();
             bulllets = new List<BulletSprite>();
+            explosions = new List<AnimatedSprite>();
             base.Initialize();
         }
 
@@ -44,6 +47,7 @@ namespace MonoGame_SimpleSample
             spriteBatch = new SpriteBatch(GraphicsDevice);
             bulletTexture = Content.Load<Texture2D>("Bullets/bulletBeige");
             playerTexture = Content.Load<Texture2D>("Default size/tank_green");
+            explosionTexture = Content.Load<Texture2D>("explosion/exp2_0");
             var lines = System.IO.File.ReadAllLines(@"Content/Level1.txt");
             foreach (var line in lines)
             {
@@ -54,11 +58,13 @@ namespace MonoGame_SimpleSample
             }
             var player1Keys = new TankKeyMap { up = Keys.W, down = Keys.S, left = Keys.A, right = Keys.D, fire = Keys.Space };
             playerSprite = new TankSprite(player1Keys, playerTexture, Vector2.Zero, 1, this);
-            playerSprite.Position = new Vector2(0, 0);
+            playerSprite.position = new Vector2(0, 0);
 
             var player2Keys = new TankKeyMap { up = Keys.Up, down = Keys.Down, left = Keys.Left, right = Keys.Right, fire = Keys.Enter };
             playerSprite2 = new TankSprite(player2Keys, playerTexture, Vector2.Zero, 2, this);
-            playerSprite2.Position = new Vector2(graphics.PreferredBackBufferWidth - playerTexture.Width, graphics.PreferredBackBufferHeight - playerTexture.Height);
+            playerSprite2.position = new Vector2(graphics.PreferredBackBufferWidth - playerTexture.Width, graphics.PreferredBackBufferHeight - playerTexture.Height);
+
+
 
             HUDFont = Content.Load<SpriteFont>("HUDFont");
         }
@@ -88,20 +94,15 @@ namespace MonoGame_SimpleSample
                             sprite.Update(gameTime);
                         }
 
+                        foreach (var sprite in explosions)
+                        {
+                            sprite.Update(gameTime);
+                        }
+
                         playerSprite.Update(gameTime);
                         playerSprite2.Update(gameTime);
 
-                        foreach (var sprite in bulllets)
-                        {
-                            sprite.Update(gameTime);
-
-                            foreach (var level in Level)
-                            {
-                                if (sprite.IsCollidingWith(level)) {
-                                    sprite.shouldDraw = false;
-                                }
-                            }
-                        }
+         bulletsToLeveCollision(gameTime);
 
                         collisionText = "there is no collision";
 
@@ -120,6 +121,31 @@ namespace MonoGame_SimpleSample
             base.Update(gameTime);
         }
 
+        private void bulletsToLeveCollision(GameTime gameTime)
+        {
+            foreach (var sprite in bulllets)
+            {
+                sprite.Update(gameTime);
+
+                foreach (var level in Level)
+                {
+                    if (sprite.IsCollidingWith(level))
+                    {
+                        if (sprite.shouldDraw) {
+                            AnimatedSprite explosion = new AnimatedSprite(explosionTexture, new Vector2(sprite.position.X, sprite.position.Y), 4, 4);
+                            explosion.position = new Vector2(sprite.position.X, sprite.position.Y);
+
+                            explosions.Add(explosion);
+                        }
+                 
+
+                        sprite.shouldDraw = false;
+
+                    }
+                }
+            }
+        }
+
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
@@ -134,6 +160,11 @@ namespace MonoGame_SimpleSample
                         }
 
                         foreach (var sprite in bulllets)
+                        {
+                            sprite.Draw(GraphicsDevice, spriteBatch);
+                        }
+
+                        foreach (var sprite in explosions)
                         {
                             sprite.Draw(GraphicsDevice, spriteBatch);
                         }

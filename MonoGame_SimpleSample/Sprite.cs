@@ -13,20 +13,9 @@ namespace MonoGame_SimpleSample
     {
         public Boolean shouldDraw = true;
         protected Texture2D texture;
-        protected Vector2 position;
+        public Vector2 position;
 
         private Texture2D rect;
-        public Vector2 Position
-        {
-            get
-            {
-                return this.position;
-            }
-            set
-            {
-                this.position = value;
-            }
-        }
 
         protected BoundingBox boundingBox;
         public BoundingBox BoundingBox
