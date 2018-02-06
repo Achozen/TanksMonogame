@@ -19,7 +19,7 @@ namespace MonoGame_SimpleSample
         int whichLine;
         private int whichRow;
         double currentFrameTime = 0;
-        double expectedFrameTime = 200.0f;
+        double expectedFrameTime = 70.0f;
 
         float dy = 0.0f;
         float dx = 0.0f;
