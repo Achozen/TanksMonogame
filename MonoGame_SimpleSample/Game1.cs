@@ -61,6 +61,13 @@ namespace MonoGame_SimpleSample
             playerSprite2.Position = new Vector2(graphics.PreferredBackBufferWidth - playerTexture.Width, graphics.PreferredBackBufferHeight - playerTexture.Height);
 
             HUDFont = Content.Load<SpriteFont>("HUDFont");
+            playerSprite.font = HUDFont;
+            playerSprite2.font = HUDFont;
+
+            foreach (var sprite in Level)
+            {
+                sprite.font = HUDFont;
+            }
         }
         protected override void UnloadContent()
         {
@@ -156,7 +163,9 @@ namespace MonoGame_SimpleSample
 
         public void OnFire(int playerIndex, Vector2 position, WalkingDirection walkingDirection)
         {
-            bulllets.Add(new BulletSprite(bulletTexture, position, walkingDirection));
+            var bullet = new BulletSprite(bulletTexture, position, walkingDirection);
+            bullet.font = HUDFont;
+            bulllets.Add(bullet);
 
             //playerSprite.Position = position;
         }
