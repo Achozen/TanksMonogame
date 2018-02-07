@@ -48,7 +48,26 @@ namespace MonoGame_SimpleSample
             fireTime += gameTime.ElapsedGameTime.TotalMilliseconds;
             if (fireTime >= fireTimeMax && isFiring)
             {
-                tankActionListener.OnFire(playerNumber, position, currentWalkingDirection);
+
+                Vector2 bulletPosition = new Vector2(position.X+texture.Width/2, position.Y+5); 
+                if (currentWalkingDirection == WalkingDirection.down)
+                {
+                    bulletPosition = new Vector2(position.X+texture.Width/2 - 6, position.Y+5);
+                }
+                if (currentWalkingDirection == WalkingDirection.up)
+                {
+                    bulletPosition = new Vector2(position.X+texture.Width/2 - 6, position.Y+5);
+                }
+                if (currentWalkingDirection == WalkingDirection.left)
+                {
+                    bulletPosition = new Vector2(position.X-5, position.Y+texture.Height/2 -13);
+                }
+                if (currentWalkingDirection == WalkingDirection.right)
+                {
+                    bulletPosition = new Vector2(position.X+5, position.Y+texture.Height/2 -13);
+                }
+               
+                tankActionListener.OnFire(playerNumber, bulletPosition, currentWalkingDirection);
                 fireTime = 0;
             }
         }
