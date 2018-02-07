@@ -69,9 +69,9 @@ namespace MonoGame_SimpleSample
             bulletTexture = Content.Load<Texture2D>("Bullets/bulletBeige");
             playerTexture = Content.Load<Texture2D>("Default size/tank_green");
             explosionSound = Content.Load<SoundEffect>("SoundFX/explosion");
-            backgroundMusic = Content.Load<Song>("SoundFX/background_music");
-            MediaPlayer.Play(backgroundMusic);
-            MediaPlayer.Volume = 0.1f;
+           // backgroundMusic = Content.Load<Song>("SoundFX/background_music");
+            //MediaPlayer.Play(backgroundMusic);
+            //MediaPlayer.Volume = 0.1f;
 
             explosionTexture = Content.Load<Texture2D>("explosion/exp2_0");
             var lines = File.ReadAllLines(@"Content/Level1.txt");
@@ -275,6 +275,8 @@ namespace MonoGame_SimpleSample
 
         private void bulletsToLeveCollision(GameTime gameTime)
         {
+            var toBeDeleted = new List<BulletSprite>();
+            var toBeDeletedFromLevel = new List<Sprite>();
             foreach (var sprite in bulllets)
             {
                 sprite.Update(gameTime);
@@ -286,11 +288,22 @@ namespace MonoGame_SimpleSample
                             new Vector2(sprite.position.X, sprite.position.Y), 4, 4);
                         explosions.Add(explosion);
                         explosionSound.Play();
-                        sprite.shouldDraw = false;
-                        level.shouldDraw = false;
+                        toBeDeleted.Add(sprite);
+                        toBeDeletedFromLevel.Add(level);// = false;
                     }
                 }
             }
+
+            foreach (var el in toBeDeleted)
+            {
+                bulllets.Remove(el);
+            }
+            toBeDeleted.Clear();
+            foreach (var el in toBeDeletedFromLevel)
+            {
+                Level.Remove(el);
+            }
+            toBeDeletedFromLevel.Clear();
         }
 
         protected override void Draw(GameTime gameTime)
@@ -393,7 +406,7 @@ namespace MonoGame_SimpleSample
             base.Draw(gameTime);
         }
 
-        double degrees = 0;
+        double degrees = 0f;
 
         double DegreeToRadian(double angle)
         {
