@@ -278,16 +278,16 @@ namespace MonoGame_SimpleSample
             foreach (var sprite in bulllets)
             {
                 sprite.Update(gameTime);
-
                 foreach (var level in Level)
                 {
-                    if (sprite.shouldDraw && sprite.IsCollidingWith(level))
+                    if (sprite.shouldDraw && level.shouldDraw && sprite.IsCollidingWith(level))
                     {
                         var explosion = new AnimatedSprite(explosionTexture,
                             new Vector2(sprite.position.X, sprite.position.Y), 4, 4);
                         explosions.Add(explosion);
                         explosionSound.Play();
                         sprite.shouldDraw = false;
+                        level.shouldDraw = false;
                     }
                 }
             }
