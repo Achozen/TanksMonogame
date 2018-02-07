@@ -80,7 +80,34 @@ namespace MonoGame_SimpleSample
                 var data = line.Split(';');
                 Texture2D tempTexture = Content.Load<Texture2D>(data[0]);
                 Vector2 tempPos = new Vector2(int.Parse(data[1]), int.Parse(data[2]));
-                Level.Add(new Sprite(tempTexture, tempPos, float.Parse(data[3])));
+
+                if (data.Length == 5 && !data[4].Equals("auto"))
+                {
+                        var collisionPoints = data[4].Split(',');
+                        var collisionTriangles = new List<Triangle>();
+                        for (var i = 0; i < collisionPoints.Length; i += 6)
+                        {
+                            collisionTriangles.Add(new Triangle(
+                                    new Vector2(float.Parse(collisionPoints[i]), float.Parse(collisionPoints[i + 1])),
+                                    new Vector2(float.Parse(collisionPoints[i + 2]),
+                                        float.Parse(collisionPoints[i + 3])),
+                                    new Vector2(float.Parse(collisionPoints[i + 4]),
+                                        float.Parse(collisionPoints[i + 5]))
+                                )
+                            );
+                        }
+
+                        Level.Add(new Sprite(tempTexture, tempPos, float.Parse(data[3]), collisionTriangles));
+                 }
+                else if(data.Length == 5 && !data[4].Equals("auto"))
+                {    
+                    Level.Add(new Sprite(tempTexture, tempPos, float.Parse(data[3])));
+                }
+                else
+                {
+                    Level.Add(new Sprite(tempTexture, tempPos, float.Parse(data[3]), null));
+                }
+
             }
 
             var player1Keys =

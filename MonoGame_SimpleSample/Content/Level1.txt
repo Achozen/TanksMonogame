@@ -1,2 +1,2 @@
-Default size/tileGrass1;205;210;0
-Default size/tileGrass1;205;190;0
+Default size/tileGrass1;205;210;0;0,100,100,0,100,100,0,100,100,100,100,0
+Default size/tileGrass1;205;190;0;auto
