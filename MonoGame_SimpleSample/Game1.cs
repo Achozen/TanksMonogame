@@ -1,9 +1,11 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 namespace MonoGame_SimpleSample
 {
@@ -34,6 +36,8 @@ namespace MonoGame_SimpleSample
         MouseState currentMouseState;
         
         private SoundEffect explosionSound;
+        private Song backgroundMusic;
+
 
         bool leftClicked;
 
@@ -65,8 +69,12 @@ namespace MonoGame_SimpleSample
             bulletTexture = Content.Load<Texture2D>("Bullets/bulletBeige");
             playerTexture = Content.Load<Texture2D>("Default size/tank_green");
             explosionSound = Content.Load<SoundEffect>("SoundFX/explosion");
+            backgroundMusic = Content.Load<Song>("SoundFX/background_music");
+            MediaPlayer.Play(backgroundMusic);
+            MediaPlayer.Volume = 0.1f;
+
             explosionTexture = Content.Load<Texture2D>("explosion/exp2_0");
-            var lines = System.IO.File.ReadAllLines(@"Content/Level1.txt");
+            var lines = File.ReadAllLines(@"Content/Level1.txt");
             foreach (var line in lines)
             {
                 var data = line.Split(';');
@@ -157,7 +165,7 @@ namespace MonoGame_SimpleSample
             {
                 foreach (var sprite in MapEditorItems)
                 {
-                    System.IO.File.AppendAllText(@"Content/Level2.txt", sprite.toLevelFormat() + Environment.NewLine);
+                    File.AppendAllText(@"Content/Level2.txt", sprite.toLevelFormat() + Environment.NewLine);
                 }
             }
 
@@ -278,7 +286,7 @@ namespace MonoGame_SimpleSample
                         var explosion = new AnimatedSprite(explosionTexture,
                             new Vector2(sprite.position.X, sprite.position.Y), 4, 4);
                         explosions.Add(explosion);
-                        
+                        explosionSound.Play();
                         sprite.shouldDraw = false;
                     }
                 }

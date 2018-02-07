@@ -3393,3 +3393,9 @@
 /processorParam:Quality=Best
 /build:SoundFX/explosion.wav
 
+#begin SoundFX/background_music.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:SoundFX/background_music.wav
+
