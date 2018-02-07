@@ -8,7 +8,6 @@ namespace MonoGame_SimpleSample
 {
     class BulletSprite : Sprite
     {
-        int boxSize;
         WalkingDirection direction;
         double currentFrameTime;
         double expectedFrameTime = 200.0f;
@@ -16,12 +15,9 @@ namespace MonoGame_SimpleSample
         public BulletSprite(Texture2D texture, Vector2 startingPosition, WalkingDirection direction) : base(texture,
             startingPosition)
         {
-            boxSize = Math.Max(frameWidth, frameHeight);
             this.direction = direction;
-            frameHeight = boxSize;
-            frameWidth = boxSize;
-            boundingBox = new BoundingBox(new Vector3(position.X, position.Y, 0),
-                new Vector3(position.X + boxSize, position.Y + boxSize, 0));
+            frameHeight = texture.Height;
+            frameWidth = texture.Width;
         }
 
 
@@ -34,11 +30,11 @@ namespace MonoGame_SimpleSample
             }
 
             updateMovement(gameTime);
-            updateBoundingBoxes();
         }
 
         void updateMovement(GameTime gameTime)
         {
+            rotation = getRotation();
             int pixelsPerSecond = 200;
             float movementSpeed = (float) (pixelsPerSecond * (gameTime.ElapsedGameTime.TotalSeconds));
 
@@ -77,11 +73,11 @@ namespace MonoGame_SimpleSample
             switch (direction)
             {
                 case WalkingDirection.right:
-                    return 1.57f * (int) WalkingDirection.left;
+                    return (float)Math.PI/2 * (int) WalkingDirection.left;
                 case WalkingDirection.left:
-                    return 1.57f * (int) WalkingDirection.right;
+                    return (float)Math.PI/2 * (int) WalkingDirection.right;
                 default:
-                    return 1.57f * (int) direction;
+                    return (float)Math.PI/2 * (int) direction;
             }
         }
     }

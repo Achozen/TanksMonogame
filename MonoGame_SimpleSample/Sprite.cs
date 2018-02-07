@@ -30,40 +30,6 @@ namespace MonoGame_SimpleSample
         Vector2 origin;
         private Triangle [] collisionTriangles = new Triangle[2];
 
-        protected BoundingBox boundingBox;
-
-        public BoundingBox BoundingBox
-        {
-            get { return this.boundingBox; }
-        }
-
-        protected BoundingBox bottomBoundingBox;
-
-        public BoundingBox BottomBoundingBox
-        {
-            get { return this.bottomBoundingBox; }
-        }
-
-        protected BoundingBox topBoundingBox;
-
-        public BoundingBox TopBoundingBox
-        {
-            get { return this.topBoundingBox; }
-        }
-
-        protected BoundingBox leftBoundingBox;
-
-        public BoundingBox LeftBoundingBox
-        {
-            get { return this.leftBoundingBox; }
-        }
-
-        protected BoundingBox rightBoundingBox;
-
-        public BoundingBox RightBoundingBox
-        {
-            get { return this.rightBoundingBox; }
-        }
 
         protected int frameWidth;
         protected int frameHeight;
@@ -75,7 +41,6 @@ namespace MonoGame_SimpleSample
             this.texture = texture;
             frameHeight = texture.Height;
             frameWidth = texture.Width;
-            updateBoundingBoxes();
         }
 
         public Sprite(Texture2D texture, Vector2 startingPosition) : this(texture, startingPosition, 0f)
@@ -86,22 +51,6 @@ namespace MonoGame_SimpleSample
         public void Update(GameTime gameTime)
         {
             if (!shouldDraw) return;
-
-            updateBoundingBoxes();
-        }
-
-        protected void updateBoundingBoxes()
-        {
-            boundingBox = new BoundingBox(new Vector3(position.X, position.Y, 0),
-                new Vector3(position.X + frameWidth, position.Y + frameHeight, 0));
-            bottomBoundingBox = new BoundingBox(new Vector3(position.X + 2, position.Y + frameHeight - 2, 0),
-                new Vector3(position.X + frameWidth - 2, position.Y + frameHeight, 0));
-            topBoundingBox = new BoundingBox(new Vector3(position.X + 2, position.Y, 0),
-                new Vector3(position.X + frameWidth - 2, position.Y + 2, 0));
-            leftBoundingBox = new BoundingBox(new Vector3(position.X, position.Y + 2, 0),
-                new Vector3(position.X + 2, position.Y + frameHeight - 2, 0));
-            rightBoundingBox = new BoundingBox(new Vector3(position.X + frameWidth - 2, position.Y + 2, 0),
-                new Vector3(position.X + frameWidth, position.Y + frameHeight - 2, 0));
         }
 
 
@@ -126,9 +75,8 @@ namespace MonoGame_SimpleSample
                 new Rectangle((int) (position.X + origin.X), (int) (position.Y + origin.Y), frameWidth, frameHeight),
                 null, Color.White, rotation, origin, effects, 0f);
             Debug_DrawBounds(graphicsDevice, spriteBatch);
-            if (font != null)
-                spriteBatch.DrawString(font, position.ToString(), position + origin, Color.Black, 0f, Vector2.Zero,
-                    0.5f, SpriteEffects.None, 0f);
+           // if (font != null)
+           //     spriteBatch.DrawString(font, position.ToString(), position + origin, Color.Black, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
         }
 //(SpriteFont spriteFont, string text, Vector2 position, Color color, float rotation, Vector2 origin, Vector2 scale, SpriteEffects effects, float layerDepth);
 
@@ -152,9 +100,7 @@ namespace MonoGame_SimpleSample
                 new Point((int) (position.X + origin.X), (int) (position.Y + origin.Y)), RadianToDegree(rotation));
             var lool = RotateVector(position + new Vector2(texture.Width, 0), position + origin,
                 rotation); //new Vector2((float)ry.X, (float)ry.Y);
-            if (font != null)
-                spriteBatch.DrawString(font, lool.ToString(), position, Color.Black, 0f, Vector2.Zero, 0.5f,
-                    SpriteEffects.None, 0f);
+           // if (font != null) spriteBatch.DrawString(font, lool.ToString(), position, Color.Black, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
             // var XDD = (position * new Vector2((float)Math.Cos(rotation), (float)Math.Cos(rotation))) + (new Vector2(-position.Y, position.X) * new Vector2((float)Math.Sin(rotation), (float)Math.Sin(rotation)));
             DrawTriangle(spriteBatch,
                 RotateVector(position, position + origin, rotation),
@@ -166,11 +112,6 @@ namespace MonoGame_SimpleSample
                 RotateVector(position + new Vector2(texture.Width, texture.Height), position + origin, rotation),
                 RotateVector(position + new Vector2(0, texture.Height), position + origin, rotation),
                 Color.Yellow);
-
-            DrawRectangle(graphicsDevice, spriteBatch, BottomBoundingBox, Color.Red);
-            DrawRectangle(graphicsDevice, spriteBatch, TopBoundingBox, Color.Green);
-            DrawRectangle(graphicsDevice, spriteBatch, LeftBoundingBox, Color.Blue);
-            DrawRectangle(graphicsDevice, spriteBatch, RightBoundingBox, Color.Violet);
         }
 
         static Vector2 RotateVector(Vector2 pointToRotate, Vector2 centerPoint, double angleInRadians)
@@ -311,7 +252,7 @@ namespace MonoGame_SimpleSample
                     (int) start.X,
                     (int) start.Y,
                     (int) edge.Length(), //sb will strech the texture to fill this rectangle
-                    3), //width of line, change this to make thicker line
+                    1), //width of line, change this to make thicker line
                 null,
                 color, //colour of line
                 angle, //angle of line (calulated above)
