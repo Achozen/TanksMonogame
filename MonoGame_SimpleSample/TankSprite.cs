@@ -32,8 +32,6 @@ namespace MonoGame_SimpleSample
             base.frameWidth = boxSize;
             this.tankActionListener = tankActionListener;
             effects = SpriteEffects.FlipVertically;
-            boundingBox = new BoundingBox(new Vector3(position.X, position.Y, 0),
-                new Vector3(position.X + boxSize, position.Y + boxSize, 0));
         }
 
 
@@ -134,30 +132,12 @@ namespace MonoGame_SimpleSample
             switch (currentWalkingDirection)
             {
                 case WalkingDirection.right:
-                    return 1.57f * (int) WalkingDirection.left;
+                    return (float)Math.PI/2 * (int) WalkingDirection.left;
                 case WalkingDirection.left:
-                    return 1.57f * (int) WalkingDirection.right;
+                    return (float)Math.PI/2 * (int) WalkingDirection.right;
                 default:
-                    return 1.57f * (int) currentWalkingDirection;
+                    return (float)Math.PI/2 * (int) currentWalkingDirection;
             }
-        }
-
-        new public bool IsCollidingWith(Sprite otherSprite)
-        {
-            //collision top - bottom -> stop the gravity momentum
-            if (this.bottomBoundingBox.Intersects(otherSprite.TopBoundingBox))
-            {
-                ///
-            }
-
-            //collsion left/right -> stop the left/right momentum
-            if (this.leftBoundingBox.Intersects(otherSprite.RightBoundingBox) ||
-                this.rightBoundingBox.Intersects(otherSprite.RightBoundingBox))
-            {
-                //TODO: FInish this code
-            }
-
-            return this.boundingBox.Intersects(otherSprite.BoundingBox) ? true : false;
         }
     }
 }

@@ -29,10 +29,6 @@ namespace MonoGame_SimpleSample
 
             this.numberOfAnimationRows = numberOfAnimationRows;
             this.animationFramesInRow = animationFramesInRow;
-
-
-            boundingBox = new BoundingBox(new Vector3(position.X, position.Y, 0),
-                new Vector3(position.X + frameWidth, position.Y + frameHeight, 0));
         }
 
 
