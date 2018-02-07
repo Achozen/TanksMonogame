@@ -99,7 +99,7 @@ namespace MonoGame_SimpleSample
 
                         Level.Add(new Sprite(tempTexture, tempPos, float.Parse(data[3]), collisionTriangles));
                  }
-                else if(data.Length == 5 && !data[4].Equals("auto"))
+                else if(data.Length == 5 && data[4].Equals("auto"))
                 {    
                     Level.Add(new Sprite(tempTexture, tempPos, float.Parse(data[3])));
                 }
@@ -378,7 +378,7 @@ namespace MonoGame_SimpleSample
                     {
                         leftClicked = false;
                         MapEditorItems.Add(new Sprite(tex2, new Vector2(Mouse.GetState().X, Mouse.GetState().Y),
-                            (float) degrees));
+                            (float)degrees));
                     }
 
                     foreach (var sprite in MapEditorItems)

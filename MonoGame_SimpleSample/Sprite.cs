@@ -54,11 +54,11 @@ namespace MonoGame_SimpleSample
             
             
             origin = new Vector2(texture.Width / 2f, texture.Height / 2f);
-            
-            var aa = RotateVector(Vector2.Zero,  origin, rotation);
-            var bb = RotateVector( new Vector2(texture.Width, 0),  origin, rotation);
-            var cc = RotateVector( new Vector2(0, texture.Height),  origin, rotation);
-            var dd = RotateVector( new Vector2(texture.Width, texture.Height),  origin, rotation);
+
+            var aa = Vector2.Zero;//(,  origin, this.rotation);
+            var bb = new Vector2(texture.Width, 0);//RotateVector( ,  origin, this.rotation);
+            var cc = new Vector2(0, texture.Height);//RotateVector( ,  origin, this.rotation);
+            var dd = new Vector2(texture.Width, texture.Height);//RotateVector( ,  origin, this.rotation);
             
             initialCollisionTriangles = new List<Triangle>();
             initialCollisionTriangles.Add(new Triangle(aa, bb, cc));
@@ -206,7 +206,7 @@ namespace MonoGame_SimpleSample
                     var res = Math.Abs(tri1Area - (seg1Area + seg2Area + seg3Area)) < 5f ||
                               Math.Abs(tri1Area - (seg1Area2 + seg2Area2 + seg3Area2)) < 5f ||
                               Math.Abs(tri1Area - (seg1Area3 + seg2Area3 + seg3Area3)) < 5f;
-                      Console.WriteLine("DEBUG:" + this.texture.Name + ", other: " + sprite.texture.Name);
+                      /*Console.WriteLine("DEBUG:" + this.texture.Name + ", other: " + sprite.texture.Name);
                       Console.WriteLine("a" + a);
                       Console.WriteLine("b" + b);
                       Console.WriteLine("c" + c);
@@ -215,7 +215,7 @@ namespace MonoGame_SimpleSample
                       Console.WriteLine("cc" + cc);
                       Console.WriteLine("res" + res);
                       Console.WriteLine("(seg1Area + seg2Area + seg3Area)" + (seg1Area + seg2Area + seg3Area));
-                      Console.WriteLine("tri1Area" + tri1Area);
+                      Console.WriteLine("tri1Area" + tri1Area);*/
                     if (res) return true;
 
                 }
