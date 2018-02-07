@@ -13,9 +13,10 @@ namespace MonoGame_SimpleSample
         double expectedFrameTime = 200.0f;
         public int bulletOwner;
 
-        public BulletSprite(Texture2D texture, Vector2 startingPosition, WalkingDirection direction) : base(texture,
+        public BulletSprite(Texture2D texture, Vector2 startingPosition, WalkingDirection direction, int bulletOwner) : base(texture,
             startingPosition)
         {
+            this.bulletOwner = bulletOwner;
             this.direction = direction;
             frameHeight = texture.Height;
             frameWidth = texture.Width;
