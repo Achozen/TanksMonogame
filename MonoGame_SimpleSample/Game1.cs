@@ -377,8 +377,10 @@ namespace MonoGame_SimpleSample
                     if (leftClicked)
                     {
                         leftClicked = false;
-                        MapEditorItems.Add(new Sprite(tex2, new Vector2(Mouse.GetState().X, Mouse.GetState().Y),
-                            (float)degrees));
+
+                        MapEditorItems.Add(new Sprite(tex2, new Vector2(((Mouse.GetState().X + tex2.Width / 2) / tex2.Width)*tex2.Width - tex2.Width/2,
+                                (Mouse.GetState().Y + tex2.Height / 2) / tex2.Height*tex2.Height - tex2.Height/2),
+                            (float) degrees));
                     }
 
                     foreach (var sprite in MapEditorItems)
@@ -404,7 +406,9 @@ namespace MonoGame_SimpleSample
                         new Color(255, 255, 255, 200));
                     //spriteBatch.Draw(tex2, new Rectangle(Mouse.GetState().X, Mouse.GetState().Y, tex2.Width, tex2.Height), null, Color.White);
                     spriteBatch.Draw(tex2,
-                        new Rectangle(Mouse.GetState().X + tex2.Width / 2, Mouse.GetState().Y + tex2.Height / 2,
+                        new Rectangle(
+                            (Mouse.GetState().X + tex2.Width / 2) / tex2.Width*tex2.Width,
+                            (Mouse.GetState().Y + tex2.Height / 2) / tex2.Height*tex2.Height,
                             tex2.Width, tex2.Height), null, Color.White, (float) DegreeToRadian(degrees),
                         new Vector2(tex2.Width / 2, tex2.Height / 2), SpriteEffects.None, 0f);
                     spriteBatch.Draw(tex3,
