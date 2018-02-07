@@ -92,21 +92,5 @@ namespace MonoGame_SimpleSample
             }
         }
 
-        new public bool IsCollidingWith(Sprite otherSprite)
-        {
-            //collision top - bottom -> stop the gravity momentum
-            if (this.bottomBoundingBox.Intersects(otherSprite.TopBoundingBox))
-            {
-                ///
-            }
-            //collsion left/right -> stop the left/right momentum
-            if (this.leftBoundingBox.Intersects(otherSprite.RightBoundingBox) || this.rightBoundingBox.Intersects(otherSprite.RightBoundingBox))
-            {
-                //TODO: FInish this code
-            }
-
-            return this.boundingBox.Intersects(otherSprite.BoundingBox) ? true : false;
-
-        }
     }
 }

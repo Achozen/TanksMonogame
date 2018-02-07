@@ -128,7 +128,8 @@ namespace MonoGame_SimpleSample
 
         public bool IsCollidingWith(Sprite otherSprite)
         {
-            return this.boundingBox.Intersects(otherSprite.BoundingBox) ? true : false;
+            //isIntersectingWith(otherSprite);//
+            return this.boundingBox.Intersects(otherSprite.BoundingBox);
         }
 
 
@@ -138,15 +139,52 @@ namespace MonoGame_SimpleSample
                 rect = new Texture2D(graphicsDevice, 1, 1);
             rect.SetData(new[] { Color.White });
 
-            DrawTriangle(spriteBatch, position, position + new Vector2(texture.Width, 0), position + new Vector2(0, texture.Height), Color.Aqua);
-            DrawTriangle(spriteBatch, position + new Vector2(texture.Width, 0), position + new Vector2(texture.Width, texture.Height), position + new Vector2(0, texture.Height), Color.Yellow);
+            var origin = new Vector2(texture.Width / 2f, texture.Height / 2f);
+
+            var ry = RotatePoint( new Point((int)position.X + texture.Width, (int)position.Y), new Point((int)(position.X + origin.X), (int)(position.Y + origin.Y)), RadianToDegree(rotation));
+            var lool = RotateVector(position + new Vector2(texture.Width, 0), position + origin, rotation);//new Vector2((float)ry.X, (float)ry.Y);
+            if (font != null)
+                spriteBatch.DrawString(font, lool.ToString(), position, Color.Black, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
+            // var XDD = (position * new Vector2((float)Math.Cos(rotation), (float)Math.Cos(rotation))) + (new Vector2(-position.Y, position.X) * new Vector2((float)Math.Sin(rotation), (float)Math.Sin(rotation)));
+            DrawTriangle(spriteBatch,
+                RotateVector(position, position + origin, rotation),
+                RotateVector(position + new Vector2(texture.Width, 0), position + origin, rotation),
+                RotateVector(position + new Vector2(0, texture.Height), position + origin, rotation),
+                Color.Aqua);
+            DrawTriangle(spriteBatch,
+                RotateVector(position + new Vector2(texture.Width, 0), position + origin, rotation),
+                RotateVector(position + new Vector2(texture.Width, texture.Height), position + origin, rotation),
+                RotateVector(position + new Vector2(0, texture.Height), position + origin, rotation),
+                Color.Yellow);
 
             DrawRectangle(graphicsDevice, spriteBatch, BottomBoundingBox, Color.Red);
             DrawRectangle(graphicsDevice, spriteBatch, TopBoundingBox, Color.Green);
             DrawRectangle(graphicsDevice, spriteBatch, LeftBoundingBox, Color.Blue);
             DrawRectangle(graphicsDevice, spriteBatch, RightBoundingBox, Color.Violet);
         }
-
+        static Vector2 RotateVector(Vector2 pointToRotate, Vector2 centerPoint, double angleInRadians)
+        {
+            var ry = RotatePoint(new Point((int)pointToRotate.X, (int)pointToRotate.Y), new Point((int)(centerPoint.X), (int)(centerPoint.Y)), RadianToDegree(angleInRadians));
+            var lool = new Vector2((float)ry.X, (float)ry.Y);
+            return lool;
+        }
+        static Point RotatePoint(Point pointToRotate, Point centerPoint, double angleInDegrees)
+        {
+            double angleInRadians = angleInDegrees * (Math.PI / 180);
+            double cosTheta = Math.Cos(angleInRadians);
+            double sinTheta = Math.Sin(angleInRadians);
+            return new Point
+            {
+                X =
+                    (int)
+                    (cosTheta * (pointToRotate.X - centerPoint.X) -
+                    sinTheta * (pointToRotate.Y - centerPoint.Y) + centerPoint.X),
+                Y =
+                    (int)
+                    (sinTheta * (pointToRotate.X - centerPoint.X) +
+                    cosTheta * (pointToRotate.Y - centerPoint.Y) + centerPoint.Y)
+            };
+        }
         private void DrawRectangle(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, BoundingBox boundingBox, Color color)
         {
              int rectWidth = (int)(boundingBox.Max.X - boundingBox.Min.X);
@@ -164,19 +202,54 @@ namespace MonoGame_SimpleSample
 
         public bool isIntersectingWith(Sprite sprite)
         {
+            if (this == sprite)
+                return false;
+            var origin = new Vector2(texture.Width / 2f, texture.Height / 2f);
 
-            return false;
+            var a = RotateVector(position, position + origin, rotation);
+            var b = RotateVector(position + new Vector2(texture.Width, 0), position + origin, rotation);
+            var c = RotateVector(position + new Vector2(0, texture.Height), position + origin, rotation);
+
+
+            var origin2 = new Vector2(sprite.texture.Width / 2f, sprite.texture.Height / 2f);
+
+            //var aa = RotateVector(position, position + origin, rotation);
+            //var bb = RotateVector(position + new Vector2(texture.Width, 0), position + origin, rotation);
+            //var cc = RotateVector(position + new Vector2(0, texture.Height), position + origin, rotation);
+            var aa = RotateVector(sprite.position, sprite.position + origin2, sprite.rotation);
+            var bb = RotateVector(sprite.position + new Vector2(sprite.texture.Width, 0), sprite.position + origin2, sprite.rotation);
+            var cc = RotateVector(sprite.position + new Vector2(0, sprite.texture.Height), sprite.position + origin2, sprite.rotation);
+
+            var tri1Area = (a.X*(b.Y-c.Y)+b.X*(c.Y-a.Y)+c.X*(a.Y-b.Y)) / 2;
+            var seg1Area = (a.X*(b.Y-aa.Y)+b.X*(aa.Y-a.Y)+aa.X*(a.Y-b.Y)) / 2;
+            var seg2Area = (a.X*(aa.Y-c.Y)+aa.X*(c.Y-a.Y)+c.X*(a.Y-aa.Y)) / 2;
+            var seg3Area = (aa.X*(b.Y-c.Y)+b.X*(c.Y - aa.Y)+c.X*(aa.Y-b.Y)) / 2;
+            //  var a1 = RotateVector(position + new Vector2(texture.Width, 0), position + origin, rotation);
+            //  var a2= RotateVector(position + new Vector2(texture.Width, texture.Height), position + origin, rotation);
+            //   var a3= RotateVector(position + new Vector2(0, texture.Height), position + origin, rotation);
+            var res = tri1Area == (seg1Area + seg2Area + seg3Area);
+            Console.WriteLine("DEBUG:" + this.texture.Name+", other: "+sprite.texture.Name);
+            Console.WriteLine("a" + a);
+            Console.WriteLine("b" + b);
+            Console.WriteLine("c" + c);
+            Console.WriteLine("aa" + aa);
+            Console.WriteLine("bb" + bb);
+            Console.WriteLine("cc" + cc);
+            Console.WriteLine("res" + res);
+            Console.WriteLine("(seg1Area + seg2Area + seg3Area)" + (seg1Area + seg2Area + seg3Area));
+            Console.WriteLine("tri1Area" + tri1Area);
+            return res;
         }
 
         public String toLevelFormat()
         {
             return texture.Name + ";" + position.X + ";" + position.Y+";"+RadianToDegree(rotation);
         }
-        double DegreeToRadian(double angle)
+        static double DegreeToRadian(double angle)
         {
             return Math.PI * angle / 180.0;
         }
-        private double RadianToDegree(double angle)
+        static double RadianToDegree(double angle)
         {
             return angle * (180.0 / Math.PI);
         }
