@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Audio;
 
 namespace MonoGame_SimpleSample
 {
@@ -31,6 +32,8 @@ namespace MonoGame_SimpleSample
         int indexer;
         MouseState lastMouseState;
         MouseState currentMouseState;
+        
+        private SoundEffect explosionSound;
 
         bool leftClicked;
 
@@ -61,6 +64,7 @@ namespace MonoGame_SimpleSample
             spriteBatch = new SpriteBatch(GraphicsDevice);
             bulletTexture = Content.Load<Texture2D>("Bullets/bulletBeige");
             playerTexture = Content.Load<Texture2D>("Default size/tank_green");
+            explosionSound = Content.Load<SoundEffect>("SoundFX/explosion");
             explosionTexture = Content.Load<Texture2D>("explosion/exp2_0");
             var lines = System.IO.File.ReadAllLines(@"Content/Level1.txt");
             foreach (var line in lines)
@@ -256,8 +260,8 @@ namespace MonoGame_SimpleSample
                 player.position = player.startingPosition;
                 enemy.score++;
                 explosions.Add(explosion);
-                        
                 bullet.shouldDraw = false;
+                explosionSound.Play();
             }
         }
 
