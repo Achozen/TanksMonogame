@@ -248,10 +248,16 @@ namespace MonoGame_SimpleSample
 
         private void CheckColisionForPlayer(BulletSprite bullet, TankSprite player, TankSprite enemy)
         {
-            if (bullet.IsCollidingWith(player) && bullet.bulletOwner != player.playerNumber)
+            if (bullet.shouldDraw && bullet.IsCollidingWith(player) && bullet.bulletOwner != player.playerNumber)
             {
+                var explosion = new AnimatedSprite(explosionTexture, 
+                    new Vector2(player.position.X, player.position.Y), 4, 4);
+
                 player.position = player.startingPosition;
                 enemy.score++;
+                explosions.Add(explosion);
+                        
+                bullet.shouldDraw = false;
             }
         }
 
@@ -266,10 +272,7 @@ namespace MonoGame_SimpleSample
                     if (sprite.shouldDraw && sprite.IsCollidingWith(level))
                     {
                         var explosion = new AnimatedSprite(explosionTexture,
-                            new Vector2(sprite.position.X, sprite.position.Y), 4, 4)
-                        {
-                            position = new Vector2(sprite.position.X, sprite.position.Y)
-                        };
+                            new Vector2(sprite.position.X, sprite.position.Y), 4, 4);
                         explosions.Add(explosion);
                         
                         sprite.shouldDraw = false;
