@@ -258,19 +258,15 @@ namespace MonoGame_SimpleSample
 
                 foreach (var level in Level)
                 {
-                    if (sprite.IsCollidingWith(level))
+                    if (sprite.shouldDraw && sprite.IsCollidingWith(level))
                     {
-                        if (sprite.shouldDraw)
+                        var explosion = new AnimatedSprite(explosionTexture,
+                            new Vector2(sprite.position.X, sprite.position.Y), 4, 4)
                         {
-                            var explosion = new AnimatedSprite(explosionTexture, new Vector2(sprite.position.X, sprite.position.Y), 4, 4)
-                            {
-                                position = new Vector2(sprite.position.X, sprite.position.Y)
-                            };
-
-                            explosions.Add(explosion);
-                        }
-
-
+                            position = new Vector2(sprite.position.X, sprite.position.Y)
+                        };
+                        explosions.Add(explosion);
+                        
                         sprite.shouldDraw = false;
                     }
                 }

@@ -26,6 +26,10 @@ namespace MonoGame_SimpleSample
         protected SpriteEffects effects;
 
         private Texture2D rect;
+        Vector2 origin ;
+        Vector2     aa ;
+        Vector2 bb ;
+        Vector2     cc ;
 
         protected BoundingBox boundingBox;
 
@@ -83,6 +87,7 @@ namespace MonoGame_SimpleSample
         public void Update(GameTime gameTime)
         {
             if (!shouldDraw) return;
+         
             updateBoundingBoxes();
         }
 
@@ -104,7 +109,11 @@ namespace MonoGame_SimpleSample
         public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
         {
             if (!shouldDraw) return;
-            var origin = new Vector2(texture.Width / 2f, texture.Height / 2f);
+            
+            origin = new Vector2(texture.Width / 2f, texture.Height / 2f);
+            aa = RotateVector(position, position + origin, rotation);
+            bb = RotateVector(position + new Vector2(texture.Width, 0), position + origin, rotation);
+            cc = RotateVector(position + new Vector2(0, texture.Height), position + origin, rotation);
             spriteBatch.Draw(texture,
                 new Rectangle((int) (position.X + origin.X), (int) (position.Y + origin.Y), frameWidth, frameHeight),
                 null, Color.White, rotation, origin, effects, 0f);
@@ -117,8 +126,9 @@ namespace MonoGame_SimpleSample
 
         public bool IsCollidingWith(Sprite otherSprite)
         {
-            //isIntersectingWith(otherSprite);//
-            return this.boundingBox.Intersects(otherSprite.BoundingBox);
+            //;//
+            //return this.boundingBox.Intersects(otherSprite.BoundingBox);
+            return isIntersectingWith(otherSprite);
         }
 
 
@@ -198,35 +208,39 @@ namespace MonoGame_SimpleSample
 
         public bool isIntersectingWith(Sprite sprite)
         {
-            if (this == sprite)
+            if (texture.Name == sprite.texture.Name)
                 return false;
-            var origin = new Vector2(texture.Width / 2f, texture.Height / 2f);
-
-            var a = RotateVector(position, position + origin, rotation);
-            var b = RotateVector(position + new Vector2(texture.Width, 0), position + origin, rotation);
-            var c = RotateVector(position + new Vector2(0, texture.Height), position + origin, rotation);
 
 
-            var origin2 = new Vector2(sprite.texture.Width / 2f, sprite.texture.Height / 2f);
 
             //var aa = RotateVector(position, position + origin, rotation);
             //var bb = RotateVector(position + new Vector2(texture.Width, 0), position + origin, rotation);
             //var cc = RotateVector(position + new Vector2(0, texture.Height), position + origin, rotation);
-            var aa = RotateVector(sprite.position, sprite.position + origin2, sprite.rotation);
-            var bb = RotateVector(sprite.position + new Vector2(sprite.texture.Width, 0), sprite.position + origin2,
-                sprite.rotation);
-            var cc = RotateVector(sprite.position + new Vector2(0, sprite.texture.Height), sprite.position + origin2,
-                sprite.rotation);
+            var origin2 = new Vector2(sprite.texture.Width / 2f, sprite.texture.Height / 2f);
+            var a = sprite.aa;//RotateVector(sprite.position, sprite.position + origin2, sprite.rotation);
+            var b = sprite.bb;//RotateVector(sprite.position + new Vector2(sprite.texture.Width, 0), sprite.position + origin2, sprite.rotation);
+            var c = sprite.cc;//RotateVector(sprite.position + new Vector2(0, sprite.texture.Height), sprite.position + origin2, sprite.rotation);
 
             var tri1Area = (a.X * (b.Y - c.Y) + b.X * (c.Y - a.Y) + c.X * (a.Y - b.Y)) / 2;
-            var seg1Area = (a.X * (b.Y - aa.Y) + b.X * (aa.Y - a.Y) + aa.X * (a.Y - b.Y)) / 2;
-            var seg2Area = (a.X * (aa.Y - c.Y) + aa.X * (c.Y - a.Y) + c.X * (a.Y - aa.Y)) / 2;
-            var seg3Area = (aa.X * (b.Y - c.Y) + b.X * (c.Y - aa.Y) + c.X * (aa.Y - b.Y)) / 2;
+            var seg1Area = Math.Abs((a.X * (b.Y - aa.Y) + b.X * (aa.Y - a.Y) + aa.X * (a.Y - b.Y)) / 2);
+            var seg2Area = Math.Abs((a.X * (aa.Y - c.Y) + aa.X * (c.Y - a.Y) + c.X * (a.Y - aa.Y)) / 2);
+            var seg3Area = Math.Abs((aa.X * (b.Y - c.Y) + b.X * (c.Y - aa.Y) + c.X * (aa.Y - b.Y)) / 2);
             //  var a1 = RotateVector(position + new Vector2(texture.Width, 0), position + origin, rotation);
             //  var a2= RotateVector(position + new Vector2(texture.Width, texture.Height), position + origin, rotation);
             //   var a3= RotateVector(position + new Vector2(0, texture.Height), position + origin, rotation);
-            var res = tri1Area == (seg1Area + seg2Area + seg3Area);
-            Console.WriteLine("DEBUG:" + this.texture.Name + ", other: " + sprite.texture.Name);
+            
+            var seg1Area2 = Math.Abs((a.X * (b.Y - bb.Y) + b.X * (bb.Y - a.Y) + bb.X * (a.Y - b.Y)) / 2);
+            var seg2Area2 = Math.Abs((a.X * (bb.Y - c.Y) + bb.X * (c.Y - a.Y) + c.X * (a.Y - bb.Y)) / 2);
+            var seg3Area2 = Math.Abs((bb.X * (b.Y - c.Y) + b.X * (c.Y - bb.Y) + c.X * (bb.Y - b.Y)) / 2);
+            
+            var seg1Area3 = Math.Abs((a.X * (b.Y - cc.Y) + b.X * (cc.Y - a.Y) + cc.X * (a.Y - b.Y)) / 2);
+            var seg2Area3 = Math.Abs((a.X * (cc.Y - c.Y) + cc.X * (c.Y - a.Y) + c.X * (a.Y - cc.Y)) / 2);
+            var seg3Area3 = Math.Abs((cc.X * (b.Y - c.Y) + b.X * (c.Y - cc.Y) + c.X * (cc.Y - b.Y)) / 2);
+            
+            var res = Math.Abs(tri1Area - (seg1Area + seg2Area + seg3Area)) < 5f || 
+                      Math.Abs(tri1Area - (seg1Area2 + seg2Area2 + seg3Area2)) < 5f || 
+                      Math.Abs(tri1Area - (seg1Area3 + seg2Area3 + seg3Area3)) < 5f;
+          /*  Console.WriteLine("DEBUG:" + this.texture.Name + ", other: " + sprite.texture.Name);
             Console.WriteLine("a" + a);
             Console.WriteLine("b" + b);
             Console.WriteLine("c" + c);
@@ -235,7 +249,7 @@ namespace MonoGame_SimpleSample
             Console.WriteLine("cc" + cc);
             Console.WriteLine("res" + res);
             Console.WriteLine("(seg1Area + seg2Area + seg3Area)" + (seg1Area + seg2Area + seg3Area));
-            Console.WriteLine("tri1Area" + tri1Area);
+            Console.WriteLine("tri1Area" + tri1Area);*/
             return res;
         }
 
