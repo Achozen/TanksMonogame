@@ -37,7 +37,7 @@ namespace MonoGame_SimpleSample
             if (!shouldDraw) return;
 
             currentFrameTime += gameTime.ElapsedGameTime.TotalMilliseconds;
-            Console.WriteLine("currentFrameTime:" + currentFrameTime);
+           // Console.WriteLine("currentFrameTime:" + currentFrameTime);
             if (currentFrameTime >= expectedFrameTime)
             {
                 whichLine = (whichLine < animationFramesInRow - 1) ? whichLine + 1 : 0;
@@ -58,7 +58,7 @@ namespace MonoGame_SimpleSample
         public new void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
         {
             if (!shouldDraw) return;
-            Console.WriteLine("Which frame: " + whichLine);
+           // Console.WriteLine("Which frame: " + whichLine);
             spriteBatch.Draw(texture, position,
                 new Rectangle(whichLine * frameWidth, whichRow * frameHeight, frameWidth, frameHeight), Color.White);
             Debug_DrawBounds(graphicsDevice, spriteBatch);

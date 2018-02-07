@@ -1,2 +1,4 @@
-Default size/tileGrass1;205;210;0
-Default size/tileGrass1;205;190;0
+Bullets/bulletGreenSilver_outline;205;210;90;0,100,100,0,100,100,0,100,100,100,100,0
+Bullets/bulletGreenSilver_outline;205;190;180;auto
+Bullets/bulletGreenSilver_outline;205;190;0;auto
+Bullets/bulletGreenSilver_outline;205;190;0

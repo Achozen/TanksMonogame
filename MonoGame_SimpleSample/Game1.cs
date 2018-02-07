@@ -80,7 +80,34 @@ namespace MonoGame_SimpleSample
                 var data = line.Split(';');
                 Texture2D tempTexture = Content.Load<Texture2D>(data[0]);
                 Vector2 tempPos = new Vector2(int.Parse(data[1]), int.Parse(data[2]));
-                Level.Add(new Sprite(tempTexture, tempPos, float.Parse(data[3])));
+
+                if (data.Length == 5 && !data[4].Equals("auto"))
+                {
+                        var collisionPoints = data[4].Split(',');
+                        var collisionTriangles = new List<Triangle>();
+                        for (var i = 0; i < collisionPoints.Length; i += 6)
+                        {
+                            collisionTriangles.Add(new Triangle(
+                                    new Vector2(float.Parse(collisionPoints[i]), float.Parse(collisionPoints[i + 1])),
+                                    new Vector2(float.Parse(collisionPoints[i + 2]),
+                                        float.Parse(collisionPoints[i + 3])),
+                                    new Vector2(float.Parse(collisionPoints[i + 4]),
+                                        float.Parse(collisionPoints[i + 5]))
+                                )
+                            );
+                        }
+
+                        Level.Add(new Sprite(tempTexture, tempPos, float.Parse(data[3]), collisionTriangles));
+                 }
+                else if(data.Length == 5 && data[4].Equals("auto"))
+                {    
+                    Level.Add(new Sprite(tempTexture, tempPos, float.Parse(data[3])));
+                }
+                else
+                {
+                    Level.Add(new Sprite(tempTexture, tempPos, float.Parse(data[3]), null));
+                }
+
             }
 
             var player1Keys =
@@ -350,7 +377,9 @@ namespace MonoGame_SimpleSample
                     if (leftClicked)
                     {
                         leftClicked = false;
-                        MapEditorItems.Add(new Sprite(tex2, new Vector2(Mouse.GetState().X, Mouse.GetState().Y),
+
+                        MapEditorItems.Add(new Sprite(tex2, new Vector2(((Mouse.GetState().X + tex2.Width / 2) / tex2.Width)*tex2.Width - tex2.Width/2,
+                                (Mouse.GetState().Y + tex2.Height / 2) / tex2.Height*tex2.Height - tex2.Height/2),
                             (float) degrees));
                     }
 
@@ -377,7 +406,9 @@ namespace MonoGame_SimpleSample
                         new Color(255, 255, 255, 200));
                     //spriteBatch.Draw(tex2, new Rectangle(Mouse.GetState().X, Mouse.GetState().Y, tex2.Width, tex2.Height), null, Color.White);
                     spriteBatch.Draw(tex2,
-                        new Rectangle(Mouse.GetState().X + tex2.Width / 2, Mouse.GetState().Y + tex2.Height / 2,
+                        new Rectangle(
+                            (Mouse.GetState().X + tex2.Width / 2) / tex2.Width*tex2.Width,
+                            (Mouse.GetState().Y + tex2.Height / 2) / tex2.Height*tex2.Height,
                             tex2.Width, tex2.Height), null, Color.White, (float) DegreeToRadian(degrees),
                         new Vector2(tex2.Width / 2, tex2.Height / 2), SpriteEffects.None, 0f);
                     spriteBatch.Draw(tex3,
