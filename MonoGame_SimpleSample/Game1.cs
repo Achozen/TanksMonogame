@@ -20,7 +20,7 @@ namespace MonoGame_SimpleSample
 
 
         GameState currentGameState = GameState.playing;
-        bool isPauseKeyHeld = false;
+        bool isPauseKeyHeld;
         string collisionText = "";
         SpriteFont HUDFont;
         List<Sprite> Level;
@@ -30,10 +30,13 @@ namespace MonoGame_SimpleSample
         List<AnimatedSprite> explosions;
 
         Texture2D rect;
-        int lastScrollWheelValue = 0;
-        int indexer = 0;
+        int lastScrollWheelValue;
+        int indexer;
         MouseState lastMouseState;
         MouseState currentMouseState;
+
+        bool leftClicked;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -70,14 +73,23 @@ namespace MonoGame_SimpleSample
                 Vector2 tempPos = new Vector2(int.Parse(data[1]), int.Parse(data[2]));
                 Level.Add(new Sprite(tempTexture, tempPos, float.Parse(data[3])));
             }
-            var player1Keys = new TankKeyMap { up = Keys.W, down = Keys.S, left = Keys.A, right = Keys.D, fire = Keys.Space };
+
+            var player1Keys =
+                new TankKeyMap {up = Keys.W, down = Keys.S, left = Keys.A, right = Keys.D, fire = Keys.Space};
             playerSprite = new TankSprite(player1Keys, playerTexture, Vector2.Zero, 1, this);
             playerSprite.position = new Vector2(0, 0);
 
-            var player2Keys = new TankKeyMap { up = Keys.Up, down = Keys.Down, left = Keys.Left, right = Keys.Right, fire = Keys.Enter };
+            var player2Keys = new TankKeyMap
+            {
+                up = Keys.Up,
+                down = Keys.Down,
+                left = Keys.Left,
+                right = Keys.Right,
+                fire = Keys.Enter
+            };
             playerSprite2 = new TankSprite(player2Keys, playerTexture, Vector2.Zero, 2, this);
-            playerSprite2.position = new Vector2(graphics.PreferredBackBufferWidth - playerTexture.Width, graphics.PreferredBackBufferHeight - playerTexture.Height);
-
+            playerSprite2.position = new Vector2(graphics.PreferredBackBufferWidth - playerTexture.Width,
+                graphics.PreferredBackBufferHeight - playerTexture.Height);
 
 
             HUDFont = Content.Load<SpriteFont>("HUDFont");
@@ -88,6 +100,7 @@ namespace MonoGame_SimpleSample
             {
                 sprite.font = HUDFont;
             }
+
             MapEditorAvailableItems.Add(Content.Load<Texture2D>("Obstacles/barrelGreen_up"));
             MapEditorAvailableItems.Add(Content.Load<Texture2D>("Obstacles/barrelRed_up"));
             MapEditorAvailableItems.Add(Content.Load<Texture2D>("Obstacles/oil"));
@@ -109,88 +122,96 @@ namespace MonoGame_SimpleSample
             MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileGrass1"));
             MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/barricadeWood"));
 
-            currentMouseState = Mouse.GetState(); 
+            currentMouseState = Mouse.GetState();
         }
+
         protected override void UnloadContent()
         {
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
+                Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             var keyboardState = Keyboard.GetState();
             if (keyboardState.IsKeyDown(Keys.P) && !isPauseKeyHeld)
             {
-
                 if (currentGameState == GameState.mapEditor)
                 {
                     Level = new List<Sprite>(MapEditorItems);
                     MapEditorItems.Clear();
                 }
+
                 if (currentGameState == GameState.playing)
                     currentGameState = GameState.paused;
                 else currentGameState = GameState.playing;
             }
-            if(keyboardState.IsKeyDown(Keys.M))
-                {
+
+            if (keyboardState.IsKeyDown(Keys.M))
+            {
                 currentGameState = GameState.mapEditor;
                 MapEditorItems = new List<Sprite>(Level);
             }
+
             if (keyboardState.IsKeyDown(Keys.F11))
             {
-                foreach(var sprite in MapEditorItems)
+                foreach (var sprite in MapEditorItems)
                 {
                     System.IO.File.AppendAllText(@"Content/Level2.txt", sprite.toLevelFormat() + Environment.NewLine);
                 }
             }
-            isPauseKeyHeld = keyboardState.IsKeyUp(Keys.P) ? false : true;
+
+            isPauseKeyHeld = !keyboardState.IsKeyUp(Keys.P);
             switch (currentGameState)
             {
                 case GameState.playing:
+                {
+                    foreach (var sprite in Level)
                     {
+                        sprite.Update(gameTime);
+                    }
 
-                        foreach (var sprite in Level)
-                        {
-                            sprite.Update(gameTime);
-                        }
+                    foreach (var sprite in explosions)
+                    {
+                        sprite.Update(gameTime);
+                    }
 
-                        foreach (var sprite in explosions)
-                        {
-                            sprite.Update(gameTime);
-                        }
+                    playerSprite.Update(gameTime);
+                    playerSprite2.Update(gameTime);
 
-                        playerSprite.Update(gameTime);
-                        playerSprite2.Update(gameTime);
+                    bulletsToLeveCollision(gameTime);
 
-         bulletsToLeveCollision(gameTime);
+                    collisionText = "there is no collision";
 
-                        collisionText = "there is no collision";
-
-                        foreach (var sprite in Level)
-                        {
-                            if (playerSprite.IsCollidingWith(sprite) || playerSprite2.IsCollidingWith(sprite))
-                                collisionText = "there is a collision";
-                            break;
-                        }
+                    foreach (var sprite in Level)
+                    {
+                        if (playerSprite.IsCollidingWith(sprite) || playerSprite2.IsCollidingWith(sprite))
+                            collisionText = "there is a collision";
                         break;
                     }
+
+                    break;
+                }
                 case GameState.paused:
                     break;
                 case GameState.mapEditor:
 
-                    if (Mouse.GetState().ScrollWheelValue - lastScrollWheelValue > 0 && Keyboard.GetState().IsKeyUp(Keys.LeftControl))
+                    if (Mouse.GetState().ScrollWheelValue - lastScrollWheelValue > 0 &&
+                        Keyboard.GetState().IsKeyUp(Keys.LeftControl))
                     {
                         degrees--;
                         indexer = nextIndexer(indexer);
                     }
-                    else if (lastScrollWheelValue - Mouse.GetState().ScrollWheelValue > 0 && Keyboard.GetState().IsKeyUp(Keys.LeftControl))
+                    else if (lastScrollWheelValue - Mouse.GetState().ScrollWheelValue > 0 &&
+                             Keyboard.GetState().IsKeyUp(Keys.LeftControl))
                     {
                         degrees++;
                         indexer = prevIndexer(indexer);
                     }
 
-                    if (Mouse.GetState().ScrollWheelValue - lastScrollWheelValue > 0 && Keyboard.GetState().IsKeyDown(Keys.LeftControl))
+                    if (Mouse.GetState().ScrollWheelValue - lastScrollWheelValue > 0 &&
+                        Keyboard.GetState().IsKeyDown(Keys.LeftControl))
                     {
                         if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
                         {
@@ -201,27 +222,31 @@ namespace MonoGame_SimpleSample
                             degrees--;
                         }
                     }
-                    else if (lastScrollWheelValue - Mouse.GetState().ScrollWheelValue > 0 && Keyboard.GetState().IsKeyDown(Keys.LeftControl))
+                    else if (lastScrollWheelValue - Mouse.GetState().ScrollWheelValue > 0 &&
+                             Keyboard.GetState().IsKeyDown(Keys.LeftControl))
                     {
                         if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
                         {
-                            degrees += 15 ;
+                            degrees += 15;
                         }
                         else
                         {
-                            degrees ++;
+                            degrees++;
                         }
                     }
 
                     lastScrollWheelValue = Mouse.GetState().ScrollWheelValue;
                     lastMouseState = currentMouseState;
                     currentMouseState = Mouse.GetState();
-                    if (lastMouseState.LeftButton == ButtonState.Released && currentMouseState.LeftButton == ButtonState.Pressed)
+                    if (lastMouseState.LeftButton == ButtonState.Released &&
+                        currentMouseState.LeftButton == ButtonState.Pressed)
                     {
                         leftClicked = true;
                     }
-                        break;
+
+                    break;
             }
+
             base.Update(gameTime);
         }
 
@@ -235,22 +260,22 @@ namespace MonoGame_SimpleSample
                 {
                     if (sprite.IsCollidingWith(level))
                     {
-                        if (sprite.shouldDraw) {
-                            AnimatedSprite explosion = new AnimatedSprite(explosionTexture, new Vector2(sprite.position.X, sprite.position.Y), 4, 4);
-                            explosion.position = new Vector2(sprite.position.X, sprite.position.Y);
+                        if (sprite.shouldDraw)
+                        {
+                            var explosion = new AnimatedSprite(explosionTexture, new Vector2(sprite.position.X, sprite.position.Y), 4, 4)
+                            {
+                                position = new Vector2(sprite.position.X, sprite.position.Y)
+                            };
 
                             explosions.Add(explosion);
                         }
-                 
+
 
                         sprite.shouldDraw = false;
-
                     }
                 }
             }
         }
-        
-        bool leftClicked = false;
 
         protected override void Draw(GameTime gameTime)
         {
@@ -259,32 +284,31 @@ namespace MonoGame_SimpleSample
             switch (currentGameState)
             {
                 case GameState.playing:
+                {
+                    foreach (var sprite in Level)
                     {
-                        foreach (var sprite in Level)
-                        {
-                            sprite.Draw(GraphicsDevice, spriteBatch);
-                        }
-
-                        foreach (var sprite in bulllets)
-                        {
-                            sprite.Draw(GraphicsDevice, spriteBatch);
-                        }
-
-                        foreach (var sprite in explosions)
-                        {
-                            sprite.Draw(GraphicsDevice, spriteBatch);
-                        }
-
-                        playerSprite.Draw(GraphicsDevice, spriteBatch);
-                        playerSprite2.Draw(GraphicsDevice, spriteBatch);
-                        spriteBatch.DrawString(HUDFont, collisionText, new Vector2(300, 0), Color.Red);
+                        sprite.Draw(GraphicsDevice, spriteBatch);
                     }
+
+                    foreach (var sprite in bulllets)
+                    {
+                        sprite.Draw(GraphicsDevice, spriteBatch);
+                    }
+
+                    foreach (var sprite in explosions)
+                    {
+                        sprite.Draw(GraphicsDevice, spriteBatch);
+                    }
+
+                    playerSprite.Draw(GraphicsDevice, spriteBatch);
+                    playerSprite2.Draw(GraphicsDevice, spriteBatch);
+                    spriteBatch.DrawString(HUDFont, collisionText, new Vector2(300, 0), Color.Red);
+                }
                     break;
                 case GameState.paused:
-                    {
-                        spriteBatch.DrawString(HUDFont, "Game Paused", Vector2.Zero, Color.White);
-
-                    }
+                {
+                    spriteBatch.DrawString(HUDFont, "Game Paused", Vector2.Zero, Color.White);
+                }
                     break;
                 case GameState.mapEditor:
                     spriteBatch.DrawString(HUDFont, "Map editor", Vector2.Zero, Color.White);
@@ -293,12 +317,14 @@ namespace MonoGame_SimpleSample
                     var tex2 = MapEditorAvailableItems[indexer];
                     var tex3 = MapEditorAvailableItems[nextIndexer(indexer)];
                     var tex4 = MapEditorAvailableItems[nextIndexer(nextIndexer(indexer))];
-                    
+
                     if (leftClicked)
                     {
                         leftClicked = false;
-                        MapEditorItems.Add(new Sprite(tex2, new Vector2(Mouse.GetState().X, Mouse.GetState().Y), (float)degrees));
+                        MapEditorItems.Add(new Sprite(tex2, new Vector2(Mouse.GetState().X, Mouse.GetState().Y),
+                            (float) degrees));
                     }
+
                     foreach (var sprite in MapEditorItems)
                     {
                         sprite.Draw(GraphicsDevice, spriteBatch);
@@ -314,15 +340,25 @@ namespace MonoGame_SimpleSample
                         sprite.Draw(GraphicsDevice, spriteBatch);
                     }
 
-                    spriteBatch.Draw(texm1, new Rectangle(Mouse.GetState().X, Mouse.GetState().Y - texm1.Height - tex.Height, texm1.Width, texm1.Height), null, new Color(255, 255, 255, 180));
-                    spriteBatch.Draw(tex, new Rectangle(Mouse.GetState().X, Mouse.GetState().Y - tex.Height, tex.Width, tex.Height), null, new Color(255, 255, 255, 200));
+                    spriteBatch.Draw(texm1,
+                        new Rectangle(Mouse.GetState().X, Mouse.GetState().Y - texm1.Height - tex.Height, texm1.Width,
+                            texm1.Height), null, new Color(255, 255, 255, 180));
+                    spriteBatch.Draw(tex,
+                        new Rectangle(Mouse.GetState().X, Mouse.GetState().Y - tex.Height, tex.Width, tex.Height), null,
+                        new Color(255, 255, 255, 200));
                     //spriteBatch.Draw(tex2, new Rectangle(Mouse.GetState().X, Mouse.GetState().Y, tex2.Width, tex2.Height), null, Color.White);
-                    spriteBatch.Draw(tex2, new Rectangle(Mouse.GetState().X+ tex2.Width / 2, Mouse.GetState().Y+ tex2.Height / 2, tex2.Width, tex2.Height), null, Color.White, (float)DegreeToRadian(degrees),
-                        new Vector2(tex2.Width/2, tex2.Height/2), SpriteEffects.None, 0f);
-                    spriteBatch.Draw(tex3, new Rectangle(Mouse.GetState().X, Mouse.GetState().Y + tex2.Height, tex3.Width, tex3.Height), null, new Color(255, 255, 255, 200));
-                    spriteBatch.Draw(tex4, new Rectangle(Mouse.GetState().X, Mouse.GetState().Y + tex2.Height + tex3.Height, tex4.Width, tex4.Height), null, new Color(255, 255, 255, 180));
+                    spriteBatch.Draw(tex2,
+                        new Rectangle(Mouse.GetState().X + tex2.Width / 2, Mouse.GetState().Y + tex2.Height / 2,
+                            tex2.Width, tex2.Height), null, Color.White, (float) DegreeToRadian(degrees),
+                        new Vector2(tex2.Width / 2, tex2.Height / 2), SpriteEffects.None, 0f);
+                    spriteBatch.Draw(tex3,
+                        new Rectangle(Mouse.GetState().X, Mouse.GetState().Y + tex2.Height, tex3.Width, tex3.Height),
+                        null, new Color(255, 255, 255, 200));
+                    spriteBatch.Draw(tex4,
+                        new Rectangle(Mouse.GetState().X, Mouse.GetState().Y + tex2.Height + tex3.Height, tex4.Width,
+                            tex4.Height), null, new Color(255, 255, 255, 180));
 
-                   // spriteBatch.DrawString(HUDFont, "Mouse:" + Mouse.GetState()+ "indekser: "+ (indexer), new Vector2(100, 300), Color.Red);
+                    // spriteBatch.DrawString(HUDFont, "Mouse:" + Mouse.GetState()+ "indekser: "+ (indexer), new Vector2(100, 300), Color.Red);
                     playerSprite.Draw(GraphicsDevice, spriteBatch);
                     playerSprite2.Draw(GraphicsDevice, spriteBatch);
                     spriteBatch.DrawString(HUDFont, collisionText, new Vector2(300, 0), Color.Red);
@@ -330,23 +366,29 @@ namespace MonoGame_SimpleSample
 
                     if (rect == null)
                         rect = new Texture2D(GraphicsDevice, 1, 1);
-                    rect.SetData(new[] { Color.White });
+                    rect.SetData(new[] {Color.White});
                     spriteBatch.Draw(rect, new Rectangle(Mouse.GetState().X, Mouse.GetState().Y, 10, 10), Color.Black);
-                    spriteBatch.Draw(rect, new Rectangle(Mouse.GetState().X + 1, Mouse.GetState().Y + 1, 8, 8), Color.White);
+                    spriteBatch.Draw(rect, new Rectangle(Mouse.GetState().X + 1, Mouse.GetState().Y + 1, 8, 8),
+                        Color.White);
                     break;
             }
+
             spriteBatch.End();
             base.Draw(gameTime);
         }
+
         double degrees = 0;
+
         double DegreeToRadian(double angle)
         {
             return Math.PI * angle / 180.0;
         }
+
         private double RadianToDegree(double angle)
         {
             return angle * (180.0 / Math.PI);
         }
+
         int nextIndexer(int current)
         {
             var ind = current;
@@ -368,8 +410,6 @@ namespace MonoGame_SimpleSample
             var bullet = new BulletSprite(bulletTexture, position, walkingDirection);
             bullet.font = HUDFont;
             bulllets.Add(bullet);
-
-            //playerSprite.Position = position;
         }
     }
 }

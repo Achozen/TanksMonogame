@@ -18,7 +18,9 @@ namespace MonoGame_SimpleSample
         TankKeyMap keyMap;
 
         TankActionListener tankActionListener;
-        public TankSprite(TankKeyMap keyMap, Texture2D texture, Vector2 startingPosition, int playerNumber, TankActionListener tankActionListener) : base(texture, startingPosition)
+
+        public TankSprite(TankKeyMap keyMap, Texture2D texture, Vector2 startingPosition, int playerNumber,
+            TankActionListener tankActionListener) : base(texture, startingPosition)
         {
             this.keyMap = keyMap;
             boxSize = Math.Max(frameWidth, frameHeight);
@@ -27,7 +29,8 @@ namespace MonoGame_SimpleSample
             base.frameWidth = boxSize;
             this.tankActionListener = tankActionListener;
             effects = SpriteEffects.FlipVertically;
-            boundingBox = new BoundingBox(new Vector3(position.X, position.Y, 0), new Vector3(position.X + boxSize, position.Y + boxSize, 0));
+            boundingBox = new BoundingBox(new Vector3(position.X, position.Y, 0),
+                new Vector3(position.X + boxSize, position.Y + boxSize, 0));
         }
 
 
@@ -38,6 +41,7 @@ namespace MonoGame_SimpleSample
             updateMovement(gameTime);
             base.Update(gameTime);
         }
+
         void updateFiring(GameTime gameTime)
         {
             fireTime += gameTime.ElapsedGameTime.TotalMilliseconds;
@@ -92,7 +96,7 @@ namespace MonoGame_SimpleSample
             if (!isMoving)
                 return;
             int pixelsPerSecond = 80;
-            float movementSpeed = (float)(pixelsPerSecond * (gameTime.ElapsedGameTime.TotalSeconds));
+            float movementSpeed = (float) (pixelsPerSecond * (gameTime.ElapsedGameTime.TotalSeconds));
             Vector2 movementVector = Vector2.Zero;
             switch (currentWalkingDirection)
             {
@@ -109,6 +113,7 @@ namespace MonoGame_SimpleSample
                     movementVector = new Vector2(0, movementSpeed);
                     break;
             }
+
             position += movementVector;
         }
 
@@ -117,7 +122,7 @@ namespace MonoGame_SimpleSample
             rotation = getRotation();
 
             var origin = new Vector2(texture.Width / 2f, texture.Height / 2f);
-           
+
             base.Draw(graphicsDevice, spriteBatch);
         }
 
@@ -126,11 +131,11 @@ namespace MonoGame_SimpleSample
             switch (currentWalkingDirection)
             {
                 case WalkingDirection.right:
-                    return 1.57f * (int)WalkingDirection.left;
+                    return 1.57f * (int) WalkingDirection.left;
                 case WalkingDirection.left:
-                    return 1.57f * (int)WalkingDirection.right;
+                    return 1.57f * (int) WalkingDirection.right;
                 default:
-                    return 1.57f * (int)currentWalkingDirection;
+                    return 1.57f * (int) currentWalkingDirection;
             }
         }
 
@@ -141,14 +146,15 @@ namespace MonoGame_SimpleSample
             {
                 ///
             }
+
             //collsion left/right -> stop the left/right momentum
-            if (this.leftBoundingBox.Intersects(otherSprite.RightBoundingBox) || this.rightBoundingBox.Intersects(otherSprite.RightBoundingBox))
+            if (this.leftBoundingBox.Intersects(otherSprite.RightBoundingBox) ||
+                this.rightBoundingBox.Intersects(otherSprite.RightBoundingBox))
             {
                 //TODO: FInish this code
             }
 
             return this.boundingBox.Intersects(otherSprite.BoundingBox) ? true : false;
-
         }
     }
 }
