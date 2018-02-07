@@ -15,9 +15,6 @@ namespace MonoGame_SimpleSample
         Texture2D explosionTexture;
         TankSprite playerSprite;
         TankSprite playerSprite2;
-        BulletSprite bulletSprite;
-        Sprite bullet;
-
 
         GameState currentGameState = GameState.playing;
         bool isPauseKeyHeld;
@@ -76,8 +73,7 @@ namespace MonoGame_SimpleSample
 
             var player1Keys =
                 new TankKeyMap {up = Keys.W, down = Keys.S, left = Keys.A, right = Keys.D, fire = Keys.Space};
-            playerSprite = new TankSprite(player1Keys, playerTexture, Vector2.Zero, 1, this);
-            playerSprite.position = new Vector2(0, 0);
+            playerSprite = new TankSprite(player1Keys, playerTexture, new Vector2(0, 0), 1, this);
 
             var player2Keys = new TankKeyMap
             {
@@ -87,9 +83,8 @@ namespace MonoGame_SimpleSample
                 right = Keys.Right,
                 fire = Keys.Enter
             };
-            playerSprite2 = new TankSprite(player2Keys, playerTexture, Vector2.Zero, 2, this);
-            playerSprite2.position = new Vector2(graphics.PreferredBackBufferWidth - playerTexture.Width,
-                graphics.PreferredBackBufferHeight - playerTexture.Height);
+            playerSprite2 = new TankSprite(player2Keys, playerTexture, new Vector2(graphics.PreferredBackBufferWidth - playerTexture.Width,
+                graphics.PreferredBackBufferHeight - playerTexture.Height), 2, this);
 
 
             HUDFont = Content.Load<SpriteFont>("HUDFont");
@@ -181,16 +176,7 @@ namespace MonoGame_SimpleSample
                     playerSprite2.Update(gameTime);
 
                     bulletsToLeveCollision(gameTime);
-
-                    collisionText = "there is no collision";
-
-                    foreach (var sprite in Level)
-                    {
-                        if (playerSprite.IsCollidingWith(sprite) || playerSprite2.IsCollidingWith(sprite))
-                            collisionText = "there is a collision";
-                        break;
-                    }
-
+                    handleTanksFight();
                     break;
                 }
                 case GameState.paused:
@@ -248,6 +234,25 @@ namespace MonoGame_SimpleSample
             }
 
             base.Update(gameTime);
+        }
+
+        private void handleTanksFight()
+        {
+            foreach (var bullet in bulllets)
+            {
+                CheckColisionForPlayer(bullet, playerSprite, playerSprite2);
+                CheckColisionForPlayer(bullet, playerSprite2, playerSprite);
+            }
+            collisionText = "Player1 - "+ playerSprite.score + " | "+ playerSprite2.score + " - Player2";
+        }
+
+        private void CheckColisionForPlayer(BulletSprite bullet, TankSprite player, TankSprite enemy)
+        {
+            if (bullet.IsCollidingWith(player) && bullet.bulletOwner != player.playerNumber)
+            {
+                player.position = player.startingPosition;
+                enemy.score++;
+            }
         }
 
         private void bulletsToLeveCollision(GameTime gameTime)
@@ -403,7 +408,7 @@ namespace MonoGame_SimpleSample
 
         public void OnFire(int playerIndex, Vector2 position, WalkingDirection walkingDirection)
         {
-            var bullet = new BulletSprite(bulletTexture, position, walkingDirection);
+            var bullet = new BulletSprite(bulletTexture, position, walkingDirection, playerIndex);
             bullet.font = HUDFont;
             bulllets.Add(bullet);
         }

@@ -12,10 +12,12 @@ namespace MonoGame_SimpleSample
         WalkingDirection direction;
         double currentFrameTime;
         double expectedFrameTime = 200.0f;
+        public int bulletOwner;
 
-        public BulletSprite(Texture2D texture, Vector2 startingPosition, WalkingDirection direction) : base(texture,
+        public BulletSprite(Texture2D texture, Vector2 startingPosition, WalkingDirection direction, int bulletOwner) : base(texture,
             startingPosition)
         {
+            this.bulletOwner = bulletOwner;
             boxSize = Math.Max(frameWidth, frameHeight);
             this.direction = direction;
             frameHeight = boxSize;

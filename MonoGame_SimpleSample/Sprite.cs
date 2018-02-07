@@ -83,7 +83,6 @@ namespace MonoGame_SimpleSample
         {
         }
 
-
         public void Update(GameTime gameTime)
         {
             if (!shouldDraw) return;

@@ -9,19 +9,22 @@ namespace MonoGame_SimpleSample
     class TankSprite : Sprite
     {
         int boxSize;
-        int playerNumber;
+        public int playerNumber;
         double fireTime = 0;
         double fireTimeMax = 500;
         WalkingDirection currentWalkingDirection = WalkingDirection.down;
         bool isMoving = false;
         bool isFiring = false;
         TankKeyMap keyMap;
+        public Vector2 startingPosition;
+        public int score = 0;
 
         TankActionListener tankActionListener;
 
         public TankSprite(TankKeyMap keyMap, Texture2D texture, Vector2 startingPosition, int playerNumber,
             TankActionListener tankActionListener) : base(texture, startingPosition)
         {
+            this.startingPosition = startingPosition;
             this.keyMap = keyMap;
             boxSize = Math.Max(frameWidth, frameHeight);
             this.playerNumber = playerNumber;
