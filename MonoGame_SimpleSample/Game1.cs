@@ -148,7 +148,7 @@ namespace MonoGame_SimpleSample
                 Texture2D tempTexture = Content.Load<Texture2D>(data[0]);
                 Vector2 tempPos = new Vector2(int.Parse(data[1]), int.Parse(data[2]));
 
-                if (data.Length == 5 && !data[4].Equals("auto"))
+                if (data.Length == 5 && !data[4].Equals("auto") && !data[4].Equals("none"))
                 {
                         var collisionPoints = data[4].Split(',');
                         var collisionTriangles = new List<Triangle>();
