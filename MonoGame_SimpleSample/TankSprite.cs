@@ -135,25 +135,36 @@ namespace MonoGame_SimpleSample
                     break;
             }
 
-            position += movementVector;
+            var tempPosition = position + movementVector;
+            var temp = new List<Triangle>();
+            foreach (var triangle in initialCollisionTriangles)
+            {
+                var aaa = RotateVector(triangle.A + tempPosition, tempPosition + origin, rotation);
+                var bbb = RotateVector(triangle.B + tempPosition, tempPosition + origin, rotation);
+                var ccc = RotateVector(triangle.C + tempPosition, tempPosition + origin, rotation);
+                temp.Add(new Triangle(aaa, bbb, ccc));
+            }
+            
             Boolean colided = false;
             foreach (var item in level)
             {
-                if (item.IsCollidingWith(this))
+                if (isIntersectingWith(item, initialCollisionTriangles, temp, item.collisionTriangles) || item.isIntersectingWith(this, item.initialCollisionTriangles, item.collisionTriangles, temp))
                 {
                     colided = true;
                     break;
                    
                 }
             }
-            if(colided)position -= movementVector*2;
+
+            if (!colided)
+            {
+                position = tempPosition;
+            }
         }
 
         new public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
         {
             rotation = getRotation();
-
-            var origin = new Vector2(texture.Width / 2f, texture.Height / 2f);
 
             base.Draw(graphicsDevice, spriteBatch);
         }

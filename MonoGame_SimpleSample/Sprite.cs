@@ -27,9 +27,9 @@ namespace MonoGame_SimpleSample
         protected SpriteEffects effects;
 
         private Texture2D rect;
-        Vector2 origin;
-        private List<Triangle> initialCollisionTriangles = new List<Triangle>();
-        private List<Triangle> collisionTriangles= new List<Triangle>();
+        protected Vector2 origin;
+        public  List<Triangle> initialCollisionTriangles = new List<Triangle>();
+        public List<Triangle> collisionTriangles= new List<Triangle>();
 
 
         protected int frameWidth;
@@ -105,7 +105,7 @@ namespace MonoGame_SimpleSample
         {
             //;//
             //return this.boundingBox.Intersects(otherSprite.BoundingBox);
-            return isIntersectingWith(otherSprite);
+            return isIntersectingWith(otherSprite, initialCollisionTriangles, collisionTriangles, otherSprite.collisionTriangles);
         }
 
 
@@ -121,7 +121,7 @@ namespace MonoGame_SimpleSample
             }
         }
 
-        static Vector2 RotateVector(Vector2 pointToRotate, Vector2 centerPoint, double angleInRadians)
+        public static Vector2 RotateVector(Vector2 pointToRotate, Vector2 centerPoint, double angleInRadians)
         {
             var ry = RotatePoint(new Point((int) pointToRotate.X, (int) pointToRotate.Y),
                 new Point((int) (centerPoint.X), (int) (centerPoint.Y)), RadianToDegree(angleInRadians));
@@ -162,9 +162,9 @@ namespace MonoGame_SimpleSample
             spriteBatch.Draw(rect, coords, color);
         }
 
-        public bool isIntersectingWith(Sprite sprite)
+        public bool isIntersectingWith(Sprite sprite, List<Triangle> initialCollisionTriangles, List<Triangle> collisionTriangles, List<Triangle> otherCollisionTriangles)
         {
-            if (texture.Name == sprite.texture.Name || initialCollisionTriangles == null)
+            if (initialCollisionTriangles == null)
                 return false;
 
 
@@ -173,10 +173,10 @@ namespace MonoGame_SimpleSample
             //foreach (var triangle in collisionTriangles)
             //{
                 var triangle = collisionTriangles[i];
-                for (var j = 0; j < sprite.collisionTriangles.Count; j++)
+                for (var j = 0; j < otherCollisionTriangles.Count; j++)
                 //foreach (var triangleOther in sprite.collisionTriangles)
                 {
-                    var triangleOther = sprite.collisionTriangles[j];
+                    var triangleOther = otherCollisionTriangles[j];
                     var aa = triangle.A;//RotateVector(position, position + origin, rotation);
                     var bb = triangle.B;//RotateVector(position + new Vector2(texture.Width, 0), position + origin, rotation);
                     var cc = triangle.C;//RotateVector(position + new Vector2(0, texture.Height), position + origin, rotation);

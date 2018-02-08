@@ -1,4 +1,4 @@
 Bullets/bulletGreenSilver_outline;205;210;90;0,100,100,0,100,100,0,100,100,100,100,0
-Bullets/bulletGreenSilver_outline;205;190;180;auto
-Bullets/bulletGreenSilver_outline;205;190;0;auto
-Bullets/bulletGreenSilver_outline;205;190;0
+Bullets/bulletGreenSilver_outline;205;160;180;auto
+Bullets/bulletGreenSilver_outline;205;140;0;auto
+Bullets/bulletGreenSilver_outline;205;120;0
