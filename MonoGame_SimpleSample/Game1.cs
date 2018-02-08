@@ -21,7 +21,7 @@ namespace MonoGame_SimpleSample
 
         GameState currentGameState = GameState.playing;
         bool isPauseKeyHeld;
-        string collisionText = "";
+        string scoreText = "";
         SpriteFont HUDFont;
         List<Sprite> Level;
         List<Sprite> MapEditorItems;
@@ -69,9 +69,9 @@ namespace MonoGame_SimpleSample
             bulletTexture = Content.Load<Texture2D>("Bullets/bulletBeige");
             playerTexture = Content.Load<Texture2D>("Default size/tank_green");
             explosionSound = Content.Load<SoundEffect>("SoundFX/explosion");
-           // backgroundMusic = Content.Load<Song>("SoundFX/background_music");
-            //MediaPlayer.Play(backgroundMusic);
-            //MediaPlayer.Volume = 0.1f;
+ /*           backgroundMusic = Content.Load<Song>("SoundFX/background_music");
+            MediaPlayer.Play(backgroundMusic);
+            MediaPlayer.Volume = 0.1f;*/
 
             explosionTexture = Content.Load<Texture2D>("explosion/exp2_0");
             var lines = File.ReadAllLines(@"Content/Level1.txt");
@@ -211,8 +211,8 @@ namespace MonoGame_SimpleSample
                         sprite.Update(gameTime);
                     }
 
-                    playerSprite.Update(gameTime);
-                    playerSprite2.Update(gameTime);
+                    playerSprite.Update(gameTime, Level);
+                    playerSprite2.Update(gameTime, Level);
 
                     bulletsToLeveCollision(gameTime);
                     handleTanksFight();
@@ -282,7 +282,7 @@ namespace MonoGame_SimpleSample
                 CheckColisionForPlayer(bullet, playerSprite, playerSprite2);
                 CheckColisionForPlayer(bullet, playerSprite2, playerSprite);
             }
-            collisionText = "Player1 - "+ playerSprite.score + " | "+ playerSprite2.score + " - Player2";
+            scoreText = "Player1 - "+ playerSprite.score + " | "+ playerSprite2.score + " - Player2";
         }
 
         private void CheckColisionForPlayer(BulletSprite bullet, TankSprite player, TankSprite enemy)
@@ -358,7 +358,7 @@ namespace MonoGame_SimpleSample
 
                     playerSprite.Draw(GraphicsDevice, spriteBatch);
                     playerSprite2.Draw(GraphicsDevice, spriteBatch);
-                    spriteBatch.DrawString(HUDFont, collisionText, new Vector2(300, 0), Color.Red);
+                    spriteBatch.DrawString(HUDFont, scoreText, new Vector2(300, 0), Color.Red);
                 }
                     break;
                 case GameState.paused:
@@ -421,7 +421,7 @@ namespace MonoGame_SimpleSample
                     // spriteBatch.DrawString(HUDFont, "Mouse:" + Mouse.GetState()+ "indekser: "+ (indexer), new Vector2(100, 300), Color.Red);
                     playerSprite.Draw(GraphicsDevice, spriteBatch);
                     playerSprite2.Draw(GraphicsDevice, spriteBatch);
-                    spriteBatch.DrawString(HUDFont, collisionText, new Vector2(300, 0), Color.Red);
+                    spriteBatch.DrawString(HUDFont, scoreText, new Vector2(300, 0), Color.Red);
 
 
                     if (rect == null)

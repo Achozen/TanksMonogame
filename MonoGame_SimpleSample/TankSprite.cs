@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Generic;
 
 
 namespace MonoGame_SimpleSample
@@ -35,11 +36,11 @@ namespace MonoGame_SimpleSample
         }
 
 
-        new public void Update(GameTime gameTime)
+        new public void Update(GameTime gameTime, List<Sprite> level)
         {
             updateInput();
             updateFiring(gameTime);
-            updateMovement(gameTime);
+            updateMovement(gameTime, level);
             base.Update(gameTime);
         }
 
@@ -111,7 +112,7 @@ namespace MonoGame_SimpleSample
             }
         }
 
-        void updateMovement(GameTime gameTime)
+        void updateMovement(GameTime gameTime, List<Sprite> level)
         {
             if (!isMoving)
                 return;
@@ -135,6 +136,17 @@ namespace MonoGame_SimpleSample
             }
 
             position += movementVector;
+            Boolean colided = false;
+            foreach (var item in level)
+            {
+                if (item.IsCollidingWith(this))
+                {
+                    colided = true;
+                    break;
+                   
+                }
+            }
+            if(colided)position -= movementVector*2;
         }
 
         new public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
