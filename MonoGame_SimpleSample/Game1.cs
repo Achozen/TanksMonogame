@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
@@ -79,6 +80,7 @@ namespace MonoGame_SimpleSample
     
     public class Game1 : Game, TankActionListener
     {
+        public static bool DEBUG = true;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Texture2D playerTexture;
@@ -452,6 +454,7 @@ namespace MonoGame_SimpleSample
             _keyStateComponent.Update();
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
+            _keyStateComponent.OnKey(Keys.F1, () => DEBUG = !DEBUG);
             switch (currentGameState)
             {
                 case GameState.playing:

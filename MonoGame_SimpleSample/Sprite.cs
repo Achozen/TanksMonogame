@@ -114,7 +114,7 @@ namespace MonoGame_SimpleSample
             if (rect == null)
                 rect = new Texture2D(graphicsDevice, 1, 1);
             rect.SetData(new[] {Color.White});
-            if(initialCollisionTriangles != null)
+            if(initialCollisionTriangles != null && Game1.DEBUG)
             foreach (var triangle in collisionTriangles)
             {
                 DrawTriangle(spriteBatch,triangle.A, triangle.B, triangle.C, Color.Aqua);
@@ -145,21 +145,6 @@ namespace MonoGame_SimpleSample
                     (sinTheta * (pointToRotate.X - centerPoint.X) +
                      cosTheta * (pointToRotate.Y - centerPoint.Y) + centerPoint.Y)
             };
-        }
-
-        private void DrawRectangle(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, BoundingBox boundingBox,
-            Color color)
-        {
-            int rectWidth = (int) (boundingBox.Max.X - boundingBox.Min.X);
-            int rectHeight = (int) (boundingBox.Max.Y - boundingBox.Min.Y);
-
-            Rectangle coords = new Rectangle((int) boundingBox.Min.X, (int) boundingBox.Min.Y, rectWidth, rectHeight);
-
-            //DrawLine(spriteBatch, position, position + new Vector2(texture.Width, texture.Height), Color.Aqua);
-            // DrawLine(spriteBatch, position, position + new Vector2(texture.Width, texture.Height), Color.LimeGreen);
-            //spriteBatch.Draw(rect, new Rectangle((int)boundingBox.Min.X, (int)boundingBox.Min.Y, 2, 2), Color.Aqua);
-            //spriteBatch.Draw(rect, new Rectangle((int)boundingBox.Min.X+ rectWidth - 2, (int)boundingBox.Min.Y+ rectHeight - 2, 2, 2), Color.Aqua);
-            spriteBatch.Draw(rect, coords, color);
         }
 
         public bool isIntersectingWith(Sprite sprite, List<Triangle> initialCollisionTriangles, List<Triangle> collisionTriangles, List<Triangle> otherCollisionTriangles)
