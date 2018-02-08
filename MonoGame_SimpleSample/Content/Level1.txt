@@ -1,155 +1,306 @@
-Environment/dirt;-31;-2;0;none
-Environment/dirt;-31;126;0;none
-Environment/dirt;-31;254;0;none
-Environment/dirt;-31;382;0;none
-Environment/dirt;-31;510;0;none
-Environment/dirt;-31;638;0;none
-Environment/dirt;-31;766;0;none
-Environment/dirt;-31;894;0;none
-Environment/dirt;97;-2;0;none
-Environment/dirt;97;126;0;none
-Environment/dirt;97;254;0;none
-Environment/dirt;97;382;0;none
-Environment/dirt;97;510;0;none
-Environment/dirt;97;638;0;none
-Environment/dirt;97;766;0;none
-Environment/dirt;97;894;0;none
-Environment/dirt;225;-2;0;none
-Environment/dirt;225;126;0;none
-Environment/dirt;225;254;0;none
-Environment/dirt;225;382;0;none
-Environment/dirt;225;510;0;none
-Environment/dirt;225;638;0;none
-Environment/dirt;225;766;0;none
-Environment/dirt;225;894;0;none
-Environment/dirt;353;-2;0;none
-Environment/dirt;353;126;0;none
-Environment/dirt;353;254;0;none
-Environment/dirt;353;382;0;none
-Environment/dirt;353;510;0;none
-Environment/dirt;353;638;0;none
-Environment/dirt;353;766;0;none
-Environment/dirt;353;894;0;none
-Environment/dirt;481;-2;0;none
-Environment/dirt;481;126;0;none
-Environment/dirt;481;254;0;none
-Environment/dirt;481;382;0;none
-Environment/dirt;481;510;0;none
-Environment/dirt;481;638;0;none
-Environment/dirt;481;766;0;none
-Environment/dirt;481;894;0;none
-Environment/dirt;609;-2;0;none
-Environment/dirt;609;126;0;none
-Environment/dirt;609;254;0;none
-Environment/dirt;609;382;0;none
-Environment/dirt;609;510;0;none
-Environment/dirt;609;638;0;none
-Environment/dirt;609;766;0;none
-Environment/dirt;609;894;0;none
-Environment/dirt;737;-2;0;none
-Environment/dirt;737;126;0;none
-Environment/dirt;737;254;0;none
-Environment/dirt;737;382;0;none
-Environment/dirt;737;510;0;none
-Environment/dirt;737;638;0;none
-Environment/dirt;737;766;0;none
-Environment/dirt;737;894;0;none
-Environment/dirt;865;-2;0;none
-Environment/dirt;865;126;0;none
-Environment/dirt;865;254;0;none
-Environment/dirt;865;382;0;none
-Environment/dirt;865;510;0;none
-Environment/dirt;865;638;0;none
-Environment/dirt;865;766;0;none
-Environment/dirt;865;894;0;none
-Environment/dirt;993;-2;0;none
-Environment/dirt;993;126;0;none
-Environment/dirt;993;254;0;none
-Environment/dirt;993;382;0;none
-Environment/dirt;993;510;0;none
-Environment/dirt;993;638;0;none
-Environment/dirt;993;766;0;none
-Environment/dirt;993;894;0;none
-Environment/dirt;1121;-2;0;none
-Environment/dirt;1121;126;0;none
-Environment/dirt;1121;254;0;none
-Environment/dirt;1121;382;0;none
-Environment/dirt;1121;510;0;none
-Environment/dirt;1121;638;0;none
-Environment/dirt;1121;766;0;none
-Environment/dirt;1121;894;0;none
-Environment/dirt;1249;-2;0;none
-Environment/dirt;1249;126;0;none
-Environment/dirt;1249;254;0;none
-Environment/dirt;1249;382;0;none
-Environment/dirt;1249;510;0;none
-Environment/dirt;1249;638;0;none
-Environment/dirt;1249;766;0;none
-Environment/dirt;1249;894;0;none
-Environment/dirt;1377;-2;0;none
-Environment/dirt;1377;126;0;none
-Environment/dirt;1377;254;0;none
-Environment/dirt;1377;382;0;none
-Environment/dirt;1377;510;0;none
-Environment/dirt;1377;638;0;none
-Environment/dirt;1377;766;0;none
-Environment/dirt;1377;894;0;none
-Environment/treeSmall;784;78;0;none
-Environment/treeSmall;112;353;0;none
-Tanks/barrelBlack_outline;-9;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;15;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;39;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;63;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;87;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;111;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;135;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;159;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;183;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;207;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;231;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;255;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;279;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;303;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;327;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;351;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;375;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;399;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;423;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;447;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;471;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;495;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;519;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;543;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;567;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;591;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;615;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;639;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;663;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;687;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;711;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;735;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;759;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;783;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;807;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;831;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;855;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;879;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;903;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;927;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;951;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;975;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;999;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;1023;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Tanks/barrelBlack_outline;1047;210;415,999993362417;0,0,24,0,0,58,24,0,0,58,24,58
-Obstacles/sandbagBeige;761;389;539,000007030487;0,0,66,0,0,44,66,0,0,44,66,44
-Obstacles/sandbagBeige;761;433;539,000007030487;0,0,66,0,0,44,66,0,0,44,66,44
-Obstacles/sandbagBeige;472;294;539,000007030487;0,0,66,0,0,44,66,0,0,44,66,44
-Obstacles/sandbagBeige;472;338;539,000007030487;0,0,66,0,0,44,66,0,0,44,66,44
-Obstacles/sandbagBeige;209;401;539,000007030487;0,0,66,0,0,44,66,0,0,44,66,44
-Obstacles/sandbagBeige;209;445;539,000007030487;0,0,66,0,0,44,66,0,0,44,66,44
-Obstacles/sandbagBeige;206;30;539,000007030487;0,0,66,0,0,44,66,0,0,44,66,44
-Obstacles/sandbagBeige;206;74;539,000007030487;0,0,66,0,0,44,66,0,0,44,66,44
-Obstacles/sandbagBeige;471;110;539,000007030487;0,0,66,0,0,44,66,0,0,44,66,44
-Obstacles/sandbagBeige;471;154;539,000007030487;0,0,66,0,0,44,66,0,0,44,66,44
-Obstacles/sandbagBeige;736;15;539,000007030487;0,0,66,0,0,44,66,0,0,44,66,44
-Obstacles/sandbagBeige;736;59;539,000007030487;0,0,66,0,0,44,66,0,0,44,66,44
+Default size/tileGrass2;-32;-32;0;none
+Default size/tileGrass2;-32;32;0;none
+Default size/tileGrass2;-32;96;0;none
+Default size/tileGrass2;-32;160;0;none
+Default size/tileGrass2;-32;224;0;none
+Default size/tileGrass2;-32;288;0;none
+Default size/tileGrass2;-32;352;0;none
+Default size/tileGrass2;-32;416;0;none
+Default size/tileGrass2;-32;480;0;none
+Default size/tileGrass2;32;-32;0;none
+Default size/tileGrass2;32;32;0;none
+Default size/tileGrass2;32;96;0;none
+Default size/tileGrass2;32;160;0;none
+Default size/tileGrass2;32;224;0;none
+Default size/tileGrass2;32;288;0;none
+Default size/tileGrass2;32;352;0;none
+Default size/tileGrass2;32;416;0;none
+Default size/tileGrass2;32;480;0;none
+Default size/tileGrass2;96;-32;0;none
+Default size/tileGrass2;96;32;0;none
+Default size/tileGrass2;96;96;0;none
+Default size/tileGrass2;96;160;0;none
+Default size/tileGrass2;96;224;0;none
+Default size/tileGrass2;96;288;0;none
+Default size/tileGrass2;96;352;0;none
+Default size/tileGrass2;96;416;0;none
+Default size/tileGrass2;96;480;0;none
+Default size/tileGrass2;160;-32;0;none
+Default size/tileGrass2;160;32;0;none
+Default size/tileGrass2;160;96;0;none
+Default size/tileGrass2;160;160;0;none
+Default size/tileGrass2;160;224;0;none
+Default size/tileGrass2;160;288;0;none
+Default size/tileGrass2;160;352;0;none
+Default size/tileGrass2;160;416;0;none
+Default size/tileGrass2;160;480;0;none
+Default size/tileGrass2;224;-32;0;none
+Default size/tileGrass2;224;32;0;none
+Default size/tileGrass2;224;96;0;none
+Default size/tileGrass2;224;160;0;none
+Default size/tileGrass2;224;224;0;none
+Default size/tileGrass2;224;288;0;none
+Default size/tileGrass2;224;352;0;none
+Default size/tileGrass2;224;416;0;none
+Default size/tileGrass2;224;480;0;none
+Default size/tileGrass2;288;-32;0;none
+Default size/tileGrass2;288;32;0;none
+Default size/tileGrass2;288;96;0;none
+Default size/tileGrass2;288;160;0;none
+Default size/tileGrass2;288;224;0;none
+Default size/tileGrass2;288;288;0;none
+Default size/tileGrass2;288;352;0;none
+Default size/tileGrass2;288;416;0;none
+Default size/tileGrass2;288;480;0;none
+Default size/tileGrass2;352;-32;0;none
+Default size/tileGrass2;352;32;0;none
+Default size/tileGrass2;352;96;0;none
+Default size/tileGrass2;352;160;0;none
+Default size/tileGrass2;352;224;0;none
+Default size/tileGrass2;352;288;0;none
+Default size/tileGrass2;352;352;0;none
+Default size/tileGrass2;352;416;0;none
+Default size/tileGrass2;352;480;0;none
+Default size/tileGrass2;416;-32;0;none
+Default size/tileGrass2;416;32;0;none
+Default size/tileGrass2;416;96;0;none
+Default size/tileGrass2;416;160;0;none
+Default size/tileGrass2;416;224;0;none
+Default size/tileGrass2;416;288;0;none
+Default size/tileGrass2;416;352;0;none
+Default size/tileGrass2;416;416;0;none
+Default size/tileGrass2;416;480;0;none
+Default size/tileSand1;480;-32;0;none
+Default size/tileSand1;480;32;0;none
+Default size/tileSand1;480;96;0;none
+Default size/tileSand1;480;160;0;none
+Default size/tileSand1;480;224;0;none
+Default size/tileSand1;480;288;0;none
+Default size/tileSand1;480;352;0;none
+Default size/tileSand1;480;416;0;none
+Default size/tileSand1;480;480;0;none
+Default size/tileSand1;544;-32;0;none
+Default size/tileSand1;544;32;0;none
+Default size/tileSand1;544;96;0;none
+Default size/tileSand1;544;160;0;none
+Default size/tileSand1;544;224;0;none
+Default size/tileSand1;544;288;0;none
+Default size/tileSand1;544;352;0;none
+Default size/tileSand1;544;416;0;none
+Default size/tileSand1;544;480;0;none
+Default size/tileSand1;608;-32;0;none
+Default size/tileSand1;608;32;0;none
+Default size/tileSand1;608;96;0;none
+Default size/tileSand1;608;160;0;none
+Default size/tileSand1;608;224;0;none
+Default size/tileSand1;608;288;0;none
+Default size/tileSand1;608;352;0;none
+Default size/tileSand1;608;416;0;none
+Default size/tileSand1;608;480;0;none
+Default size/tileSand1;672;-32;0;none
+Default size/tileSand1;672;32;0;none
+Default size/tileSand1;672;96;0;none
+Default size/tileSand1;672;160;0;none
+Default size/tileSand1;672;224;0;none
+Default size/tileSand1;672;288;0;none
+Default size/tileSand1;672;352;0;none
+Default size/tileSand1;672;416;0;none
+Default size/tileSand1;672;480;0;none
+Default size/tileSand1;736;-32;0;none
+Default size/tileSand1;736;32;0;none
+Default size/tileSand1;736;96;0;none
+Default size/tileSand1;736;160;0;none
+Default size/tileSand1;736;224;0;none
+Default size/tileSand1;736;288;0;none
+Default size/tileSand1;736;352;0;none
+Default size/tileSand1;736;416;0;none
+Default size/tileSand1;736;480;0;none
+Default size/tileSand1;800;-32;0;none
+Default size/tileSand1;800;32;0;none
+Default size/tileSand1;800;96;0;none
+Default size/tileSand1;800;160;0;none
+Default size/tileSand1;800;224;0;none
+Default size/tileSand1;800;288;0;none
+Default size/tileSand1;800;352;0;none
+Default size/tileSand1;800;416;0;none
+Default size/tileSand1;800;480;0;none
+Default size/tileSand1;864;-32;0;none
+Default size/tileSand1;864;32;0;none
+Default size/tileSand1;864;96;0;none
+Default size/tileSand1;864;160;0;none
+Default size/tileSand1;864;224;0;none
+Default size/tileSand1;864;288;0;none
+Default size/tileSand1;864;352;0;none
+Default size/tileSand1;864;416;0;none
+Default size/tileSand1;864;480;0;none
+Default size/tileSand1;928;-32;0;none
+Default size/tileSand1;928;32;0;none
+Default size/tileSand1;928;96;0;none
+Default size/tileSand1;928;160;0;none
+Default size/tileSand1;928;224;0;none
+Default size/tileSand1;928;288;0;none
+Default size/tileSand1;928;352;0;none
+Default size/tileSand1;928;416;0;none
+Default size/tileSand1;928;480;0;none
+Default size/tileSand1;992;-32;0;none
+Default size/tileSand1;992;32;0;none
+Default size/tileSand1;992;96;0;none
+Default size/tileSand1;992;160;0;none
+Default size/tileSand1;992;224;0;none
+Default size/tileSand1;992;288;0;none
+Default size/tileSand1;992;352;0;none
+Default size/tileSand1;992;416;0;none
+Default size/tileSand1;992;480;0;none
+Default size/tileGrass_transitionE;416;-32;0;none
+Default size/tileGrass_transitionE;416;32;0;none
+Default size/tileGrass_transitionE;416;96;0;none
+Default size/tileGrass_transitionE;416;160;0;none
+Default size/tileGrass_transitionE;416;224;0;none
+Default size/tileGrass_transitionE;416;288;0;none
+Default size/tileGrass_transitionE;416;352;0;none
+Default size/tileGrass_transitionE;416;416;0;none
+Default size/tileGrass_transitionE;416;480;0;none
+Default size/tileGrass_roadSplitN;32;224;0;none
+Default size/tileGrass_roadEast;-32;224;0;none
+Default size/tileGrass_roadEast;96;224;0;none
+Default size/tileGrass_roadCrossingRound;160;224;0;none
+Default size/tileGrass_roadNorth;160;160;0;none
+Default size/tileGrass_roadNorth;160;96;0;none
+Default size/tileGrass_roadNorth;160;32;0;none
+Default size/tileGrass_roadNorth;160;-32;0;none
+Default size/tileGrass_roadNorth;32;160;0;none
+Default size/tileGrass_roadNorth;32;96;0;none
+Default size/tileGrass_roadCornerLL;32;32;0;none
+Default size/tileGrass_roadEast;-32;32;0;none
+Default size/sandbagBeige;166;256;-120.000003339304;0,0,32,0,0,22,32,0,0,22,32,22
+Default size/sandbagBeige;165;279;-90.0000025044782;0,0,32,0,0,22,32,0,0,22,32,22
+Default size/fenceRed;216;22;-180.000005008956;0,0,48,0,0,16,48,0,0,16,48,16
+Default size/fenceRed;16;232;-270.000000683245;0,0,48,0,0,16,48,0,0,16,48,16
+Default size/barricadeMetal;388;332;-270.000000683245;0,0,28,0,0,28,28,0,0,28,28,28
+Default size/barricadeMetal;395;350;-299.999994687882;0,0,28,0,0,28,28,0,0,28,28,28
+Default size/barricadeMetal;408;239;-360.000010017913;0,0,28,0,0,28,28,0,0,28,28,28
+Default size/barricadeMetal;511;98;-329.999988692519;0,0,28,0,0,28,28,0,0,28,28,28
+Default size/barricadeMetal;646;218;-375.000007020231;0,0,28,0,0,28,28,0,0,28,28,28
+Default size/barricadeMetal;608;357;-390.00000402255;0,0,28,0,0,28,28,0,0,28,28,28
+Default size/tracksLarge;32;175;-375.000007020231;none
+Default size/tracksLarge;46;231;-375.000007020231;none
+Default size/tracksLarge;5;155;-405.000001024868;none
+Default size/tracksLarge;-32;122;-405.000001024868;none
+Default size/tracksLarge;55;268;-360.000010017913;none
+Default size/tracksLarge;57;302;-329.999988692519;none
+Default size/tracksLarge;33;341;-314.999991690201;none
+Default size/tracksLarge;12;366;-299.999994687882;none
+Default size/tileGrass_roadTransitionW_dirt;480;223;-180.000005008956;none
+Default size/tileSand_roadEast;544;223;-180.000005008956;none
+Default size/tileSand_roadCornerUR;608;223;-180.000005008956;none
+Default size/tileSand_roadNorth;608;287;-180.000005008956;none
+Default size/tileSand_roadNorth;608;351;-180.000005008956;none
+Default size/tileSand_roadNorth;608;415;-180.000005008956;none
+Default size/tileSand_roadCornerLL;608;479;-180.000005008956;none
+Default size/tileSand_roadEast;672;479;-180.000005008956;none
+Default size/tileSand_roadEast;736;479;-180.000005008956;none
+Default size/tileSand_roadEast;800;479;-180.000005008956;none
+Default size/tileSand_roadEast;864;479;-180.000005008956;none
+Default size/tileSand_roadEast;928;479;-180.000005008956;none
+Default size/tileSand_roadEast;992;479;-180.000005008956;none
+Default size/tileSand_roadCrossing;800;479;-180.000005008956;none
+Default size/tileSand_roadNorth;800;543;-180.000005008956;none
+Default size/tileSand_roadNorth;800;415;-180.000005008956;none
+Default size/tileSand_roadNorth;800;351;-180.000005008956;none
+Default size/tileSand_roadSplitW;800;287;-180.000005008956;none
+Default size/tileSand_roadEast;864;287;-180.000005008956;none
+Default size/tileSand_roadEast;928;287;-180.000005008956;none
+Default size/tileSand_roadEast;992;287;-180.000005008956;none
+Default size/tileSand_roadNorth;800;223;-180.000005008956;none
+Default size/tileSand_roadNorth;800;159;-180.000005008956;none
+Default size/tileSand_roadNorth;800;95;-180.000005008956;none
+Default size/tileSand_roadNorth;800;31;-180.000005008956;none
+Default size/tileSand_roadCrossing;800;95;-180.000005008956;none
+Default size/tileSand_roadEast;864;95;-180.000005008956;none
+Default size/tileSand_roadEast;928;95;-180.000005008956;none
+Default size/tileSand_roadEast;992;95;-180.000005008956;none
+Default size/tileSand_roadEast;1056;95;-180.000005008956;none
+Default size/tileSand_roadEast;1056;287;-180.000005008956;none
+Default size/tileSand_roadEast;1056;479;-180.000005008956;none
+Default size/tileSand_roadEast;736;95;-180.000005008956;none
+Default size/tileSand_roadEast;672;95;-180.000005008956;none
+Default size/tileSand_roadCornerUL;608;95;-180.000005008956;none
+Default size/tileSand_roadNorth;608;159;-180.000005008956;none
+Default size/tileSand_roadSplitE;608;223;-180.000005008956;none
+Default size/tileGrass_roadEast;416;223;-180.000005008956;none
+Default size/tileGrass_roadCornerUL;352;223;-180.000005008956;none
+Default size/tileGrass_roadCornerLR;352;287;-180.000005008956;none
+Default size/tileGrass_roadEast;288;287;-180.000005008956;none
+Default size/tileGrass_roadNorth;224;351;-180.000005008956;none
+Default size/tileGrass_roadNorth;224;415;-180.000005008956;none
+Default size/tileGrass_roadNorth;224;479;-180.000005008956;none
+Default size/tileGrass_roadNorth;224;543;-180.000005008956;none
+Default size/barricadeWood;824;415;-209.999999013593;0,0,28,0,0,28,28,0,0,28,28,28
+Default size/barricadeWood;827;358;-255.000003680927;0,0,28,0,0,28,28,0,0,28,28,28
+Default size/barricadeWood;1006;12;-224.999996015912;0,0,28,0,0,28,28,0,0,28,28,28
+Default size/barricadeWood;988;7;-270.000000683245;0,0,28,0,0,28,28,0,0,28,28,28
+Default size/barricadeWood;958;-11;-299.999994687882;0,0,28,0,0,28,28,0,0,28,28,28
+Default size/barrelRust_top;883;461;-299.999994687882;0,0,24,0,0,24,24,0,0,24,24,24
+Default size/barrelRust_top;840;465;-360.000010017913;0,0,24,0,0,24,24,0,0,24,24,24
+Default size/barrelRust_top;851;450;-360.000010017913;0,0,24,0,0,24,24,0,0,24,24,24
+Default size/barrelBlack_top;146;3;-314.999991690201;0,0,24,0,0,24,24,0,0,24,24,24
+Default size/barrelBlack_top;158;23;-345.000013015594;0,0,24,0,0,24,24,0,0,24,24,24
+Default size/barrelBlack_top;178;36;-375.000007020231;0,0,24,0,0,24,24,0,0,24,24,24
+Default size/barrelBlack_top;163;74;-449.999992031823;0,0,24,0,0,24,24,0,0,24,24,24
+Default size/barrelBlack_top;128;59;-449.999992031823;0,0,24,0,0,24,24,0,0,24,24,24
+Default size/barrelBlack_top;135;49;-449.999992031823;0,0,24,0,0,24,24,0,0,24,24,24
+Default size/barrelBlack_top;159;60;-449.999992031823;0,0,24,0,0,24,24,0,0,24,24,24
+Default size/sandbagBeige_open;754;48;-675.000001708113;0,0,42,0,0,28,42,0,0,28,42,28
+Default size/sandbagBeige;148;303;-60.0000016696521;0,0,32,0,0,22,32,0,0,22,32,22
+Default size/oilSpill_large;6;56;-104.999999506797;none
+Default size/oilSpill_large;960;511;-104.999999506797;none
+Default size/fenceYellow;982;279;-90.0000025044782;0,0,52,0,0,16,52,0,0,16,52,16
+Default size/fenceYellow;981;82;-120.000003339304;0,0,52,0,0,16,52,0,0,16,52,16
+Default size/fenceYellow;932;87;-90.0000025044782;0,0,52,0,0,16,52,0,0,16,52,16
+Default size/fenceYellow;897;83;-74.9999986719706;0,0,52,0,0,16,52,0,0,16,52,16
+Default size/fenceYellow;785;46;-135.000000341623;0,0,52,0,0,16,52,0,0,16,52,16
+Default size/fenceYellow;751;21;-209.999999013593;0,0,52,0,0,16,52,0,0,16,52,16
+Default size/barricadeMetal;404;306;-314.999991690201;0,0,28,0,0,28,28,0,0,28,28,28
+Default size/barricadeMetal;284;73;-314.999991690201;0,0,28,0,0,28,28,0,0,28,28,28
+Default size/sandbagBeige;982;100;-627.999994708395;0,0,32,0,0,22,32,0,0,22,32,22
+Default size/sandbagBeige;959;99;-627.999994708395;0,0,32,0,0,22,32,0,0,22,32,22
+Default size/sandbagBeige;936;98;-627.999994708395;0,0,32,0,0,22,32,0,0,22,32,22
+Default size/sandbagBeige;913;97;-627.999994708395;0,0,32,0,0,22,32,0,0,22,32,22
+Default size/sandbagBeige;981;133;-627.999994708395;0,0,32,0,0,22,32,0,0,22,32,22
+Default size/sandbagBeige;958;132;-627.999994708395;0,0,32,0,0,22,32,0,0,22,32,22
+Default size/sandbagBeige;935;131;-627.999994708395;0,0,32,0,0,22,32,0,0,22,32,22
+Default size/sandbagBeige;912;130;-627.999994708395;0,0,32,0,0,22,32,0,0,22,32,22
+Default size/sandbagBeige;980;166;-627.999994708395;0,0,32,0,0,22,32,0,0,22,32,22
+Default size/sandbagBeige;957;165;-627.999994708395;0,0,32,0,0,22,32,0,0,22,32,22
+Default size/sandbagBeige;934;164;-627.999994708395;0,0,32,0,0,22,32,0,0,22,32,22
+Default size/sandbagBeige;911;163;-627.999994708395;0,0,32,0,0,22,32,0,0,22,32,22
+Default size/sandbagBeige;979;199;-627.999994708395;0,0,32,0,0,22,32,0,0,22,32,22
+Default size/sandbagBeige;956;198;-627.999994708395;0,0,32,0,0,22,32,0,0,22,32,22
+Default size/sandbagBeige;933;197;-627.999994708395;0,0,32,0,0,22,32,0,0,22,32,22
+Default size/sandbagBeige;910;196;-627.999994708395;0,0,32,0,0,22,32,0,0,22,32,22
+Default size/sandbagBeige;969;116;-627.999994708395;0,0,32,0,0,22,32,0,0,22,32,22
+Default size/sandbagBeige;946;115;-627.999994708395;0,0,32,0,0,22,32,0,0,22,32,22
+Default size/sandbagBeige;923;114;-627.999994708395;0,0,32,0,0,22,32,0,0,22,32,22
+Default size/sandbagBeige;968;149;-627.999994708395;0,0,32,0,0,22,32,0,0,22,32,22
+Default size/sandbagBeige;945;148;-627.999994708395;0,0,32,0,0,22,32,0,0,22,32,22
+Default size/sandbagBeige;922;147;-627.999994708395;0,0,32,0,0,22,32,0,0,22,32,22
+Default size/sandbagBeige;967;182;-627.999994708395;0,0,32,0,0,22,32,0,0,22,32,22
+Default size/sandbagBeige;944;181;-627.999994708395;0,0,32,0,0,22,32,0,0,22,32,22
+Default size/sandbagBeige;921;180;-627.999994708395;0,0,32,0,0,22,32,0,0,22,32,22
+Default size/sandbagBeige;958;130;-627.999994708395;0,0,32,0,0,22,32,0,0,22,32,22
+Default size/sandbagBeige;935;129;-627.999994708395;0,0,32,0,0,22,32,0,0,22,32,22
+Default size/sandbagBeige;957;163;-627.999994708395;0,0,32,0,0,22,32,0,0,22,32,22
+Default size/sandbagBeige;934;162;-627.999994708395;0,0,32,0,0,22,32,0,0,22,32,22
+Default size/sandbagBeige;946;146;-627.999994708395;0,0,32,0,0,22,32,0,0,22,32,22
+Default size/tracksLarge;628;3;-748.000025368456;none
+Default size/tracksLarge;653;50;-748.000025368456;none
+Default size/tracksLarge;677;97;-748.000025368456;none
+Default size/tracksLarge;698;137;-762.999995050018;none
+Default size/tracksLarge;734;176;-762.999995050018;none
+Default size/tracksLarge;770;215;-762.999995050018;none
+Default size/tracksLarge;801;248;-778.000019373093;none
+Default size/tracksLarge;846;276;-778.000019373093;none
+Default size/tracksLarge;891;304;-778.000019373093;none
+Default size/tracksLarge;930;327;-792.999989054654;none
+Default size/tracksLarge;980;343;-792.999989054654;none
+Default size/tracksLarge;1031;358;-792.999989054654;none
