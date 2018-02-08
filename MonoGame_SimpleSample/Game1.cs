@@ -9,6 +9,33 @@ using Microsoft.Xna.Framework.Media;
 
 namespace MonoGame_SimpleSample
 {
+    
+    class MouseStateComponent
+    {
+        private MouseState _lastMouseState;
+        private MouseState _currentMouseState;
+        private bool _leftClickOccurred;
+
+        public void Update()
+        {
+            _lastMouseState = _currentMouseState;
+            _currentMouseState = Mouse.GetState();
+             _leftClickOccurred = _lastMouseState.LeftButton == ButtonState.Released && _currentMouseState.LeftButton == ButtonState.Pressed;
+        }
+
+        public void OnLeftClick(Action<MouseState> handler)
+        {
+            if(_leftClickOccurred)
+                handler.Invoke(_currentMouseState);
+        }
+
+        public void CleanUp()
+        {
+            _leftClickOccurred = false;
+        }
+
+    }
+    
     public class Game1 : Game, TankActionListener
     {
         GraphicsDeviceManager graphics;
@@ -32,14 +59,10 @@ namespace MonoGame_SimpleSample
         Texture2D rect;
         int lastScrollWheelValue;
         int indexer;
-        MouseState lastMouseState;
-        MouseState currentMouseState;
         
         private SoundEffect explosionSound;
         private Song backgroundMusic;
-
-
-        bool leftClicked;
+        private MouseStateComponent _mouseStateComponent = new MouseStateComponent();
 
         public Game1()
         {
@@ -155,8 +178,6 @@ namespace MonoGame_SimpleSample
             MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/sandbagBeige_open"));
             MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileGrass1"));
             MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/barricadeWood"));
-
-            currentMouseState = Mouse.GetState();
         }
 
         protected override void UnloadContent()
@@ -225,13 +246,11 @@ namespace MonoGame_SimpleSample
                     if (Mouse.GetState().ScrollWheelValue - lastScrollWheelValue > 0 &&
                         Keyboard.GetState().IsKeyUp(Keys.LeftControl))
                     {
-                        degrees--;
                         indexer = nextIndexer(indexer);
                     }
                     else if (lastScrollWheelValue - Mouse.GetState().ScrollWheelValue > 0 &&
                              Keyboard.GetState().IsKeyUp(Keys.LeftControl))
                     {
-                        degrees++;
                         indexer = prevIndexer(indexer);
                     }
 
@@ -261,14 +280,6 @@ namespace MonoGame_SimpleSample
                     }
 
                     lastScrollWheelValue = Mouse.GetState().ScrollWheelValue;
-                    lastMouseState = currentMouseState;
-                    currentMouseState = Mouse.GetState();
-                    if (lastMouseState.LeftButton == ButtonState.Released &&
-                        currentMouseState.LeftButton == ButtonState.Pressed)
-                    {
-                        leftClicked = true;
-                    }
-
                     break;
             }
 
@@ -335,6 +346,7 @@ namespace MonoGame_SimpleSample
 
         protected override void Draw(GameTime gameTime)
         {
+            _mouseStateComponent.Update();
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
             switch (currentGameState)
@@ -374,14 +386,13 @@ namespace MonoGame_SimpleSample
                     var tex3 = MapEditorAvailableItems[nextIndexer(indexer)];
                     var tex4 = MapEditorAvailableItems[nextIndexer(nextIndexer(indexer))];
 
-                    if (leftClicked)
+                    
+                    _mouseStateComponent.OnLeftClick(state =>
                     {
-                        leftClicked = false;
-
                         MapEditorItems.Add(new Sprite(tex2, new Vector2(((Mouse.GetState().X + tex2.Width / 2) / tex2.Width)*tex2.Width - tex2.Width/2,
                                 (Mouse.GetState().Y + tex2.Height / 2) / tex2.Height*tex2.Height - tex2.Height/2),
                             (float) degrees));
-                    }
+                    });
 
                     foreach (var sprite in MapEditorItems)
                     {
@@ -435,6 +446,8 @@ namespace MonoGame_SimpleSample
 
             spriteBatch.End();
             base.Draw(gameTime);
+            
+            _mouseStateComponent.CleanUp();
         }
 
         double degrees = 0f;
