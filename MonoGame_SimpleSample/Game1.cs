@@ -519,7 +519,11 @@ namespace MonoGame_SimpleSample
                         {
                             for (var j = 0; j < mapEditorBrushY; j++)
                             {
-                                MapEditorItems.Add(new Sprite(tex2,(currentItemVector- new Vector2( tex2.Width/2, tex2.Height/2))+new Vector2(i*tex2.Width, j*tex2.Height), (float) degrees));
+                                var vec1 = new Vector2((int) currentItemVector.X ,
+                                    (int) currentItemVector.Y);
+                                var vec = vec1 + new Vector2(tex2.Width * i,tex2.Height * j)-  new Vector2( tex2.Width/2, tex2.Height/2);
+                                var XD = Sprite.RotateVector(vec, vec1,(float) DegreeToRadian(degrees) );
+                                MapEditorItems.Add(new Sprite(tex2,XD, (float) degrees));
                             }
                         }
                     });
@@ -530,7 +534,12 @@ namespace MonoGame_SimpleSample
                         {
                             for (var j = 0; j < mapEditorBrushY; j++)
                             {
-                                MapEditorItems.Add(new Sprite(tex2,currentItemVector- new Vector2( tex2.Width/2, tex2.Height/2)+new Vector2(i*tex2.Width, j*tex2.Height), (float) degrees, null));
+                                var vec1 = new Vector2((int) currentItemVector.X ,
+                                    (int) currentItemVector.Y);
+                                var vec = vec1 + new Vector2(tex2.Width * i,tex2.Height * j)-  new Vector2( tex2.Width/2, tex2.Height/2);
+                                var XD = Sprite.RotateVector(vec, vec1,(float) DegreeToRadian(degrees) );
+                                
+                                MapEditorItems.Add(new Sprite(tex2,XD , (float) degrees, null));
                             }
                         }
                     });
@@ -564,11 +573,14 @@ namespace MonoGame_SimpleSample
                     {
                         for (var j = 0; j < mapEditorBrushY; j++)
                         {
-                            var XD = new Vector2();
+                            var vec1 = new Vector2((int) currentItemVector.X ,
+                                (int) currentItemVector.Y);
+                            var vec = vec1 + new Vector2(tex2.Width * i,tex2.Height * j);
+                            var XD = Sprite.RotateVector(vec, vec1,(float) DegreeToRadian(degrees) );
                             spriteBatch.Draw(tex2,
                                 new Rectangle(
-                                    (int)currentItemVector.X+tex2.Width * i,
-                                    (int)currentItemVector.Y+tex2.Height * j,
+                                    (int)XD.X,
+                                    (int)XD.Y,
                                     tex2.Width, tex2.Height), null, Color.White, (float) DegreeToRadian(degrees),
                                 new Vector2(tex2.Width / 2, tex2.Height / 2), SpriteEffects.None, 0f);
                         }
