@@ -105,6 +105,8 @@ namespace MonoGame_SimpleSample
         private Song backgroundMusic;
         private MouseStateComponent _mouseStateComponent = new MouseStateComponent();
         private KeyStateComponent _keyStateComponent = new KeyStateComponent();
+        private int mapEditorBrushX = 1;
+        private int mapEditorBrushY = 1;
 
         public Game1()
         {
@@ -424,6 +426,10 @@ namespace MonoGame_SimpleSample
                     break;
                 case GameState.mapEditor:
                     spriteBatch.DrawString(HUDFont, "Map editor", Vector2.Zero, Color.White);
+                    _keyStateComponent.OnKey(Keys.Right, () => mapEditorBrushX ++);
+                    _keyStateComponent.OnKey(Keys.Left, () => Math.Max(1, --mapEditorBrushX));
+                    _keyStateComponent.OnKey(Keys.Down, () => mapEditorBrushY ++);
+                    _keyStateComponent.OnKey(Keys.Up, () => Math.Max(1, --mapEditorBrushY));
                     _keyStateComponent.OnKey(Keys.PageUp, () => indexer = nextIndexer(indexer));
                     _keyStateComponent.OnKey(Keys.PageDown, () => indexer = prevIndexer(indexer));
                     _keyStateComponent.OnKey(Keys.Z, () =>
@@ -449,7 +455,13 @@ namespace MonoGame_SimpleSample
 
                     _mouseStateComponent.OnLeftClick(state =>
                     {
-                        MapEditorItems.Add(new Sprite(tex2,currentItemVector- new Vector2( tex2.Width/2, tex2.Height/2), (float) degrees));
+                        for (var i = 0; i < mapEditorBrushX; i++)
+                        {
+                            for (var j = 0; j < mapEditorBrushY; j++)
+                            {
+                                MapEditorItems.Add(new Sprite(tex2,(currentItemVector- new Vector2( tex2.Width/2, tex2.Height/2))+new Vector2(i*tex2.Width, j*tex2.Height), (float) degrees));
+                            }
+                        }
                     });
 
                     _mouseStateComponent.OnRightClick(state =>
@@ -480,12 +492,22 @@ namespace MonoGame_SimpleSample
                         new Rectangle(Mouse.GetState().X, Mouse.GetState().Y - tex.Height, tex.Width, tex.Height), null,
                         new Color(255, 255, 255, 200));
                     //spriteBatch.Draw(tex2, new Rectangle(Mouse.GetState().X, Mouse.GetState().Y, tex2.Width, tex2.Height), null, Color.White);
-                    spriteBatch.Draw(tex2,
-                        new Rectangle(
-                            (int)currentItemVector.X,
-                            (int)currentItemVector.Y,
-                            tex2.Width, tex2.Height), null, Color.White, (float) DegreeToRadian(degrees),
-                        new Vector2(tex2.Width / 2, tex2.Height / 2), SpriteEffects.None, 0f);
+
+                    
+                    for (var i = 0; i < mapEditorBrushX; i++)
+                    {
+                        for (var j = 0; j < mapEditorBrushY; j++)
+                        {
+                            spriteBatch.Draw(tex2,
+                                new Rectangle(
+                                    (int)currentItemVector.X+tex2.Width * i,
+                                    (int)currentItemVector.Y+tex2.Height * j,
+                                    tex2.Width, tex2.Height), null, Color.White, (float) DegreeToRadian(degrees),
+                                new Vector2(tex2.Width / 2, tex2.Height / 2), SpriteEffects.None, 0f);
+                        }
+                    }
+                    
+                    
                     spriteBatch.Draw(tex3,
                         new Rectangle(Mouse.GetState().X, Mouse.GetState().Y + tex2.Height, tex3.Width, tex3.Height),
                         null, new Color(255, 255, 255, 200));
