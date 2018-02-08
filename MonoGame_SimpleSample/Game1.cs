@@ -15,12 +15,14 @@ namespace MonoGame_SimpleSample
         private MouseState _lastMouseState;
         private MouseState _currentMouseState;
         private bool _leftClickOccurred;
+        private bool _rightClickOccurred;
 
         public void Update()
         {
             _lastMouseState = _currentMouseState;
             _currentMouseState = Mouse.GetState();
              _leftClickOccurred = _lastMouseState.LeftButton == ButtonState.Released && _currentMouseState.LeftButton == ButtonState.Pressed;
+            _rightClickOccurred = _lastMouseState.RightButton == ButtonState.Released && _currentMouseState.RightButton == ButtonState.Pressed;
         }
 
         public void OnLeftClick(Action<MouseState> handler)
@@ -29,9 +31,16 @@ namespace MonoGame_SimpleSample
                 handler.Invoke(_currentMouseState);
         }
 
+        public void OnRightClick(Action<MouseState> handler)
+        {
+            if(_rightClickOccurred)
+                handler.Invoke(_currentMouseState);
+        }
+
         public void CleanUp()
         {
             _leftClickOccurred = false;
+            _rightClickOccurred = false;
         }
 
     }
@@ -211,9 +220,10 @@ namespace MonoGame_SimpleSample
 
             if (keyboardState.IsKeyDown(Keys.F11))
             {
+                File.WriteAllText(@"Content/Level1.txt",string.Empty);
                 foreach (var sprite in MapEditorItems)
                 {
-                    File.AppendAllText(@"Content/Level2.txt", sprite.toLevelFormat() + Environment.NewLine);
+                    File.AppendAllText(@"Content/Level1.txt", sprite.toLevelFormat() + Environment.NewLine);
                 }
             }
 
@@ -385,13 +395,25 @@ namespace MonoGame_SimpleSample
                     var tex2 = MapEditorAvailableItems[indexer];
                     var tex3 = MapEditorAvailableItems[nextIndexer(indexer)];
                     var tex4 = MapEditorAvailableItems[nextIndexer(nextIndexer(indexer))];
+                    Vector2 currentItemVector;
+                    if (Keyboard.GetState().IsKeyDown(Keys.Space))
+                    {
+                        currentItemVector=  new Vector2(((Mouse.GetState().X + tex2.Width / 2) / tex2.Width)*tex2.Width,
+                            (Mouse.GetState().Y + tex2.Height / 2) / tex2.Height*tex2.Height );
+                    }
+                    else
+                    {
+                        currentItemVector=  new Vector2(Mouse.GetState().X, Mouse.GetState().Y );
+                    }
 
-                    
                     _mouseStateComponent.OnLeftClick(state =>
                     {
-                        MapEditorItems.Add(new Sprite(tex2, new Vector2(((Mouse.GetState().X + tex2.Width / 2) / tex2.Width)*tex2.Width - tex2.Width/2,
-                                (Mouse.GetState().Y + tex2.Height / 2) / tex2.Height*tex2.Height - tex2.Height/2),
-                            (float) degrees));
+                        MapEditorItems.Add(new Sprite(tex2,currentItemVector- new Vector2( tex2.Width/2, tex2.Height/2), (float) degrees));
+                    });
+
+                    _mouseStateComponent.OnRightClick(state =>
+                    {
+                        MapEditorItems.Add(new Sprite(tex2,currentItemVector- new Vector2( tex2.Width/2, tex2.Height/2), (float) degrees, null));
                     });
 
                     foreach (var sprite in MapEditorItems)
@@ -418,8 +440,8 @@ namespace MonoGame_SimpleSample
                     //spriteBatch.Draw(tex2, new Rectangle(Mouse.GetState().X, Mouse.GetState().Y, tex2.Width, tex2.Height), null, Color.White);
                     spriteBatch.Draw(tex2,
                         new Rectangle(
-                            (Mouse.GetState().X + tex2.Width / 2) / tex2.Width*tex2.Width,
-                            (Mouse.GetState().Y + tex2.Height / 2) / tex2.Height*tex2.Height,
+                            (int)currentItemVector.X,
+                            (int)currentItemVector.Y,
                             tex2.Width, tex2.Height), null, Color.White, (float) DegreeToRadian(degrees),
                         new Vector2(tex2.Width / 2, tex2.Height / 2), SpriteEffects.None, 0f);
                     spriteBatch.Draw(tex3,

@@ -226,7 +226,20 @@ namespace MonoGame_SimpleSample
 
         public String toLevelFormat()
         {
-            return texture.Name + ";" + position.X + ";" + position.Y + ";" + RadianToDegree(rotation);
+            return texture.Name + ";" + position.X + ";" + position.Y + ";" + RadianToDegree(rotation) +";"+ triangles();
+        }
+
+        private String triangles()
+        {
+            if (initialCollisionTriangles == null)
+            {
+                return "none";
+            }
+
+            var result = string.Join(",", Array.ConvertAll(initialCollisionTriangles.ToArray(), i =>
+                i.A.X + "," + i.A.Y + "," + i.B.X + "," + i.B.Y + "," + i.C.X + "," + i.C.Y
+            ));
+            return result;
         }
 
         static double DegreeToRadian(double angle)
