@@ -21,7 +21,7 @@ namespace MonoGame_SimpleSample
         {
             _lastMouseState = _currentMouseState;
             _currentMouseState = Mouse.GetState();
-             _leftClickOccurred = _lastMouseState.LeftButton == ButtonState.Released && _currentMouseState.LeftButton == ButtonState.Pressed;
+            _leftClickOccurred = _lastMouseState.LeftButton == ButtonState.Released && _currentMouseState.LeftButton == ButtonState.Pressed;
             _rightClickOccurred = _lastMouseState.RightButton == ButtonState.Released && _currentMouseState.RightButton == ButtonState.Pressed;
         }
 
@@ -42,7 +42,39 @@ namespace MonoGame_SimpleSample
             _leftClickOccurred = false;
             _rightClickOccurred = false;
         }
+    }
 
+    class KeyStateComponent
+    {
+        private KeyboardState _lastKeyboardState;
+        private KeyboardState _currentKeyboardState;
+        private Dictionary<Keys, bool> _occured = new Dictionary<Keys, bool>();
+
+        public void Update()
+        {
+            _lastKeyboardState = _currentKeyboardState;
+            _currentKeyboardState = Keyboard.GetState();
+            
+
+            foreach (var Key in _currentKeyboardState.GetPressedKeys())
+            {
+                _occured.Add(Key, _lastKeyboardState.IsKeyUp(Key) && _currentKeyboardState.IsKeyDown(Key));
+            }
+        }
+
+        public void OnKey(Keys key, Action consume)
+        {
+            if (_occured.ContainsKey(key) && _occured[key])
+            {
+                consume.Invoke();
+            }
+        }
+        
+        public void CleanUp()
+        {
+            _occured.Clear();
+        }
+        
     }
     
     public class Game1 : Game, TankActionListener
@@ -72,6 +104,7 @@ namespace MonoGame_SimpleSample
         private SoundEffect explosionSound;
         private Song backgroundMusic;
         private MouseStateComponent _mouseStateComponent = new MouseStateComponent();
+        private KeyStateComponent _keyStateComponent = new KeyStateComponent();
 
         public Game1()
         {
@@ -357,6 +390,7 @@ namespace MonoGame_SimpleSample
         protected override void Draw(GameTime gameTime)
         {
             _mouseStateComponent.Update();
+            _keyStateComponent.Update();
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
             switch (currentGameState)
@@ -390,6 +424,13 @@ namespace MonoGame_SimpleSample
                     break;
                 case GameState.mapEditor:
                     spriteBatch.DrawString(HUDFont, "Map editor", Vector2.Zero, Color.White);
+                    _keyStateComponent.OnKey(Keys.PageUp, () => indexer = nextIndexer(indexer));
+                    _keyStateComponent.OnKey(Keys.PageDown, () => indexer = prevIndexer(indexer));
+                    _keyStateComponent.OnKey(Keys.Z, () =>
+                    {
+                        if(MapEditorItems.Count != 0)
+                            MapEditorItems.RemoveAt(MapEditorItems.Count - 1);
+                    });
                     var texm1 = MapEditorAvailableItems[prevIndexer(prevIndexer(indexer))];
                     var tex = MapEditorAvailableItems[prevIndexer(indexer)];
                     var tex2 = MapEditorAvailableItems[indexer];
@@ -415,6 +456,7 @@ namespace MonoGame_SimpleSample
                     {
                         MapEditorItems.Add(new Sprite(tex2,currentItemVector- new Vector2( tex2.Width/2, tex2.Height/2), (float) degrees, null));
                     });
+                    
 
                     foreach (var sprite in MapEditorItems)
                     {
@@ -470,6 +512,7 @@ namespace MonoGame_SimpleSample
             base.Draw(gameTime);
             
             _mouseStateComponent.CleanUp();
+            _keyStateComponent.CleanUp();
         }
 
         double degrees = 0f;
