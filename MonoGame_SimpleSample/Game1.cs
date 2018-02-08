@@ -109,6 +109,8 @@ namespace MonoGame_SimpleSample
         private KeyStateComponent _keyStateComponent = new KeyStateComponent();
         private int mapEditorBrushX = 1;
         private int mapEditorBrushY = 1;
+        private int mapEditorBrushXMargin = 0;
+        private int mapEditorBrushYMargin = 0;
 
         public Game1()
         {
@@ -490,6 +492,12 @@ namespace MonoGame_SimpleSample
                     _keyStateComponent.OnKey(Keys.Left, () => mapEditorBrushX = Math.Max(1, mapEditorBrushX - 1));
                     _keyStateComponent.OnKey(Keys.Down, () => mapEditorBrushY ++);
                     _keyStateComponent.OnKey(Keys.Up, () => mapEditorBrushY = Math.Max(1, mapEditorBrushY - 1));
+                    
+                    _keyStateComponent.OnKey(Keys.NumPad6, () => mapEditorBrushXMargin ++);
+                    _keyStateComponent.OnKey(Keys.NumPad4, () => mapEditorBrushXMargin = Math.Max(1, mapEditorBrushXMargin - 1));
+                    _keyStateComponent.OnKey(Keys.NumPad2, () => mapEditorBrushYMargin ++);
+                    _keyStateComponent.OnKey(Keys.NumPad8, () => mapEditorBrushYMargin = Math.Max(1, mapEditorBrushYMargin - 1));
+                    
                     _keyStateComponent.OnKey(Keys.PageUp, () => indexer = nextIndexer(indexer));
                     _keyStateComponent.OnKey(Keys.PageDown, () => indexer = prevIndexer(indexer));
                     _keyStateComponent.OnKey(Keys.Z, () =>
@@ -515,13 +523,15 @@ namespace MonoGame_SimpleSample
 
                     _mouseStateComponent.OnLeftClick(state =>
                     {
+                        var vec1 = currentItemVector;
                         for (var i = 0; i < mapEditorBrushX; i++)
                         {
                             for (var j = 0; j < mapEditorBrushY; j++)
                             {
-                                var vec1 = new Vector2((int) currentItemVector.X ,
-                                    (int) currentItemVector.Y);
-                                var vec = vec1 + new Vector2(tex2.Width * i,tex2.Height * j)-  new Vector2( tex2.Width/2, tex2.Height/2);
+                                var vec = vec1 + 
+                                          new Vector2(tex2.Width * i,tex2.Height * j) + 
+                                          new Vector2(mapEditorBrushXMargin * i, mapEditorBrushYMargin * j) -  
+                                          new Vector2( tex2.Width/2, tex2.Height/2);
                                 var XD = Sprite.RotateVector(vec, vec1,(float) DegreeToRadian(degrees) );
                                 MapEditorItems.Add(new Sprite(tex2,XD, (float) degrees));
                             }
@@ -536,7 +546,9 @@ namespace MonoGame_SimpleSample
                             {
                                 var vec1 = new Vector2((int) currentItemVector.X ,
                                     (int) currentItemVector.Y);
-                                var vec = vec1 + new Vector2(tex2.Width * i,tex2.Height * j)-  new Vector2( tex2.Width/2, tex2.Height/2);
+                                var vec = vec1 + new Vector2(tex2.Width * i,tex2.Height * j)+ 
+                                          new Vector2(mapEditorBrushXMargin * i, mapEditorBrushYMargin * j)
+                                          -  new Vector2( tex2.Width/2, tex2.Height/2);
                                 var XD = Sprite.RotateVector(vec, vec1,(float) DegreeToRadian(degrees) );
                                 
                                 MapEditorItems.Add(new Sprite(tex2,XD , (float) degrees, null));
@@ -573,9 +585,9 @@ namespace MonoGame_SimpleSample
                     {
                         for (var j = 0; j < mapEditorBrushY; j++)
                         {
-                            var vec1 = new Vector2((int) currentItemVector.X ,
-                                (int) currentItemVector.Y);
-                            var vec = vec1 + new Vector2(tex2.Width * i,tex2.Height * j);
+                            var vec1 = currentItemVector;
+                            var vec = vec1 + new Vector2(tex2.Width * i,tex2.Height * j)+ 
+                                      new Vector2(mapEditorBrushXMargin * i, mapEditorBrushYMargin * j);
                             var XD = Sprite.RotateVector(vec, vec1,(float) DegreeToRadian(degrees) );
                             spriteBatch.Draw(tex2,
                                 new Rectangle(
