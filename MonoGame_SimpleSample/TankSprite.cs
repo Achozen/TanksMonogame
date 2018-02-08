@@ -19,12 +19,14 @@ namespace MonoGame_SimpleSample
         TankKeyMap keyMap;
         public Vector2 startingPosition;
         public int score = 0;
+        private Vector2 screenSize;
 
         TankActionListener tankActionListener;
 
         public TankSprite(TankKeyMap keyMap, Texture2D texture, Vector2 startingPosition, int playerNumber,
-            TankActionListener tankActionListener) : base(texture, startingPosition)
+            TankActionListener tankActionListener, Vector2 screenSize) : base(texture, startingPosition)
         {
+            this.screenSize = screenSize;
             this.startingPosition = startingPosition;
             this.keyMap = keyMap;
             boxSize = Math.Max(frameWidth, frameHeight);
@@ -148,7 +150,9 @@ namespace MonoGame_SimpleSample
             Boolean colided = false;
             foreach (var item in level)
             {
-                if (isIntersectingWith(item, initialCollisionTriangles, temp, item.collisionTriangles) || item.isIntersectingWith(this, item.initialCollisionTriangles, item.collisionTriangles, temp))
+                if (isIntersectingWith(item, initialCollisionTriangles, temp, item.collisionTriangles) ||
+                    item.isIntersectingWith(this, item.initialCollisionTriangles, item.collisionTriangles, temp) ||
+                    reachedMapBoundaries(tempPosition))
                 {
                     colided = true;
                     break;
@@ -156,11 +160,16 @@ namespace MonoGame_SimpleSample
                 }
             }
 
-            if (!colided)
+            if (!colided )
             {
                 position = tempPosition;
             }
         }
+
+        private bool reachedMapBoundaries(Vector2 tempPosition)
+        {
+            return tempPosition.X < 0 || tempPosition.Y < 0 || tempPosition.X > screenSize.X - texture.Width ||
+                   tempPosition.Y > screenSize.Y - texture.Height;        }
 
         new public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
         {

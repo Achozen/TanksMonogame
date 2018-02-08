@@ -148,7 +148,7 @@ namespace MonoGame_SimpleSample
             {
                 var data = line.Split(';');
                 Texture2D tempTexture = Content.Load<Texture2D>(data[0]);
-                Vector2 tempPos = new Vector2(int.Parse(data[1]), int.Parse(data[2]));
+                Vector2 tempPos = new Vector2(float.Parse(data[1]), float.Parse(data[2]));
 
                 if (data.Length == 5 && !data[4].Equals("auto") && !data[4].Equals("none"))
                 {
@@ -181,7 +181,7 @@ namespace MonoGame_SimpleSample
 
             var player1Keys =
                 new TankKeyMap {up = Keys.W, down = Keys.S, left = Keys.A, right = Keys.D, fire = Keys.Space};
-            playerSprite = new TankSprite(player1Keys, playerTexture, new Vector2(0, 0), 1, this);
+            playerSprite = new TankSprite(player1Keys, playerTexture, new Vector2(0, 0), 1, this, new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight));
 
             var player2Keys = new TankKeyMap
             {
@@ -192,7 +192,7 @@ namespace MonoGame_SimpleSample
                 fire = Keys.Enter
             };
             playerSprite2 = new TankSprite(player2Keys, playerTexture, new Vector2(graphics.PreferredBackBufferWidth - playerTexture.Width,
-                graphics.PreferredBackBufferHeight - playerTexture.Height), 2, this);
+                graphics.PreferredBackBufferHeight - playerTexture.Height), 2, this, new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight));
 
 
             HUDFont = Content.Load<SpriteFont>("HUDFont");
