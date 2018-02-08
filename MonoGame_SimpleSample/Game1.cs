@@ -536,16 +536,16 @@ namespace MonoGame_SimpleSample
                     });
                     
 
-                    foreach (var sprite in MapEditorItems)
-                    {
-                        sprite.Draw(GraphicsDevice, spriteBatch);
-                    }
 
                     foreach (var sprite in Level)
                     {
                         sprite.Draw(GraphicsDevice, spriteBatch);
                     }
 
+                    foreach (var sprite in MapEditorItems)
+                    {
+                        sprite.Draw(GraphicsDevice, spriteBatch);
+                    }
                     foreach (var sprite in bulllets)
                     {
                         sprite.Draw(GraphicsDevice, spriteBatch);
@@ -564,6 +564,7 @@ namespace MonoGame_SimpleSample
                     {
                         for (var j = 0; j < mapEditorBrushY; j++)
                         {
+                            var XD = new Vector2();
                             spriteBatch.Draw(tex2,
                                 new Rectangle(
                                     (int)currentItemVector.X+tex2.Width * i,
