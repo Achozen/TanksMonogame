@@ -487,9 +487,9 @@ namespace MonoGame_SimpleSample
                 case GameState.mapEditor:
                     spriteBatch.DrawString(HUDFont, "Map editor", Vector2.Zero, Color.White);
                     _keyStateComponent.OnKey(Keys.Right, () => mapEditorBrushX ++);
-                    _keyStateComponent.OnKey(Keys.Left, () => Math.Max(1, --mapEditorBrushX));
+                    _keyStateComponent.OnKey(Keys.Left, () => mapEditorBrushX = Math.Max(1, mapEditorBrushX - 1));
                     _keyStateComponent.OnKey(Keys.Down, () => mapEditorBrushY ++);
-                    _keyStateComponent.OnKey(Keys.Up, () => Math.Max(1, --mapEditorBrushY));
+                    _keyStateComponent.OnKey(Keys.Up, () => mapEditorBrushY = Math.Max(1, mapEditorBrushY - 1));
                     _keyStateComponent.OnKey(Keys.PageUp, () => indexer = nextIndexer(indexer));
                     _keyStateComponent.OnKey(Keys.PageDown, () => indexer = prevIndexer(indexer));
                     _keyStateComponent.OnKey(Keys.Z, () =>
