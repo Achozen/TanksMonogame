@@ -523,7 +523,13 @@ namespace MonoGame_SimpleSample
 
                     _mouseStateComponent.OnRightClick(state =>
                     {
-                        MapEditorItems.Add(new Sprite(tex2,currentItemVector- new Vector2( tex2.Width/2, tex2.Height/2), (float) degrees, null));
+                        for (var i = 0; i < mapEditorBrushX; i++)
+                        {
+                            for (var j = 0; j < mapEditorBrushY; j++)
+                            {
+                                MapEditorItems.Add(new Sprite(tex2,currentItemVector- new Vector2( tex2.Width/2, tex2.Height/2)+new Vector2(i*tex2.Width, j*tex2.Height), (float) degrees, null));
+                            }
+                        }
                     });
                     
 
