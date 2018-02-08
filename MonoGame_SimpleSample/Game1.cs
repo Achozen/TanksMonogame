@@ -399,7 +399,7 @@ namespace MonoGame_SimpleSample
                 CheckColisionForPlayer(bullet, playerSprite, playerSprite2);
                 CheckColisionForPlayer(bullet, playerSprite2, playerSprite);
             }
-            scoreText = "Player1 - "+ playerSprite.score + " | "+ playerSprite2.score + " - Player2";
+            scoreText = "Player1: "+ playerSprite.score + " | "+ playerSprite2.score + " :Player2";
         }
 
         private void CheckColisionForPlayer(BulletSprite bullet, TankSprite player, TankSprite enemy)
@@ -478,7 +478,14 @@ namespace MonoGame_SimpleSample
 
                     playerSprite.Draw(GraphicsDevice, spriteBatch);
                     playerSprite2.Draw(GraphicsDevice, spriteBatch);
-                    spriteBatch.DrawString(HUDFont, scoreText, new Vector2(300, 0), Color.Red);
+                    var scorePosition = new Vector2(GraphicsDevice.Viewport.Width / 2, 0);
+                    Vector2 origin = new Vector2(HUDFont.MeasureString(scoreText).X/2, 0f);
+                    var scale = 1f;
+                    spriteBatch.DrawString(HUDFont, scoreText, scorePosition + new Vector2(-2, 2), Color.Black, 0f, origin, scale, SpriteEffects.None, 0f);
+                    spriteBatch.DrawString(HUDFont, scoreText, scorePosition + new Vector2(-2, -2), Color.Black, 0f, origin, scale, SpriteEffects.None, 0f);
+                    spriteBatch.DrawString(HUDFont, scoreText, scorePosition + new Vector2(2, 2), Color.Black, 0f, origin, scale, SpriteEffects.None, 0f);
+                    spriteBatch.DrawString(HUDFont, scoreText, scorePosition + new Vector2(2, -2), Color.Black, 0f, origin, scale, SpriteEffects.None, 0f);
+                    spriteBatch.DrawString(HUDFont, scoreText, scorePosition, Color.White, 0f, origin, scale, SpriteEffects.None, 0f);
                 }
                     break;
                 case GameState.paused:
