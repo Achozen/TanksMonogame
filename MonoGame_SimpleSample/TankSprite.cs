@@ -35,6 +35,7 @@ namespace MonoGame_SimpleSample
             base.frameWidth = boxSize;
             this.tankActionListener = tankActionListener;
             effects = SpriteEffects.FlipVertically;
+            origin = new Vector2(texture.Width / 2f, texture.Height / 2f);
         }
 
 
