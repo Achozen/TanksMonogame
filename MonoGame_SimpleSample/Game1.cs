@@ -424,6 +424,16 @@ namespace MonoGame_SimpleSample
             foreach (var sprite in bulllets)
             {
                 sprite.Update(gameTime);
+                if (sprite.position.X < -100
+                    || sprite.position.Y < -100
+                    || sprite.position.X > graphics.PreferredBackBufferWidth + 100
+                    || sprite.position.Y > graphics.PreferredBackBufferHeight + 100
+                )
+                {
+                    toBeDeleted.Add(sprite);
+                    continue;
+                }
+                
                 foreach (var level in Level)
                 {
                     if (sprite.shouldDraw && level.shouldDraw && sprite.IsCollidingWith(level))
