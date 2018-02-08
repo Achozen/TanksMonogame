@@ -170,10 +170,13 @@ namespace MonoGame_SimpleSample
             MapEditorAvailableItems.Add(Content.Load<Texture2D>("Obstacles/barrelGreen_up"));
             MapEditorAvailableItems.Add(Content.Load<Texture2D>("Obstacles/barrelRed_up"));
             MapEditorAvailableItems.Add(Content.Load<Texture2D>("Obstacles/oil"));
-            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Obstacles/sandbagBeige"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Obstacles/sandbagBeige"));    
             MapEditorAvailableItems.Add(Content.Load<Texture2D>("Obstacles/sandbagBrown"));
             MapEditorAvailableItems.Add(Content.Load<Texture2D>("Environment/treeLarge"));
             MapEditorAvailableItems.Add(Content.Load<Texture2D>("Environment/treeSmall"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Environment/grass"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Environment/sand"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Environment/dirt"));
             MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/barrelBlack_top"));
             MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/barrelGreen_top"));
             MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/barrelRed_top"));
@@ -187,6 +190,60 @@ namespace MonoGame_SimpleSample
             MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/sandbagBeige_open"));
             MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileGrass1"));
             MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/barricadeWood"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileGrass_roadCornerLL"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileGrass_roadCornerLR"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileGrass_roadCornerUL"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileGrass_roadCornerUR"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileGrass_roadCrossing"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileGrass_roadCrossingRound"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileGrass_roadEast"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileGrass_roadNorth"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileGrass_roadSplitE"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileGrass_roadSplitN"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileGrass_roadSplitS"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileGrass_roadSplitW"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileGrass_roadTransitionE"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileGrass_roadTransitionE_dirt"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileGrass_roadTransitionN"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileGrass_roadTransitionN_dirt"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileGrass_roadTransitionS"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileGrass_roadTransitionS_dirt"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileGrass_roadTransitionW"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileGrass_roadTransitionW_dirt"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileGrass_transitionE"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileGrass_transitionN"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileGrass_transitionS"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileGrass_transitionW"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileGrass1"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileGrass2"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileSand_roadCornerLL"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileSand_roadCornerLR"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileSand_roadCornerUL"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileSand_roadCornerUR"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileSand_roadCrossing"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileSand_roadCrossingRound"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileSand_roadEast"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileSand_roadNorth"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileSand_roadSplitE"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileSand_roadSplitN"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileSand_roadSplitS"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileSand_roadSplitW"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileSand1"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tileSand2"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tracksDouble"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tracksLarge"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Default size/tracksSmall"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Tanks/barrelRed"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Tanks/barrelRed_outline"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Tanks/barrelBeige"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Tanks/barrelBeige_outline"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Tanks/barrelBlack"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Tanks/barrelBlack_outline"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Tanks/barrelBlue"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("Tanks/barrelBlue_outline"));
+
+
+
         }
 
         protected override void UnloadContent()
