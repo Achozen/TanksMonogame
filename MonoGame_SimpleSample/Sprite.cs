@@ -53,7 +53,7 @@ namespace MonoGame_SimpleSample
             frameWidth = texture.Width;
             
             
-            origin = new Vector2(texture.Width / 2f, texture.Height / 2f);
+           // origin = new Vector2(texture.Width / 2f, texture.Height / 2f);
 
             var aa = Vector2.Zero;//(,  origin, this.rotation);
             var bb = new Vector2(texture.Width, 0);//RotateVector( ,  origin, this.rotation);
