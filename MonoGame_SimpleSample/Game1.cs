@@ -280,6 +280,76 @@ namespace MonoGame_SimpleSample
             MapEditorAvailableItems.Add(Content.Load<Texture2D>("Tanks/barrelBlack_outline"));
             MapEditorAvailableItems.Add(Content.Load<Texture2D>("Tanks/barrelBlue"));
             MapEditorAvailableItems.Add(Content.Load<Texture2D>("Tanks/barrelBlue_outline"));
+            
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Structure/medievalStructure_03"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Structure/medievalStructure_18"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Structure/medievalStructure_06"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Structure/medievalStructure_11"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Structure/medievalStructure_10"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Structure/medievalStructure_07"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Structure/medievalStructure_14"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Structure/medievalStructure_09"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Structure/medievalStructure_12"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Structure/medievalStructure_05"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Structure/medievalStructure_23"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Structure/medievalStructure_02"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Structure/medievalStructure_19"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Structure/medievalStructure_16"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Structure/medievalStructure_20"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Structure/medievalStructure_22"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Structure/medievalStructure_04"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Structure/medievalStructure_21"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Structure/medievalStructure_15"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Structure/medievalStructure_08"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Structure/medievalStructure_01"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Structure/medievalStructure_17"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Structure/medievalStructure_13"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Environment/medievalEnvironment_13"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Environment/medievalEnvironment_17"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Environment/medievalEnvironment_05"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Environment/medievalEnvironment_01"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Environment/medievalEnvironment_08"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Environment/medievalEnvironment_20"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Environment/medievalEnvironment_04"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Environment/medievalEnvironment_12"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Environment/medievalEnvironment_02"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Environment/medievalEnvironment_07"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Environment/medievalEnvironment_21"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Environment/medievalEnvironment_03"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Environment/medievalEnvironment_11"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Environment/medievalEnvironment_06"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Environment/medievalEnvironment_09"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Environment/medievalEnvironment_14"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Environment/medievalEnvironment_16"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Environment/medievalEnvironment_19"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Environment/medievalEnvironment_10"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Environment/medievalEnvironment_18"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Environment/medievalEnvironment_15"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Unit/medievalUnit_17"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Unit/medievalUnit_05"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Unit/medievalUnit_10"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Unit/medievalUnit_02"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Unit/medievalUnit_14"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Unit/medievalUnit_01"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Unit/medievalUnit_19"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Unit/medievalUnit_06"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Unit/medievalUnit_18"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Unit/medievalUnit_08"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Unit/medievalUnit_23"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Unit/medievalUnit_11"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Unit/medievalUnit_12"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Unit/medievalUnit_09"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Unit/medievalUnit_04"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Unit/medievalUnit_07"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Unit/medievalUnit_24"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Unit/medievalUnit_15"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Unit/medievalUnit_03"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Unit/medievalUnit_20"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Unit/medievalUnit_13"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Unit/medievalUnit_21"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Unit/medievalUnit_22"));
+            MapEditorAvailableItems.Add(Content.Load<Texture2D>("RTS/Unit/medievalUnit_16"));
+
 
 
 
@@ -511,9 +581,9 @@ namespace MonoGame_SimpleSample
                     _keyStateComponent.OnKey(Keys.Up, () => mapEditorBrushY = Math.Max(1, mapEditorBrushY - 1));
                     
                     _keyStateComponent.OnKey(Keys.NumPad6, () => mapEditorBrushXMargin ++);
-                    _keyStateComponent.OnKey(Keys.NumPad4, () => mapEditorBrushXMargin = Math.Max(1, mapEditorBrushXMargin - 1));
+                    _keyStateComponent.OnKey(Keys.NumPad4, () => mapEditorBrushXMargin --);
                     _keyStateComponent.OnKey(Keys.NumPad2, () => mapEditorBrushYMargin ++);
-                    _keyStateComponent.OnKey(Keys.NumPad8, () => mapEditorBrushYMargin = Math.Max(1, mapEditorBrushYMargin - 1));
+                    _keyStateComponent.OnKey(Keys.NumPad8, () => mapEditorBrushYMargin --);
                     
                     _keyStateComponent.OnKey(Keys.PageUp, () => indexer = nextIndexer(indexer));
                     _keyStateComponent.OnKey(Keys.PageDown, () => indexer = prevIndexer(indexer));

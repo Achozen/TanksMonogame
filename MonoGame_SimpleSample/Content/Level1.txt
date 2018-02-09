@@ -304,3 +304,86 @@ Default size/tracksLarge;891;304;-778.000019373093;none
 Default size/tracksLarge;930;327;-792.999989054654;none
 Default size/tracksLarge;980;343;-792.999989054654;none
 Default size/tracksLarge;1031;358;-792.999989054654;none
+RTS/Structure/medievalStructure_21;219;268;0;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Structure/medievalStructure_17;270;268;0;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Environment/medievalEnvironment_17;785;76;0;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Environment/medievalEnvironment_05;781;81;0;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Environment/medievalEnvironment_08;72;378;0;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Environment/medievalEnvironment_12;56;382;0;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Environment/medievalEnvironment_08;75;393;0;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Environment/medievalEnvironment_06;366;284;90.0000025044782;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Environment/medievalEnvironment_06;374;284;90.0000025044782;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Environment/medievalEnvironment_06;383;283;90.0000025044782;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Environment/medievalEnvironment_06;368;275;90.0000025044782;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Environment/medievalEnvironment_06;378;274;90.0000025044782;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Environment/medievalEnvironment_06;373;266;90.0000025044782;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Environment/medievalEnvironment_03;376;320;90.0000025044782;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Structure/medievalStructure_20;375;101;0;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Structure/medievalStructure_16;330;95;0;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Structure/medievalStructure_21;-88;706;0;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Structure/medievalStructure_21;-167;586;0;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Structure/medievalStructure_21;246;1;0;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Structure/medievalStructure_21;-46;550;0;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Structure/medievalStructure_21;-101;526;0;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Structure/medievalStructure_21;-479;-280;0;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Structure/medievalStructure_21;-307;22;0;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Structure/medievalStructure_21;1312;-312;0;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Structure/medievalStructure_21;405;358;0;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Structure/medievalStructure_21;640;-345;0;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Structure/medievalStructure_21;541;-47;0;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Unit/medievalUnit_15;302;294;0;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Unit/medievalUnit_12;771;86;0;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Environment/medievalEnvironment_15;796;101;0;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Environment/medievalEnvironment_14;797;88;0;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Structure/medievalStructure_11;873;-17;-360.000010017913;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Unit/medievalUnit_24;319;302;0;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Unit/medievalUnit_12;778;99;0;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Structure/medievalStructure_12;666;350;0;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Structure/medievalStructure_19;622;-27;0;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Structure/medievalStructure_09;369;-25;0;0,0,64,0,0,64,64,0,0,64,64,64
+RTS/Environment/medievalEnvironment_05;276;297;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_05;276;297;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;217;333;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;217;351;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;217;369;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;217;387;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;217;405;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;217;423;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;217;441;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;252;333;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;252;351;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;252;369;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;252;387;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;252;405;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;252;423;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;252;441;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;287;333;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;287;351;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;287;369;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;287;387;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;287;405;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;287;423;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;287;441;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;322;333;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;322;351;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;322;369;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;322;387;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;322;405;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;322;423;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;322;441;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;357;333;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;357;351;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;357;369;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;357;387;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;357;405;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;357;423;0;32,24,23,53,42,53
+RTS/Environment/medievalEnvironment_03;357;441;0;32,24,23,53,42,53
+Default size/fenceRed;163;472;-15.000000417413;0,0,48,0,0,16,48,0,0,16,48,16
+Default size/barricadeMetal;179;334;-15.000000417413;0,0,28,0,0,28,28,0,0,28,28,28
+Default size/barricadeMetal;174;387;-60.0000016696521;0,0,28,0,0,28,28,0,0,28,28,28
+Default size/barricadeMetal;157;412;-30.0000008348261;0,0,28,0,0,28,28,0,0,28,28,28
+Default size/barricadeMetal;422;450;-74.9999986719706;0,0,28,0,0,28,28,0,0,28,28,28
+Default size/barricadeMetal;453;502;-120.000003339304;0,0,28,0,0,28,28,0,0,28,28,28
+Default size/barricadeMetal;496;407;-120.000003339304;0,0,28,0,0,28,28,0,0,28,28,28
+Default size/barricadeMetal;472;303;-90.0000025044782;0,0,28,0,0,28,28,0,0,28,28,28
+Default size/fenceYellow;438;215;-90.0000025044782;0,0,52,0,0,16,52,0,0,16,52,16
