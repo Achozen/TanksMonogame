@@ -80,7 +80,7 @@ namespace MonoGame_SimpleSample
     
     public class Game1 : Game, TankActionListener
     {
-        public static bool DEBUG = true;
+        public static bool DEBUG;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Texture2D playerTexture;
