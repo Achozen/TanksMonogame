@@ -477,7 +477,7 @@ namespace MonoGame_SimpleSample
             if (bullet.shouldDraw && bullet.IsCollidingWith(player) && bullet.bulletOwner != player.playerNumber)
             {
                 var explosion = new AnimatedSprite(explosionTexture, 
-                    new Vector2(player.position.X, player.position.Y), 4, 4);
+                    new Vector2(player.position.X, player.position.Y) - new Vector2(explosionTexture.Width/2/4, explosionTexture.Height/2/4), 4, 4);
 
                 player.position = player.startingPosition;
                 enemy.score++;
@@ -509,7 +509,7 @@ namespace MonoGame_SimpleSample
                     if (sprite.shouldDraw && level.shouldDraw && sprite.IsCollidingWith(level))
                     {
                         var explosion = new AnimatedSprite(explosionTexture,
-                            new Vector2(sprite.position.X, sprite.position.Y), 4, 4);
+                            new Vector2(sprite.position.X, sprite.position.Y) - new Vector2(explosionTexture.Width/2/4, explosionTexture.Height/2/4), 4, 4);
                         explosions.Add(explosion);
                         explosionSound.Play();
                         toBeDeleted.Add(sprite);
@@ -551,13 +551,13 @@ namespace MonoGame_SimpleSample
                         sprite.Draw(GraphicsDevice, spriteBatch);
                     }
 
+
+                    playerSprite.Draw(GraphicsDevice, spriteBatch);
+                    playerSprite2.Draw(GraphicsDevice, spriteBatch);
                     foreach (var sprite in explosions)
                     {
                         sprite.Draw(GraphicsDevice, spriteBatch);
                     }
-
-                    playerSprite.Draw(GraphicsDevice, spriteBatch);
-                    playerSprite2.Draw(GraphicsDevice, spriteBatch);
                     var scorePosition = new Vector2(GraphicsDevice.Viewport.Width / 2, 0);
                     Vector2 origin = new Vector2(HUDFont.MeasureString(scoreText).X/2, 0f);
                     var scale = 1f;
